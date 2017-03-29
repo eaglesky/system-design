@@ -104,11 +104,6 @@ http://serverfault.com/questions/388543/load-balancing-active-active-config-and-
 
 9. Example 2: with partitioning.
 
-10. Security.
-Open tcp port 80(http) and tcp port 443(https) for the traffic coming into the LBs.
-Opening tcp port 80 for the inside traffic after first layer of LB can save putting
-SSL certificate on all of the web servers.
-Open tcp port 3306(MySQL db server default)
 
 Knowledge:
 
@@ -128,15 +123,6 @@ Knowledge:
        Write QPS ~ peak_concurrent_user_number / session_seconds_per_user.
        Assuming there is 1 read per user each second, and 1 write per user at the
        begining of each session.
-
-
-
-* Three ways of managing sessions:
-https://www.youtube.com/watch?v=32UGARg8AzU
-Cookies
-URL rewriting, Hidden fields
-https://www.youtube.com/watch?v=xGAVFsLfn2w
-https://www.youtube.com/watch?v=Pv3FST7OcvQ
 
 
 * RAID(Redundant array of inexpensive disks):

@@ -35,6 +35,21 @@ https://www.howtogeek.com/190014/htg-explains-what-is-the-difference-between-tcp
 UDP is less reliable but much faster, so it is preferable for transmitting time-critical
 data, like live video stream and online game data.
 
+1.4.2 Ports
+Open tcp port 80(http) and tcp port 443(https) for the traffic coming into the LBs.
+Opening tcp port 80 for the inside traffic after first layer of LB can save putting
+SSL certificate on all of the web servers.
+Open tcp port 3306(MySQL db server default)
+
 1.5 Cookies
 Http Cookies and third-party cookies.
 Drawbacks of cookies:https://en.wikipedia.org/wiki/HTTP_cookie#Drawbacks_of_cookies
+
+1.6 Three ways of managing sessions:
+https://www.youtube.com/watch?v=32UGARg8AzU
+Cookies
+URL rewriting, Hidden fields
+https://www.youtube.com/watch?v=xGAVFsLfn2w
+https://www.youtube.com/watch?v=Pv3FST7OcvQ
+
+
