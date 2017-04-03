@@ -1,5 +1,3 @@
-
-
 Knowledge:
 
 1. Network.
@@ -103,7 +101,12 @@ drive limits the write performance.
 
 RAID10: A combination of above.
 
-2.2 Load Balancer choices:
+2.2 Load balancing replication:
+Multiple load balancers: active - active or active - passive.
+One needs to send its heartbeats(packages) every period of time to another.
+http://serverfault.com/questions/388543/load-balancing-active-active-config-and-dynamic-server-addition
+
+2.3 Load Balancer choices:
 Software:
 ELB(AWS Elastic Load Balancing), HAProxy, LVS(Linux Virtual Server, http://www.linuxvirtualserver.org/whatis.html)
 Hardware:
@@ -202,7 +205,111 @@ NoSQL.
 
 4.7. Distributed databases(NoSQL).
 
+4.7.1 CAP theorem:
+It is impossible for a distributed computer system to simultaneously provide more
+than two out of three of the following guarantees:
+Consistency, Availability, Partition Tolerance.
+CAP is frequently misunderstood as if one had to choose to abandon one of the three
+guarantees at all times. In fact, the choice is really between consistency and availability
+for when a partition happens only; at all other times, no trade-off has to be made.
+https://en.wikipedia.org/wiki/CAP_theorem
+Strictly, most of the systems are not CAP-available if P happens. What this theorem
+really says is that when P happens, you need to make a trade-off between C and A.
+But you can never achieve 100% for both. E.g., if master-slaves is used for each shard,
+and if read and write are performed on master, then strong consistency can be guaranteed,
+but the level of availability is low when P happens between the router and the master.
+We can change it by allowing read on slaves, which makes it no longer CAP-consistent
+and increases the level of availability, but it is still not 100% available since
+the write request could fail in such case.
+https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html
 
+* Eventual Consistency, Strong Eventual Consistency, Strong Consistency
+http://stackoverflow.com/questions/29381442/eventual-consistency-vs-strong-eventual-consistency-vs-strong-consistency
+Another good article on eventual consistency and strong consistency:
+https://cloud.google.com/datastore/docs/articles/balancing-strong-and-eventual-consistency-with-google-cloud-datastore/#h.w3kz4fze562t
+As I understand it, strong eventual consistency uses CRDT to avoid conficts and thus
+the data could be consistent after some time without resolving conficts before propagating
+the update.
+Tradeoff between consistency and latency:
+http://cs-www.cs.yale.edu/homes/dna/papers/abadi-pacelc.pdf
+Saved as CAP_tradeoff.pdf
+
+4.7.2 Database partitioning.
+https://en.wikipedia.org/wiki/Partition_(database)
+Horizontal partitioning, or sharding in the distributed setting.
+Vertical partitioning. Downside: need to do join when pulling data from multiple tables.
+Upside is that some rarely-used columns are separated out, and when the machines that
+have the columns are down, the impact is small.
+* Consistent hashing:
+Sharding requires hashing the key and find the machine the data should be sent to.
+Simple hashing like key % n could lead to difficulties of moving the data when adding
+a new machine. To make it easier, consistent hashing is used instead.
+	* Consistent hashing I:
+	Implementation: http://blog.csdn.net/jmspan/article/details/51740066
+	(How to deal with deleting a machine?)
+	Problem: 
+	1. Too many reads in a short time on 1 ~ 2 machines.
+	2. The data is not evenly distributed.
+	* Consistent hashing II(solve the above problems):
+	Algorithm:
+	http://afghl.github.io/2016/07/04/consistent-hashing.html
+	https://loveforprogramming.quora.com/Distributed-Systems-Part-1-A-peek-into-consistent-hashing
+	Implementation:
+	http://blog.csdn.net/jmspan/article/details/51749521
+
+4.7.3 Database replication
+(1)Master-slave.
+Master has a WAL(Write Ahead Log) to record every updates. Whenever an update happens,
+it will notify all the slaves to read the log and apply the updates to their local
+database.
+As the master-slave replication is a one-way replication (from master to
+slave),only the master database is used for the write operations, while read operations
+may be spread on multiple slave databases(and the master too).
+Upside: data replication due to the several backup slaves. Load balancing read to
+the slaves so that it can process large amount of traffic and scale out easily.
+Downside: 
+1. Eventual consistency for reads to the slaves.(Might be acceptable)
+2. Single-point-failure of the master db(short time, not able to receive any writes
+during that time), though it could be replaced by a promoted slave, the data could
+be lost if the newly written data hasn't been read, or the data on the slaves could
+be inconsistent if not all the slaves get the newly written data before the master
+is down. But this could be eventually resolved by some syncing process.
+https://blog.mlab.com/2013/03/replication-lag-the-facts-of-life/
+3. Too many writes could go to the same master. May not be a big issue if one master
+only handles a shard. But still not the best choice when the traffic is write-heavy.、
+
+(2)Peer to peer.
+Upside: 
+* If one master fails, other masters continue to update the database. Faster failover.
+Good for write-heavy traffic.
+* Masters can be located in several physical sites, i.e. distributed across the network.
+Downside:
+Very hard to preserve absolute consistency(like write-write). 
+http://stackoverflow.com/questions/21196000/mysql-master-master-data-replication-consistency
+How to do the failover?? What does the consistency here mean? Cassandra example?
+
+(3)Solutions to the eventual consistency:
+1. Send critical read requests to the master so that they would always return the
+most up-to-date data;
+2. Cache the data that has been written on the client side(or other places, for a
+period of time) so that you would not need to read the data you have just written.
+3. Minimize the replication lag to reduce the chance of stale data being read
+from stale slaves.
+
+
+4.7.4. NoSQL databases.
+
+4.7.4.1. General introduction.
+Good introduction video: https://www.youtube.com/watch?v=qI_g07C_Q5I
+
+Hard to define, usually has characteristics:
+Non-relational, cluster-friendly, schema-less, open-source.
+
+Types:
+Key-value: Redis(CP?), Memcached, Oracle NoSQL database.
+Document: MongoDB(CP, by default read and write go to the master)
+Column: HBase(CP), Cassandra(AP)
+Graph: Neo4j(CP)
 
 Why NoSQL?
 NoSQL encompasses a wide variety of different database technologies that were developed
@@ -222,3 +329,52 @@ Relational databases were not designed to cope with the scale and agility challe
 that face modern applications, nor were they built to take advantage of the commodity
 storage and processing power available today.
 
+4.7.4.2. Introduction of a few NoSQL databases.
+* Redis
+Introduction and Data Model: https://redis.io/topics/introduction
+Persistence: https://redis.io/topics/persistence
+			 http://oldblog.antirez.com/post/redis-persistence-demystified.html
+Cluster and sharding: https://redis.io/topics/partitioning
+		 https://redis.io/topics/cluster-tutorial
+vs Memcached, and why use Redis:
+http://stackoverflow.com/questions/7888880/what-is-redis-and-what-do-i-use-it-for
+
+* MongoDB
+Introduction and Data Model: https://www.youtube.com/watch?v=pWbMrx5rVBE
+Sharding: https://docs.mongodb.com/manual/sharding/
+Architecture: https://www.mongodb.com/presentations/webinar-everything-you-need-know-about-sharding?jmp=docs&_ga=1.78388884.1635526347.1487659117
+
+* HBase
+Introduction and Data Model: http://hbase.apache.org/0.94/book/datamodel.html
+Data Model and Architecture:  https://www.edureka.co/blog/hbase-architecture/
+
+5. Asynchronism
+http://www.lecloud.net/post/9699762917/scalability-for-dummies-part-4-asynchronism
+* Use cronjobs to convert dynamic content to static content
+(more info: https://vwo.com/knowledge/dynamic/).
+This is essentially a file-based caching and might be also done using document-based
+NoSQL databases with in-memory caching.
+* Asynchronously process the expensive tasks.
+
+
+Interview strategies:
+1. System analysis
+** DAU: Daily Active User.
+   MAU: Monthly Active User
+   For games, DAU/MAU of ~20-30% is considered to be pretty good.
+   For social apps, like a messenger app, a successful one would have a DAU/MAU closer
+   to 50%. E.g. For Twitter, MAU = 320M, DAU = 150M(or 200M, 100M for the average)
+   In general most apps struggle to get to DAU/MAU of 20% or more.
+** Concurrent user number = DAU * session_seconds_per_user / 86400
+   Peak_concurrent_user_number = concurrent_user_number * 3
+   For Twitter, concurrent_user_number ~ 100K, peak ~ 300K
+** For Twitter, Read QPS ~ 300K, write QPS ~ 6K.
+   This might be estimated by doing:
+   Read QPS ~ peak_concurrent_user_number
+   Write QPS ~ peak_concurrent_user_number / session_seconds_per_user.
+   Assuming there is 1 read per user each second, and 1 write per user at the
+   begining of each session.
+
+
+Questions:
+1. In url shortening design, how to do sharding for the custom urls?
