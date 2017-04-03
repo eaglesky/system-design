@@ -1,6 +1,6 @@
 
 
-Knownledge:
+Knowledge:
 
 1. Network.
 
@@ -108,3 +108,117 @@ Software:
 ELB(AWS Elastic Load Balancing), HAProxy, LVS(Linux Virtual Server, http://www.linuxvirtualserver.org/whatis.html)
 Hardware:
 Barracuda, Cisco, Citrix, F5..
+
+3. Caching.
+
+3.1 Cache could be in memory or on the disk, client side or server side.
+Examples:
+(1) File based caching. Storeing a new file(html file) when new data is entered, like
+what is done by Craigslist. The upside of this approach is that the html file doesn't
+have to be regenerated everytime it's visited. The downside of it is due to the redundancy,
+it is hard to change the common style of the pages. And it could use too much space.
+(2) MySQL caching.
+query_cache_type = 1 is enough to enable it. Used for cache the query result.
+(3) Memcached
+Cache data and objects in the RAM. Use LRU to purge old data when it is full.
+
+3.2 Local cache and distributed cache.
+
+3.2.1 Local cache
+A cache could be local to an application instance and stored in-memory.
+It is private and so different application instances could each have a copy of the
+same cached data. This data could quickly become inconsistent between caches(because
+after one write request sent to an application server, the server will update the
+data and update/invalidate the corresponding one in the associated cache, making
+it differ from the rest), so it may be necessary to expire data held in a private
+cache and refresh it more frequently. In these scenarios it may be appropriate
+to investigate the use of a shared or a distributed caching mechanism.
+
+3.2.2. Distributed cache: A distributed cache may span multiple servers so that it
+can grow in size and in transactional capacity.
+http://stackoverflow.com/questions/15457910/what-is-a-distributed-cache
+
+3.2.3. Comparison of the two:
+https://dzone.com/articles/process-caching-vs-distributed
+
+3.2.4. Caching patterns.
+* Cache-aside pattern:
+https://blog.cdemi.io/design-patterns-cache-aside-pattern/
+Example: Memcached + MySQL
+Memcached is just a cache, not a database!
+* Cache-through pattern:
+Cache handles the requests from the web server and persisit the data to the backed
+databased. E.g. Redis.
+
+3.2.5. Caching query result vs caching the objects(?)
+http://www.lecloud.net/post/9246290032/scalability-for-dummies-part-3-cache
+
+4. Database.
+
+4.1. Database storage engine.
+A database storage engine is the underlying software that a DBMS uses to create,read,
+update and delete data from a database. The storage engine should be thought of as
+a “bolt on” to the database (server daemon), which controls the database’s interaction
+with memory and storage subsystems. Thus, the storage engine is not actually the database,
+but a service that the database consumes for the storage and retrieval of information.
+Given that the storage engine is responsible for managing the information stored
+in the database, it greatly affects the overall performance of the database (or
+lack thereof, if the wrong engine is chosen).
+https://www.percona.com/blog/2016/01/06/mongodb-revs-you-up-what-storage-engine-is-right-part-1/
+E.g., MyISAM, InnoDB, Memory, Archive, NDB..
+MyISAM vs InnoDB(default of MySQL):http://blog.danyll.com/myisam-vs-innodb/
+Comparison of all: http://zetcode.com/databases/mysqltutorial/storageengines/
+Database engines are responsible for indexing, according to Wikipedia.
+
+4.2. Database indexing.
+http://www.programmerinterview.com/index.php/database-sql/what-is-an-index/
+Typically database index is a datastructure like B tree(non-binary self-balancing
+tree)
+
+4.3. Database normalization and denormalization.
+https://www.essentialsql.com/get-ready-to-learn-sql-database-normalization-explained-in-simple-english/
+http://www.vertabelo.com/blog/technical-articles/denormalization-when-why-and-how
+
+4.4. ACID transaction.
+* Atomicity. In a transaction involving two or more discrete pieces of information,
+either all of the pieces are committed or none are.
+* Consistency. A transaction either creates a new and valid state of data, or, if
+any failure occurs, returns all data to its state before the transaction was started.
+* Isolation. A transaction in process and not yet committed must remain isolated
+from any other transaction.
+* Durability. Committed data is saved by the system such that, even in the event of
+a failure and system restart, the data is available in its correct state.
+
+4.5. Ways of improving database query performance.
+* Optimizing the query itself, add caching.
+* Indexing.
+* Denormalization.
+
+4.6. DBMS types:
+https://www.youtube.com/watch?v=jSXxrTNZwXA
+Relational, Use SQL: MySQL
+Object-oriented, Use OQL: ObjectDB.
+NoSQL.
+
+4.7. Distributed databases(NoSQL).
+
+
+
+Why NoSQL?
+NoSQL encompasses a wide variety of different database technologies that were developed
+in response to the demands presented in building modern applications:
+* Developers are working with applications that create massive volumes of new, rapidly
+changing data types — structured, semi-structured, unstructured and polymorphic data.
+* Long gone is the twelve-to-eighteen month waterfall development cycle. Now small
+teams work in agile sprints, iterating quickly and pushing code every week or two,
+some even multiple times every day.
+* Applications that once served a finite audience are now delivered as services that
+must be always-on, accessible from many different devices and scaled globally to
+millions of users.
+* Organizations are now turning to scale-out architectures using open source software,
+commodity servers and cloud computing instead of large monolithic servers and storage
+infrastructure.
+Relational databases were not designed to cope with the scale and agility challenges
+that face modern applications, nor were they built to take advantage of the commodity
+storage and processing power available today.
+
