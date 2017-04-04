@@ -173,6 +173,30 @@ MyISAM vs InnoDB(default of MySQL):http://blog.danyll.com/myisam-vs-innodb/
 Comparison of all: http://zetcode.com/databases/mysqltutorial/storageengines/
 Database engines are responsible for indexing, according to Wikipedia.
 
+4.1.1. Database vs file system.
+A database is generally used for storing related, structured data, with well defined
+data formats, in an efficient manner for insert, update and/or retrieval (depending
+on application).
+On the other hand, a file system is a more unstructured data store for storing arbitrary,
+probably unrelated data. The file system is more general, and databases are built
+on top of the general data storage services provided by file system.
+
+The file system is useful if you are looking for a particular file, as operating systems
+maintain a sort of index. However, the contents of a txt file won't be indexed, which
+is one of the main advantages of a database.
+
+For very complex operations, the file system is likely to be very slow.
+
+Main RDBMS advantages:
+* Tables are related to each other
+* SQL query/data processing language
+* Transaction processing addition to SQL (Transact-SQL)
+* Server-client implementation with server-side objects like stored procedures, functions,
+triggers, views, etc.
+
+Advantage of the File System over Data base Management System is:
+When handling small data sets with arbitrary, probably unrelated data, file is more efficient than database. For simple operations, read, write, file operations are faster and simple.
+
 4.2. Database indexing.
 http://www.programmerinterview.com/index.php/database-sql/what-is-an-index/
 Typically database index is a datastructure like B tree(non-binary self-balancing
