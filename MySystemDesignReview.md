@@ -68,7 +68,7 @@ load balancer decide which server the request should be sent to.
 ### Load balancing strategies
 
 1.  Based on load of the server(how busy it is, the cpu usage, or the number of connections).
-2. Store different types of files on different servers, and use the suffix of url to discreminate them. 
+2.  Store different types of files on different servers, and use the suffix of url to discreminate them. 
 3.  Round robin. Example: BIND(the most widely used Domain Name System (DNS) software on the Internet) uses this strategy to resolve a host name --- same host name, but different ip each time. The drawback of this strategy is that one or few server could always receive requests that require most computation resource, making them much busier than the rest. Another thing that can show it is a bad strategy is DNS caching, which exists on the user's computer(maintained by the OS and browser). This caching is a map of host name and ip address that will expire(clear) after a certain amount of time(TTL). It is only used for speeding up the response time  (https://www.lifewire.com/introduction-to-domain-name-system-817512). So if an user keeps doing expensive work, it will always be done on the same server during TTL and that server will be always busy. Therefore instead of relying on the DNS server to do the load balancing, it is better to let the DNS server return the ip of the load balancer.
 
 Server-side sessions could cause problems for load balancing, because one session
@@ -116,7 +116,7 @@ Examples:
 
    query_cache_type = 1 is enough to enable it. Used for cache the query result.
 
-3.  Memcached
+3. Memcached
 
    Cache data and objects in the RAM. Use LRU to purge old data when it is full.
 
@@ -387,7 +387,7 @@ in response to the demands presented in building modern applications:
   Introduction and Data Model: http://hbase.apache.org/0.94/book/datamodel.html
   Data Model and Architecture:  https://www.edureka.co/blog/hbase-architecture/
 
-# Asynchronism
+## Asynchronism
 
 http://www.lecloud.net/post/9699762917/scalability-for-dummies-part-4-asynchronism
 
@@ -400,23 +400,31 @@ http://www.lecloud.net/post/9699762917/scalability-for-dummies-part-4-asynchroni
 
 # Interview strategies
 
-1. System analysis
-   ** DAU: Daily Active User.
-    MAU: Monthly Active User
-    For games, DAU/MAU of ~20-30% is considered to be pretty good.
-    For social apps, like a messenger app, a successful one would have a DAU/MAU closer
-    to 50%. E.g. For Twitter, MAU = 320M, DAU = 150M(or 200M, 100M for the average)
-    In general most apps struggle to get to DAU/MAU of 20% or more.
-   ** Concurrent user number = DAU * session_seconds_per_user / 86400
-    Peak_concurrent_user_number = concurrent_user_number * 3
-    For Twitter, concurrent_user_number ~ 100K, peak ~ 300K
-   ** For Twitter, Read QPS ~ 300K, write QPS ~ 6K.
-    This might be estimated by doing:
-    Read QPS ~ peak_concurrent_user_number
-    Write QPS ~ peak_concurrent_user_number / session_seconds_per_user.
-    Assuming there is 1 read per user each second, and 1 write per user at the
-    begining of each session.
+## System analysis
 
+* DAU: Daily Active User.
+* MAU: Monthly Active User
+
+ For games, DAU/MAU of ~20-30% is considered to be pretty good.
+ For social apps, like a messenger app, a successful one would have a DAU/MAU closer to 50%. E.g. For Twitter, MAU = 320M, DAU = 150M(or 200M, 100M for the average)
+ In general most apps struggle to get to DAU/MAU of 20% or more.
+
+* Concurrent user number = DAU * session_seconds_per_user / 86400
+
+ Peak_concurrent_user_number = concurrent_user_number * 3
+ For Twitter, concurrent_user_number ~ 100K, peak ~ 300K
+
+* For Twitter, Read QPS ~ 300K, write QPS ~ 6K.
+
+ This might be estimated by doing:
+ Read QPS ~ 150M * 60 / 86400 ~ 100K, 60 is estimated read per user.
+ Write QPS ~ Read QPS / 60, 60 is estimated ratio of read to write.
+
+* QPS vs Web/database server
+  * QPS ~ 100: A laptop.
+  * QPS ~ 1K: A web server/SQL database.
+  * QPS ~ 10K: A NoSQL database like Cassandra.
+  * QPS ~ (100K - 1M): A NoSQL database like like Memcached and Redis.
 
 # Questions
 
