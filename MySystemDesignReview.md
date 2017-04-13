@@ -387,6 +387,10 @@ in response to the demands presented in building modern applications:
   Introduction and Data Model: http://hbase.apache.org/0.94/book/datamodel.html
   Data Model and Architecture:  https://www.edureka.co/blog/hbase-architecture/
 
+##### Comparison of NoSQL and RDMS use cases.
+* TBD
+
+
 ## Asynchronism
 
 http://www.lecloud.net/post/9699762917/scalability-for-dummies-part-4-asynchronism
