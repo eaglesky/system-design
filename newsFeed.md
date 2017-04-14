@@ -155,7 +155,7 @@ postTweet(request, tweet)
 * Post a tweet
  - Post a tweet: 1 DB write
 
-#### NewsFeed
+#### Read news feed
 ##### Steps for news feed
 1. Client asks web server for news feed.
 2. Web server asks friendship service to get all followings.

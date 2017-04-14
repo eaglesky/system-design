@@ -202,8 +202,14 @@ When handling small data sets with arbitrary, probably unrelated data, file is m
 ### Database indexing.
 
 http://www.programmerinterview.com/index.php/database-sql/what-is-an-index/
-Typically database index is a datastructure like B tree(non-binary self-balancing
-tree)
+Typically database index is a datastructure like B+ tree(non-binary self-balancing
+tree).  Note that B+ tree is different from B tree.
+
+More details on indexing are explained in the book *Database System Concepts* by Abraham Silberschatz.
+
+Apart from that, B+ tree is more cache friendly than Hashtable, when processing a range query or the consecutive search keys are closed to each other. But for point query, using hashtable residing in memory is extremely faster than using other datastructures. Like Redis, the time complexity is O(1+n/k) where n is the number of items and k the number of buckets (Redis ensures that n/k is small). When hashtable is stored on disk, the major overhead is reading the data into memory, and hashtable is not so much faster than B+ tree even for point query, which is why most of the RDMSs prefer B+ tree.
+
+http://stackoverflow.com/questions/15216897/how-does-redis-claim-o1-time-for-key-lookup
 
 ### Database normalization and denormalization.
 
