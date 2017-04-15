@@ -197,7 +197,9 @@ Main RDBMS advantages:
   triggers, views, etc.
 
 Advantage of the File System over Data base Management System is:
-When handling small data sets with arbitrary, probably unrelated data, file is more efficient than database. For simple operations, read, write, file operations are faster and simple.
+When handling small data sets with arbitrary, probably unrelated data, file is more efficient than database. For simple operations, read, write, file operations are faster and simple. Usually we prefer to store images and videos on the file system rather than database, since we don't really need to use those database features when fetching those files, which can be fetched efficiently enough using file system(path to disk location resolution is fast):
+
+https://www.quora.com/Linux-Kernel-How-do-the-path-look-up-mechanism-namei-work-in-Linux
 
 ### Database indexing.
 
