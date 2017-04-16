@@ -1,3 +1,5 @@
+[TOC]
+
 # Knowledge
 
 ## Network.
@@ -10,18 +12,12 @@ https://aprelium.com/data/doc/2/abyssws-linux-doc-html/howdowswork.html
 
 http://www.javaworld.com/article/2077354/learn-java/app-server-web-server-what-s-the-difference.html
 http://stackoverflow.com/questions/936197/what-is-the-difference-between-application-server-and-web-server/936257#936257
-App server often includes web server. Web server is mainly responsible for receiving
-requests and return static html contents, while app server has more complex business
-logic that processes the request. Web servers provide the caching and scaling functionality
-demanded by web access, while app servers provide application level services such
-as connection pooling, object pooling, transaction support, messaging services etc.
+App server often includes web server. Web server is mainly responsible for receiving requests and return static html contents, while app server has more complex business logic that processes the request. Web servers provide the caching and scaling functionality demanded by web access, while app servers provide application level services such as connection pooling, object pooling, transaction support, messaging services etc.
 
 ### Web hosting service
 
-A web hosting service is a type of Internet hosting service that allows individuals
-and organizations to make their website accessible via the World Wide Web. Web hosts
-are companies that provide space on a server owned or leased for use by clients, as
-well as providing Internet connectivity, typically in a data center.
+A web hosting service is a type of Internet hosting service that allows individuals and organizations to make their website accessible via the World Wide Web. Web hosts are companies that provide space on a server owned or leased for use by clients, as well as providing Internet connectivity, typically in a data center.
+
 Example: Bluehost, Dreamhost, Go Daddy, Host Gator, pair Networks.
 
 Different types of web hosting service
@@ -62,8 +58,7 @@ https://www.youtube.com/watch?v=Pv3FST7OcvQ
 
 ## Load balacing
 
-The DNS server can return the ip of load balancer instead of a server, and let the
-load balancer decide which server the request should be sent to.
+The DNS server can return the ip of load balancer instead of a server, and let the load balancer decide which server the request should be sent to.
 
 ### Load balancing strategies
 
@@ -204,12 +199,12 @@ https://www.quora.com/Linux-Kernel-How-do-the-path-look-up-mechanism-namei-work-
 ### Database indexing.
 
 http://www.programmerinterview.com/index.php/database-sql/what-is-an-index/
-Typically database index is a datastructure like B+ tree(non-binary self-balancing
+Typically database index is a data structure like B+ tree(non-binary self-balancing
 tree).  Note that B+ tree is different from B tree.
 
 More details on indexing are explained in the book *Database System Concepts* by Abraham Silberschatz.
 
-Apart from that, B+ tree is more cache friendly than Hashtable, when processing a range query or the consecutive search keys are closed to each other. But for point query, using hashtable residing in memory is extremely faster than using other datastructures. Like Redis, the time complexity is O(1+n/k) where n is the number of items and k the number of buckets (Redis ensures that n/k is small). When hashtable is stored on disk, the major overhead is reading the data into memory, and hashtable is not so much faster than B+ tree even for point query, which is why most of the RDMSs prefer B+ tree.
+Apart from that, B+ tree is more cache friendly than Hash table, when processing a range query or the consecutive search keys are closed to each other. But for point query, using hash table residing in memory is extremely faster than using other data structures. Like Redis, the time complexity is O(1+n/k) where n is the number of items and k the number of buckets (Redis ensures that n/k is small). When hash table is stored on disk, the major overhead is reading the data into memory, and hash table is not so much faster than B+ tree even for point query, which is why most of the RDMSs prefer B+ tree.
 
 http://stackoverflow.com/questions/15216897/how-does-redis-claim-o1-time-for-key-lookup
 
