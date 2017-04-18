@@ -158,18 +158,18 @@ postTweet(request, tweet)
 #### Read news feed
 ##### Steps for news feed
 1. Client asks web server for news feed.
-2. Web server asks friendship service to get all followings.
-3. Web server asks tweet service to get tweets from followings.
+2. Web server asks friendship service to get all followees.
+3. Web server asks tweet service to get tweets from followees.
 4. Web server merges each N tweets from each tweet service and merge them together.
 5. Web server returns merged results to client. 
 
 ```
-// each following's first 100 tweets, merge with a key way sort
+// each followee's first 100 tweets, merge with a key way sort
 
 getNewsFeed(request)
-	followings = DB.getFollowings(user=request.user)
+	followees = DB.getfollowees(user=request.user)
 	newsFeed = empty
-	for follow in followings:
+	for follow in followees:
 		tweets = DB.getTweets(follow.toUser, 100)
 		newsFeed.merge(tweets)
 	sort(newsFeeds)
@@ -179,7 +179,7 @@ getNewsFeed(request)
 
 ##### Complexity
 * Algorithm level: 
- - 100 KlogK ( K is the number of friends)
+ - 100 KlogK ( K is the number of friends), though negligible compared with db time.
 * System leveL:
  - Get news feed: N DB reads + K way merge
   + Bottleneck is in N DB reads, although they could be integrated into one big DB query. 
@@ -208,6 +208,8 @@ getNewsFeed(request)
 3. Web server asks the tweet service to initiate an asynchronous task.
  1. The asynchronous task gets followers from friendship table.
  2. The asynchronus task fanout new tweet to followers' news feed table. 
+
+    Note that there is just one news feed table, and each tweet is represented by a tweet id. Fetching the tweet data according to a given id is fast, if the data is stored in a hash table based database(like Redis).
 
 ```
 postTweet(request, tweetInfo)
@@ -241,7 +243,7 @@ getNewsFeed(request)
 * 1 DB query
 
 ##### Disadvantages
-* When number of followers is really large, the number of asynchronous task will have high latency. 
+* When number of followers is really large, the number of asynchronous task will have high latency. In other words, there will be long delay for a user to see a populer followee's latest tweet.
 
 ## Scale 
 
@@ -260,7 +262,7 @@ getNewsFeed(request)
 * Push-based approach stores news feed in disk, much better than the optimized pull approach.
 * For inactive users, do not push
  - Rank followers by weight (for example, last login time)
-* When number of followers >> number of following
+* When number of followers >> number of followee
  - Lady Gaga has 62.5M followers on Twitter. Justin Bieber has 77.6M on Instagram. Asynchronous task may takes hours to finish. 
 
 #### Push and Pull
