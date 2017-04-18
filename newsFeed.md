@@ -228,7 +228,7 @@ AsyncService::fanoutTweet(user, tweet)
 ##### Complexity
 * Post a tweet: N followers, N DB writes. Executed asynchronously. 
 
-#### Newsfeed
+#### Read news feed
 ##### Steps
 1. Get newsfeed from newsFeed Table.  
 
@@ -244,6 +244,12 @@ getNewsFeed(request)
 
 ##### Disadvantages
 * When number of followers is really large, the number of asynchronous task will have high latency. In other words, there will be long delay for a user to see a populer followee's latest tweet.
+
+### Real-life examples:
+* Facebook – Pull
+* Instagram – Push + Pull
+* Twitter – Pull
+Pull model is easier to optimize than push model(why?)
 
 ## Scale 
 
