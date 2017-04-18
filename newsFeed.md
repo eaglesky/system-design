@@ -248,7 +248,7 @@ getNewsFeed(request)
 ### Real-life examples:
 * Facebook – Pull
 * Instagram – Push + Pull
-* Twitter – Pull
+* Twitter – Pull  
 Pull model is easier to optimize than push model(why?)
 
 ## Scale 
