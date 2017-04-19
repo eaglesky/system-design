@@ -186,7 +186,7 @@ getNewsFeed(request)
 * Facebook – Pull
 * Instagram – Push + Pull
 * Twitter – Pull  
-Pull model is easier to optimize than push model(why?)
+Pull model is easier to optimize than push model(See next)
 
 ## Scale 
 
@@ -200,6 +200,7 @@ Pull model is easier to optimize than push model(why?)
  - Cache each user's newsFeed
      + For users without newsfeed cache: Merge N followers' 100 latest tweets, sort and take the latest 100 tweets.
      + For users with newsfeed cache: Merge N followers' tweets after a specific timestamp. And then merge with the cache. 
+ - Both caches are local cache, stored on the client side. Everytime a user logs in, it first pulls his followees' timeline and update the news feed cache. Everytime he posts a tweet, update the timeline cache.
 
 #### Scale push
 * Push-based approach stores news feed in disk, much better than the optimized pull approach.
@@ -235,7 +236,10 @@ Pull model is easier to optimize than push model(why?)
 * High latency
 
 ### Hot spot / Thundering herd problem
-* Cache (Facebook lease get problem)
+* Cache (Facebook lease get problem)  
+Let one query fail and hold the others until the data are loaded into the cache.
+* More details?  
+  http://www.cs.utah.edu/~stutsman/cs6963/public/papers/memcached.pdf  
 
 ## Additional feature: Follow and unfollow
 * Asynchronously executed
@@ -271,9 +275,17 @@ Pull model is easier to optimize than push model(why?)
 | createdAt | timestamp  |
 
 ### Denormalize
-* Select Count in Like Table where tweet id == 1
+* Select Count in Like Table where tweet id == 1, very costly!
 * Denormalize: 
  - Store like_numbers within Tweet Table
  - Need distributed transactions. 
 * Might resulting in inconsistency, but not a big problem. 
- - Could keep consistency with a background process.
+ - Could keep consistency by using a cron job to sync the data periodically.
+* Other ways of storing likes in NoSQL database?
+
+## Related questions
+* How to find mutual friends?  
+http://www.jiuzhang.com/qa/954/  
+I personally think using a graph database is a good idea!
+* How to implement pagination?  
+http://www.jiuzhang.com/qa/1839/
