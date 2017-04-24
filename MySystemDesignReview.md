@@ -97,56 +97,66 @@ ELB(AWS Elastic Load Balancing), HAProxy, LVS(Linux Virtual Server, http://www.l
 Hardware:
 Barracuda, Cisco, Citrix, F5..
 
-## Caching.
+## Caching
 
-### Cache could be in memory or on the disk, client side or server side.
+* Cache could be in memory or on the disk, client side or server side.
 
 Examples:
-
 1. File based caching. Storeing a new file(html file) when new data is entered, like what is done by Craigslist. The upside of this approach is that the html file doesn't have to be regenerated everytime it's visited. The downside of it is due to the redundancy, it is hard to change the common style of the pages. And it could use too much space.
-
-2. MySQL caching.
-
+2. MySQL caching.  
    query_cache_type = 1 is enough to enable it. Used for cache the query result.
-
-3. Memcached
-
+3. Memcache, like Memcached.  
    Cache data and objects in the RAM. Use LRU to purge old data when it is full.
 
 ### Local cache and distributed cache.
 
 #### Local cache
-
 A cache could be local to an application instance and stored in-memory.
-It is private and so different application instances could each have a copy of the
-same cached data. This data could quickly become inconsistent between caches(because
-after one write request sent to an application server, the server will update the
-data and update/invalidate the corresponding one in the associated cache, making
-it differ from the rest), so it may be necessary to expire data held in a private
-cache and refresh it more frequently. In these scenarios it may be appropriate
-to investigate the use of a shared or a distributed caching mechanism.
+It is private and so different application instances could each have a copy of the same cached data. This data could quickly become inconsistent between caches(because after one write request sent to an application server, the server will update the data and update/invalidate the corresponding one in the associated cache, making it differ from the rest), so it may be necessary to expire data held in a private cache and refresh it more frequently. In these scenarios it may be appropriate to investigate the use of a shared or a distributed caching mechanism.
 
 #### Distributed cache
-
-A distributed cache may span multiple servers so that it can grow in size and in transactional capacity.
-
-http://stackoverflow.com/questions/15457910/what-is-a-distributed-cache
+A distributed cache may span multiple servers so that it can grow in size and in transactional capacity.  
+http://stackoverflow.com/questions/15457910/what-is-a-distributed-cache  
+Example: Memcached([Wikipedia](https://en.wikipedia.org/wiki/Memcached#Architecture)):  
+>  If a client wishes to set or read the value corresponding to a certain key, the client's library first computes a hash of the key to determine which server to use. Then it contacts that server. This gives a simple form of sharding and scalable shared-nothing architecture across the servers. The server computes a second hash of the key to determine where to store or read the corresponding value.
 
 #### Comparison of the two
-
 https://dzone.com/articles/process-caching-vs-distributed
 
 #### Caching patterns
 
 * Cache-aside pattern:
-  https://blog.cdemi.io/design-patterns-cache-aside-pattern/
+  https://blog.cdemi.io/design-patterns-cache-aside-pattern/  
   Example: Memcached + MySQL
-  Memcached is just a cache, not a database!
+  (Memcached is just a cache, not a database!)  
+  When getting a value from the cache, just use cache get, don't use containsKey first to check if key is in the cache -- it would result in an extra request to the cache, and even if it returns true, the value might be already purged when the second get request is sent out.  
+  ``` java
+      User getUser(long userId) {
+        Key key = hash(userId);
+        User user = cache.get(key);
+        if (user != null) {
+            return user;
+        }
+        user = database.get(userId);
+        cache.set(key, user);
+        return user;
+      }
+
+      void setUser(User user) {
+        Key key = hash(user.userId);
+        //Invalidate the data in cache first, not set, 
+        //otherwise the data would be inconsistent if the next statement failed.
+        cache.remove(key);
+        //Need to make sure the cache remove succeed before proceed
+        database.set(key);
+      }
+  ```
+  
+
 * Cache-through pattern:
   Cache handles the requests from the web server and persisit the data to the backed databased. E.g. Redis.
 
 #### Caching query result vs caching the objects(?)
-
 http://www.lecloud.net/post/9246290032/scalability-for-dummies-part-3-cache
 
 ## Database.
@@ -268,7 +278,7 @@ https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.h
   http://cs-www.cs.yale.edu/homes/dna/papers/abadi-pacelc.pdf
   Saved as CAP_tradeoff.pdf
 
-#### Database partitioning.
+#### Database partitioning
 
 https://en.wikipedia.org/wiki/Partition_(database)
 Horizontal partitioning, or sharding in the distributed setting.
