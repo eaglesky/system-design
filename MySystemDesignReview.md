@@ -44,7 +44,7 @@ Open tcp port 3306(MySQL db server default)
 Http Cookies and third-party cookies.
 Drawbacks of cookies:https://en.wikipedia.org/wiki/HTTP_cookie#Drawbacks_of_cookies
 
-### Sessions.
+### Sessions
 
 http://stackoverflow.com/questions/3804209/what-are-sessions-how-do-they-work
 Three ways of managing sessions:
@@ -52,7 +52,16 @@ https://www.youtube.com/watch?v=32UGARg8AzU
 Cookies
 URL rewriting, Hidden fields
 https://www.youtube.com/watch?v=xGAVFsLfn2w
-https://www.youtube.com/watch?v=Pv3FST7OcvQ
+https://www.youtube.com/watch?v=Pv3FST7OcvQ  
+Sessions are useful to keep the user logged in. Usually a session table looks like:
+
+| Column     | Type      | Meaning                         |
+|:--------:  |:---------:|:-----------:                    |
+|session_key | string    | A unique hash code              |
+|user_id     |Foreign key|Point to the user table          |
+|expire_at   |timestamp  |When to invalidate the session id|
+
+The sessions can be stored in either the database or the cache. Preferably they should be centralized so that every web server could access it.
 
 ## Load balacing
 
