@@ -46,11 +46,11 @@ Drawbacks of cookies:https://en.wikipedia.org/wiki/HTTP_cookie#Drawbacks_of_cook
 
 ### Sessions
 
-http://stackoverflow.com/questions/3804209/what-are-sessions-how-do-they-work
-Three ways of managing sessions:
-https://www.youtube.com/watch?v=32UGARg8AzU
-Cookies
-URL rewriting, Hidden fields
+http://stackoverflow.com/questions/3804209/what-are-sessions-how-do-they-work  
+Three ways of managing sessions:  
+https://www.youtube.com/watch?v=32UGARg8AzU  
+Cookies  
+URL rewriting, Hidden fields  
 https://www.youtube.com/watch?v=xGAVFsLfn2w
 https://www.youtube.com/watch?v=Pv3FST7OcvQ  
 Sessions are useful to keep the user logged in. Usually a session table looks like:
@@ -225,75 +225,58 @@ Apart from that, B+ tree is more cache friendly than Hash table, when processing
 
 http://stackoverflow.com/questions/15216897/how-does-redis-claim-o1-time-for-key-lookup
 
-### Database normalization and denormalization.
+### Normalization and denormalization.
 
 https://www.essentialsql.com/get-ready-to-learn-sql-database-normalization-explained-in-simple-english/
 http://www.vertabelo.com/blog/technical-articles/denormalization-when-why-and-how
 
 ### ACID transaction.
 
-* Atomicity. In a transaction involving two or more discrete pieces of information,
-  either all of the pieces are committed or none are.
-* Consistency. A transaction either creates a new and valid state of data, or, if
-  any failure occurs, returns all data to its state before the transaction was started.
-* Isolation. A transaction in process and not yet committed must remain isolated
-  from any other transaction.
-* Durability. Committed data is saved by the system such that, even in the event of
-  a failure and system restart, the data is available in its correct state.
+* Atomicity. In a transaction involving two or more discrete pieces of information, either all of the pieces are committed or none are.
+* Consistency. A transaction either creates a new and valid state of data, or, if any failure occurs, returns all data to its state before the transaction was started.
+* Isolation. A transaction in process and not yet committed must remain isolated from any other transaction.
+* Durability. Committed data is saved by the system such that, even in the event of a failure and system restart, the data is available in its correct state.
 
-### Ways of improving database query performance.
+### Improving database query performance.
 
 * Optimizing the query itself, add caching.
 * Indexing.
 * Denormalization.
 
-### DBMS types:
+### DBMS types
 
-https://www.youtube.com/watch?v=jSXxrTNZwXA
-Relational, Use SQL: MySQL
-Object-oriented, Use OQL: ObjectDB.
-NoSQL.
+https://www.youtube.com/watch?v=jSXxrTNZwXA  
+* Relational, Use SQL: MySQL  
+* Object-oriented, Use OQL: ObjectDB.  
+* NoSQL.
 
 ### Distributed databases(NoSQL).
 
 #### CAP theorem
 
-It is impossible for a distributed computer system to simultaneously provide more
-than two out of three of the following guarantees:
+It is impossible for a distributed computer system to simultaneously provide more than two out of three of the following guarantees:  
 Consistency, Availability, Partition Tolerance.
-CAP is frequently misunderstood as if one had to choose to abandon one of the three
-guarantees at all times. In fact, the choice is really between consistency and availability
-for when a partition happens only; at all other times, no trade-off has to be made.
+CAP is frequently misunderstood as if one had to choose to abandon one of the three guarantees at all times. In fact, the choice is really between consistency and availability for when a partition happens only; at all other times, no trade-off has to be made.  
 https://en.wikipedia.org/wiki/CAP_theorem
-Strictly, most of the systems are not CAP-available if P happens. What this theorem
-really says is that when P happens, you need to make a trade-off between C and A.
-But you can never achieve 100% for both. E.g., if master-slaves is used for each shard,
-and if read and write are performed on master, then strong consistency can be guaranteed,
-but the level of availability is low when P happens between the router and the master.
-We can change it by allowing read on slaves, which makes it no longer CAP-consistent
-and increases the level of availability, but it is still not 100% available since
-the write request could fail in such case.
+Strictly, most of the systems are not CAP-available if P happens. What this theorem really says is that when P happens, you need to make a trade-off between C and A. But you can never achieve 100% for both. E.g., if master-slaves is used for each shard, and if read and write are performed on master, then strong consistency can be guaranteed, but the level of availability is low when P happens between the router and the master.
+We can change it by allowing read on slaves, which makes it no longer CAP-consistent and increases the level of availability, but it is still not 100% available since the write request could fail in such case.
 See the section of "Many systems are neither linearizable nor CAP-available" in
 https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html
 
-* Eventual Consistency, Strong Eventual Consistency, Strong Consistency
+* Eventual Consistency, Strong Eventual Consistency, Strong Consistency  
   http://stackoverflow.com/questions/29381442/eventual-consistency-vs-strong-eventual-consistency-vs-strong-consistency
-  Another good article on eventual consistency and strong consistency:
-  https://cloud.google.com/datastore/docs/articles/balancing-strong-and-eventual-consistency-with-google-cloud-datastore/#h.w3kz4fze562t
-  As I understand it, strong eventual consistency uses CRDT to avoid conficts and thus
-  the data could be consistent after some time without resolving conficts before propagating
-  the update.
-  Tradeoff between consistency and latency:
-  http://cs-www.cs.yale.edu/homes/dna/papers/abadi-pacelc.pdf
+  Another good article on eventual consistency and strong consistency:  
+  https://cloud.google.com/datastore/docs/articles/balancing-strong-and-eventual-consistency-with-google-cloud-datastore/#h.w3kz4fze562t  
+  As I understand it, strong eventual consistency uses CRDT to avoid conficts and thus the data could be consistent after some time without resolving conficts before propagating the update.  
+  Tradeoff between consistency and latency:  
+  http://cs-www.cs.yale.edu/homes/dna/papers/abadi-pacelc.pdf  
   Saved as CAP_tradeoff.pdf
 
 #### Database partitioning
 
-https://en.wikipedia.org/wiki/Partition_(database)
-Horizontal partitioning, or sharding in the distributed setting.
-Vertical partitioning. Downside: need to do join when pulling data from multiple tables.
-Upside is that some rarely-used columns are separated out, and when the machines that
-have the columns are down, the impact is small.
+https://en.wikipedia.org/wiki/Partition_(database)  
+Horizontal partitioning, or sharding in the distributed setting.  
+Vertical partitioning. Downside: need to do join when pulling data from multiple tables. Upside is that some rarely-used columns are separated out, and when the machines that have the columns are down, the impact is small.
 
 * Consistent hashing:
   Sharding requires hashing the key and find the machine the data should be sent to.
@@ -315,14 +298,10 @@ have the columns are down, the impact is small.
 #### Database replication
 
 (1)Master-slave.
-Master has a WAL(Write Ahead Log) to record every updates. Whenever an update happens,
-it will notify all the slaves to read the log and apply the updates to their local
-database.
+Master has a WAL(Write Ahead Log) to record every updates. Whenever an update happens, it will notify all the slaves to read the log and apply the updates to their local database.  
 As the master-slave replication is a one-way replication (from master to
-slave),only the master database is used for the write operations, while read operations
-may be spread on multiple slave databases(and the master too).
-Upside: data replication due to the several backup slaves. Load balancing read to
-the slaves so that it can process large amount of traffic and scale out easily.
+slave),only the master database is used for the write operations, while read operations may be spread on multiple slave databases(and the master too).
+Upside: data replication due to the several backup slaves. Load balancing read to the slaves so that it can process large amount of traffic and scale out easily.  
 Downside: 
 
 1. Eventual consistency for reads to the slaves.(Might be acceptable)
