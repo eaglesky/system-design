@@ -39,3 +39,6 @@ Can be stored in either a database or a cache.
   * If A and B become friends, store A -> B only. The query for finding the friends of A needs to check both columns.
 
 ## Storage
+For friendship, it is usally okay to store either in SQL or NoSQL.  
+More on this?  
+https://www.facebook.com/notes/facebook-engineering/tao-the-power-of-the-graph/10151525983993920

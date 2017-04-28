@@ -225,6 +225,9 @@ Apart from that, B+ tree is more cache friendly than Hash table, when processing
 
 http://stackoverflow.com/questions/15216897/how-does-redis-claim-o1-time-for-key-lookup
 
+Primary index is an index whose search key also defines the sequential order of the file. The search key typically is the primary key, but could be else too.  
+https://www.quora.com/What-is-difference-between-primary-index-and-secondary-index-exactly-And-whats-advantage-of-one-over-another
+
 ### Normalization and denormalization.
 
 https://www.essentialsql.com/get-ready-to-learn-sql-database-normalization-explained-in-simple-english/
@@ -366,7 +369,7 @@ in response to the demands presented in building modern applications:
   that face modern applications, nor were they built to take advantage of the commodity
   storage and processing power available today.
 
-##### Introduction of a few NoSQL databases.
+##### Introduction to a few NoSQL databases.
 
 * Redis
   Introduction and Data Model: https://redis.io/topics/introduction
@@ -386,8 +389,12 @@ in response to the demands presented in building modern applications:
   Introduction and Data Model: http://hbase.apache.org/0.94/book/datamodel.html
   Data Model and Architecture:  https://www.edureka.co/blog/hbase-architecture/
 
-##### Comparison of NoSQL and RDMS use cases.
-* TBD
+##### Comparison of NoSQL and RDMS.
+* Many NoSQL databases do not(or cannot easily) provide good ACID transaction support.  
+  https://dzone.com/articles/workaround-lack-full-atomic
+* For some NoSQL databases, you have to handle data serialization and secondary index yourself?
+* NoSQL can handle much higher QPS than SQL.
+* More? https://docs.microsoft.com/en-us/azure/documentdb/documentdb-nosql-vs-sql
 
 
 ## Asynchronism
@@ -427,7 +434,8 @@ http://www.lecloud.net/post/9699762917/scalability-for-dummies-part-4-asynchroni
   * QPS ~ 100: A laptop.
   * QPS ~ 1K: A web server/SQL database.
   * QPS ~ 10K: A NoSQL database like Cassandra.
-  * QPS ~ (100K - 1M): A NoSQL database like like Memcached and Redis.
+  * QPS ~ (100K - 1M): A NoSQL database like like Memcached and Redis.  
+https://academy.datastax.com/planet-cassandra/nosql-performance-benchmarks
 
 # Questions
 
