@@ -389,6 +389,14 @@ in response to the demands presented in building modern applications:
   Introduction and Data Model: http://hbase.apache.org/0.94/book/datamodel.html
   Data Model and Architecture:  https://www.edureka.co/blog/hbase-architecture/
 
+* Cassandra
+  * Data format: `<row_key, column_key, value>`. 
+   * row_key is the hash key and can not do range query on it. Like user_id.
+   * column_key is sorted and can do range query. Can be compound value like timestamp + user_id.
+   * value is usally a string, or other object.
+   * Example: Use `<owner_id, created_at, tweet_id>` to represent an owner with owner_id posted a tweet with tweet_id at created_at. Storing the data in this way can make it easy to solve questions like given a user, find out all his tweets between two times.
+  * More?
+
 ##### Comparison of NoSQL and RDMS.
 * Many NoSQL databases do not(or cannot easily) provide good ACID transaction support.  
   https://dzone.com/articles/workaround-lack-full-atomic
