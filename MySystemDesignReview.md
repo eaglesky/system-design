@@ -279,45 +279,45 @@ https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.h
 
 https://en.wikipedia.org/wiki/Partition_(database)  
 Horizontal partitioning, or sharding in the distributed setting.  
-Vertical partitioning. Downside: need to do join when pulling data from multiple tables. Upside is that some rarely-used columns are separated out, and when the machines that have the columns are down, the impact is small.
+Vertical partitioning. Downside: need to do join when pulling data from multiple tables, and when a table is too large, still need to use horizontal partitioning. Upside is that some rarely-used columns are separated out, and when the machines that have the columns are down, the impact is small.
 
 * Consistent hashing:
-  Sharding requires hashing the key and find the machine the data should be sent to.
-  Simple hashing like key % n could lead to difficulties of moving the data when adding
-  a new machine. To make it easier, consistent hashing is used instead.
+  Sharding requires hashing the key and find the machine the data should be sent to. Simple hashing like key % n could lead to difficulties of moving the data when adding a new machine. To make it easier, consistent hashing is used instead.
   * Consistent hashing I:
     Implementation: http://blog.csdn.net/jmspan/article/details/51740066
-    (How to deal with deleting a machine?)
+    (How to deal with deleting a machine?)  
     Problem: 
-  1. Too many reads in a short time on 1 ~ 2 machines.
-  2. The data is not evenly distributed.
-  * Consistent hashing II(solve the above problems):
+   1. Too many reads in a short time on 1 ~ 2 machines.
+   2. The data is not evenly distributed.
+  * Consistent hashing II(solve the above problems):  
     Algorithm:
     http://afghl.github.io/2016/07/04/consistent-hashing.html
-    https://loveforprogramming.quora.com/Distributed-Systems-Part-1-A-peek-into-consistent-hashing
+    https://loveforprogramming.quora.com/Distributed-Systems-Part-1-A-peek-into-consistent-hashing  
     Implementation:
     http://blog.csdn.net/jmspan/article/details/51749521
 
+  The map of hashcodes to server id(routing table) is usually stored in the web server.  
+  Data on each virtual node can be replicated to the two other servers represented by the following virtual nodes(clockwise).  
+  https://www.jiuzhang.com/qa/2280/  
+  https://www.jiuzhang.com/qa/980/  
+  Good thing about this is that when suddenly one server is down, the request for the data on that server will go to the server represented by the next virtual node(assuming the routing table on is updated in time upon failure) and thus get the replica data. Even if that server is down too, we still have replica data on the third server so the system can still be available(that's why we have two more copies on the next servers clockwise).
+
 #### Database replication
 
-(1)Master-slave.
+(1) Master-slave.
 Master has a WAL(Write Ahead Log) to record every updates. Whenever an update happens, it will notify all the slaves to read the log and apply the updates to their local database.  
 As the master-slave replication is a one-way replication (from master to
 slave),only the master database is used for the write operations, while read operations may be spread on multiple slave databases(and the master too).
-Upside: data replication due to the several backup slaves. Load balancing read to the slaves so that it can process large amount of traffic and scale out easily.  
+
+Upside: data replication due to the several backup slaves. Load balancing read to the slaves so that it can process large amount of traffic and scale out easily.
+
 Downside: 
-
 1. Eventual consistency for reads to the slaves.(Might be acceptable)
-2. Single-point-failure of the master db(short time, not able to receive any writes
-   during that time), though it could be replaced by a promoted slave, the data could
-   be lost if the newly written data hasn't been read, or the data on the slaves could
-   be inconsistent if not all the slaves get the newly written data before the master
-   is down. But this could be eventually resolved by some syncing process.
-   https://blog.mlab.com/2013/03/replication-lag-the-facts-of-life/
-3. Too many writes could go to the same master. May not be a big issue if one master
-   only handles a shard. But still not the best choice when the traffic is write-heavy.、
+2. Single-point-failure of the master db(short time, not able to receive any writes during that time), though it could be replaced by a promoted slave, the data could be lost if the newly written data hasn't been read, or the data on the slaves could be inconsistent if not all the slaves get the newly written data before the master is down. But this could be eventually resolved by some syncing process.  
+https://blog.mlab.com/2013/03/replication-lag-the-facts-of-life/
+3. Too many writes could go to the same master. May not be a big issue if one master only handles a shard. But still not the best choice when the traffic is write-heavy.
 
-(2)Peer to peer.
+(2) Peer to peer.
 Upside: 
 * If one master fails, other masters continue to update the database. Faster failover.
   Good for write-heavy traffic.
@@ -327,11 +327,9 @@ Upside:
   http://stackoverflow.com/questions/21196000/mysql-master-master-data-replication-consistency
   How to do the failover?? What does the consistency here mean? Cassandra example?
 
-(3)Solutions to the eventual consistency:
-1. Send critical read requests to the master so that they would always return the
-   most up-to-date data;
-2. Cache the data that has been written on the client side(or other places, for a
-   period of time) so that you would not need to read the data you have just written.
+(3) Solutions to the eventual consistency:
+1. Send critical read requests to the master so that they would always return the most up-to-date data;
+2. Cache the data that has been written on the client side(or other places, for a period of time) so that you would not need to read the data you have just written.
 3. Minimize the replication lag to reduce the chance of stale data being read
    from stale slaves.
 
