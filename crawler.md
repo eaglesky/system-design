@@ -1,38 +1,14 @@
-# Crawler
-
-<!-- MarkdownTOC -->
-
-- [Scenario](#scenario)
-- [Initial design](#initial-design)
-	- [A simplistic news crawler](#a-simplistic-news-crawler)
-	- [A single threaded web crawler](#a-single-threaded-web-crawler)
-		- [Overview](#overview)
-		- [Initial implementation](#initial-implementation)
-		- [Improve with Condition](#improve-with-condition)
-		- [Add a max size on the queue](#add-a-max-size-on-the-queue)
-		- [Use a queue instead](#use-a-queue-instead)
-	- [A multi-threaded web crawler](#a-multi-threaded-web-crawler)
-	- [A distributed web crawler](#a-distributed-web-crawler)
-- [Service](#service)
-- [Scale](#scale)
-	- [Shard task table](#shard-task-table)
-	- [How to handle update for failure](#how-to-handle-update-for-failure)
-	- [How to handle dead cycle](#how-to-handle-dead-cycle)
-	- [Multi-region](#multi-region)
-- [Reference](#reference)
-
-<!-- /MarkdownTOC -->
-
+# Web Crawler
 
 ## Scenario
 * Given seeds, crawl the web
 	- How many web pages?
-		+ 1 trillion web pages
+		+ 1 trillion(10^12) web pages
 	- How long? 
 		+ Crawl all of them every week
 	- How large?
 		+ Average size of a web page: 10k
-		+ 10p web page storage
+		+ 10pb(10^16 bytes) web page storage
 
 ## Initial design
 ### A simplistic news crawler
@@ -53,10 +29,11 @@ page = response.read()
 
 ### A single threaded web crawler
 * Input: Url seeds
-* Output: List of urls
+* Output: List of urls and their corresponding html contents.
 
 #### Overview
-* [Producer-consumer implementation in Python](http://agiliq.com/blog/2013/10/producer-consumer-problem-in-python/)
+* [Producer-consumer implementation in Python](http://agiliq.com/blog/2013/10/producer-consumer-problem-in-python/)  
+Why BFS ? Because it can be parallelized easily. But may use too much more memory compared with DFS?
 
 ```
 // breath first search, single-threaded crawler
@@ -282,12 +259,13 @@ ConsumerThread().start()
 	- Thread number limitation
 		+ TCP/IP limitation on number of threads
 	- Network bottleneck for single machine
+* Each thread gets a uncrawled url from the shared queue and craw it, store its content to the db and the sub-urls back to the queue(throw away the crawled urls before it, but how? using a hashset? ). The queue needs to be synchronized.
 
 ### A distributed web crawler
 * URL queue is inside memory. Queue is too big to completely fit into memory. Use a MySQL DB task table
 	- state (working/idle): Whether it is being crawling.
 	- priority (1/0): 
-	- available time: frequency. When to fetch the next time.
+	- available time: frequency. When to fetch the next time. This can be adjusted to very close to the real page update time.
 
 | id | url                     | state     | priority | available_time        | 
 |----|-------------------------|-----------|----------|-----------------------| 
