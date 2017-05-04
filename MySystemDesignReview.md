@@ -65,7 +65,8 @@ The sessions can be stored in either the database or the cache. Preferably they 
 
 ## Load balacing
 
-The DNS server can return the ip of load balancer instead of a server, and let the load balancer decide which server the request should be sent to.
+The DNS server can return the ip of load balancer instead of a server, and let the load balancer decide which server the request should be sent to. Usually a single load balancer can handle around 10M concurrent connections.
+https://en.wikipedia.org/wiki/C10k_problem
 
 ### Load balancing strategies
 
@@ -73,16 +74,12 @@ The DNS server can return the ip of load balancer instead of a server, and let t
 2.  Store different types of files on different servers, and use the suffix of url to discreminate them. 
 3.  Round robin. Example: BIND(the most widely used Domain Name System (DNS) software on the Internet) uses this strategy to resolve a host name --- same host name, but different ip each time. The drawback of this strategy is that one or few server could always receive requests that require most computation resource, making them much busier than the rest. Another thing that can show it is a bad strategy is DNS caching, which exists on the user's computer(maintained by the OS and browser). This caching is a map of host name and ip address that will expire(clear) after a certain amount of time(TTL). It is only used for speeding up the response time  (https://www.lifewire.com/introduction-to-domain-name-system-817512). So if an user keeps doing expensive work, it will always be done on the same server during TTL and that server will be always busy. Therefore instead of relying on the DNS server to do the load balancing, it is better to let the DNS server return the ip of the load balancer.
 
-Server-side sessions could cause problems for load balancing, because one session
-for a user is only stored on one server. Solution: store all the sessions on a dedicated
-session server, or the load balancer itself, which can be accessed by all servers.
+Server-side sessions could cause problems for load balancing, because one session for a user is only stored on one server. Solution: store all the sessions on a dedicated session server, or the load balancer itself, which can be accessed by all servers.
 However what if the server is down?
-We could try using RAID to achieve data redundancy to some degree, but this is still
-not a good solution, as it is possible that the whole server is down. A better way
-to deal with it is to use multiple servers, which requires some syncing process.
-Sticky session can also be a solution here, which can be implemented by storing an
-id in the user's cookie and let LB to remember the mapping of that id to the ip of
-the server the session belongs to.
+We could try using RAID to achieve data redundancy to some degree, but this is still not a good solution, as it is possible that the whole server is down. A better way to deal with it is to use multiple servers(like Memcached), which requires some syncing process. Sticky session can also be a solution here, which can be implemented by storing an id in the user's cookie and let LB to remember the mapping of that id to the ip of the server the session belongs to. This is what NGINX load balancer can do: https://www.nginx.com/resources/glossary/load-balancing/. And the session data is always located in the server's memory. This can be used together with centralized session database in case one of the server that has the user's session is down.  
+If the session data is not very large, it can also be stored in the user's browser cookie, or using URl rewriting. But this is not preferable since usually client should not be able to access the session data or has the chance of editing it. The session data should be only modified by the server(website).
+
+Ref: https://shlomoswidler.com/2010/04/elastic-load-balancing-with-sticky-sessions.html
 
 * RAID(Redundant array of inexpensive disks):
   It is a data storage virtualization technology that combines multiple physical disk drive components into a single logical unit for the purposes of data redundancy, performance improvement, or both.

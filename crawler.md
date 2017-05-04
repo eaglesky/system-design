@@ -259,13 +259,13 @@ ConsumerThread().start()
 	- Thread number limitation
 		+ TCP/IP limitation on number of threads
 	- Network bottleneck for single machine
-* Each thread gets a uncrawled url from the shared queue and craw it, store its content to the db and the sub-urls back to the queue(throw away the crawled urls before it, but how? using a hashset? ). The queue needs to be synchronized.
+* Each thread gets a uncrawled url from the shared queue and craw it, store its content to the db and the sub-urls back to the queue (throw away the crawled urls before it, but how? using a hashset that has elements already included in the queue?). The queue needs to be synchronized.
 
 ### A distributed web crawler
 * URL queue is inside memory. Queue is too big to completely fit into memory. Use a MySQL DB task table
-	- state (working/idle): Whether it is being crawling.
+	- state (working/idle): Whether it is being crawled.
 	- priority (1/0): 
-	- available time: frequency. When to fetch the next time. This can be adjusted to very close to the real page update time.
+	- available time: frequency. When to fetch the next time. This can be adjusted to be very close to the real page update time.
 
 | id | url                     | state     | priority | available_time        | 
 |----|-------------------------|-----------|----------|-----------------------| 
@@ -274,6 +274,7 @@ ConsumerThread().start()
 | 3  | “http://www.sina2.com/” | “idle”    | 0        | “2016-03-14 02:00 pm” | 
 | 4  | “http://www.sina3.com/” | “idle”    | 2        | “2016-03-12 04:25 am” | 
 
+The tasks in the task table never get moved out. Everytime before adding a new task, I think there may probably be a "select" call that checks if the task is already in the queue. Insert it only when it is not.
 
 ## Service
 * Crawler service
@@ -291,9 +292,11 @@ ConsumerThread().start()
 	- no.2 failure: crawl after 4 weeks
 	- no.3 failure: crawl after 8 weeks
 
+I think to implement this, we should use two other attributes -- last_crawled_time and interval, instead of the available_time attribute. Next crawled time = last_crawled_time + interval.
+
 ### How to handle dead cycle
 * Too many web pages in sina.com, the crawler keeps crawling sina.com and don't crawl other websites
-* Use quota (10%)
+* Use quota (10%). When each crawler asks for the tasks(say 1000), set a limit to the number of urls under sina.com, say 100 if the quota is 10%. 
 
 ### Multi-region
 * When Google's webpage crawls China's webpages, it will be really really slow. Deploy crawler servers in multiple regions.
