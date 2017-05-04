@@ -1,23 +1,5 @@
 # Typeahead
 
-<!-- MarkdownTOC -->
-
-- [Scenario](#scenario)
-- [Initial design](#initial-design)
-- [Storage](#storage)
-	- [Query service DB](#query-service-db)
-		- [Word count table](#word-count-table)
-		- [Prefix table](#prefix-table)
-	- [Trie](#trie)
-	- [Data collections service](#data-collections-service)
-- [Scale](#scale)
-	- [How to reduce response time](#how-to-reduce-response-time)
-	- [What if the trie too large for one machine](#what-if-the-trie-too-large-for-one-machine)
-	- [How to reduce the size of log file](#how-to-reduce-the-size-of-log-file)
-
-<!-- /MarkdownTOC -->
-
-
 ## Scenario
 * Google suggestion
 	- Prefix -> top n hot key words
