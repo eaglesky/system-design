@@ -286,6 +286,7 @@ Vertical partitioning. Downside: need to do join when pulling data from multiple
     Problem: 
    1. Too many reads in a short time on 1 ~ 2 machines.
    2. The data is not evenly distributed.
+  
   * Consistent hashing II(solve the above problems):  
     Algorithm:
     http://afghl.github.io/2016/07/04/consistent-hashing.html
