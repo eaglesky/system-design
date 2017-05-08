@@ -1,35 +1,15 @@
 # File system
 
-<!-- MarkdownTOC -->
-
-- [Scenario](#scenario)
-- [Storage](#storage)
-	- [How to save a file in one machine](#how-to-save-a-file-in-one-machine)
-	- [How to save a much larger file in one machine](#how-to-save-a-much-larger-file-in-one-machine)
-- [Scale](#scale)
-	- [Architecture style](#architecture-style)
-	- [How to save an extra large file on several machines](#how-to-save-an-extra-large-file-on-several-machines)
-		- [Move chunk offset from master to slaves](#move-chunk-offset-from-master-to-slaves)
-	- [Write process](#write-process)
-	- [Do not support modification](#do-not-support-modification)
-	- [Read process](#read-process)
-	- [Master task](#master-task)
-	- [Failure and recovery](#failure-and-recovery)
-		- [Single master](#single-master)
-		- [What if a chunk is broken](#what-if-a-chunk-is-broken)
-		- [Avoid loss of data when chunk server is down](#avoid-loss-of-data-when-chunk-server-is-down)
-		- [How to recover when a chunk is broken](#how-to-recover-when-a-chunk-is-broken)
-		- [How to find whether a chunk server is down](#how-to-find-whether-a-chunk-server-is-down)
-		- [How to solve client bottleneck](#how-to-solve-client-bottleneck)
-		- [How to solve chunk server failure](#how-to-solve-chunk-server-failure)
-
-<!-- /MarkdownTOC -->
-
-
 ## Scenario
-* Write a file
+* Write a file(including rename and delete).
 * Read a file
+* Support file larger than 1000T.
 * Use multiple machines to store these files
+* No need to support file search for now, as it is usually not a necessary feature.
+
+## Service
+* Peer-to-peer
+* Master-slave
 
 ## Storage
 ### How to save a file in one machine

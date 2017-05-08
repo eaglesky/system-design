@@ -94,4 +94,5 @@ I think we might be able to store this prefix table in Redis, so accessing it wo
 		+ For a term that's searched 1000 times, we might end up logging only once or even zero times. 
 
 ## Questions
-* How to include the recent popular words that have not showed up more than previous popular words?
+* How to include the recent popular words that have not showed up more than previous popular words?  
+  Maybe multiply the actual counts by a weight and the compare it with the weighted counts in the trie?

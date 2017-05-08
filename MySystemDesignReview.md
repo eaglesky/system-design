@@ -310,18 +310,17 @@ slave),only the master database is used for the write operations, while read ope
 Upside: data replication due to the several backup slaves. Load balancing read to the slaves so that it can process large amount of traffic and scale out easily.
 
 Downside: 
-1. Eventual consistency for reads to the slaves.(Might be acceptable)
+1. Eventual consistency for reads to the slaves. Might be acceptable. Can achieve strong consistency if reads and writes all go to the master.
 2. Single-point-failure of the master db(short time, not able to receive any writes during that time), though it could be replaced by a promoted slave, the data could be lost if the newly written data hasn't been read, or the data on the slaves could be inconsistent if not all the slaves get the newly written data before the master is down. But this could be eventually resolved by some syncing process.  
 https://blog.mlab.com/2013/03/replication-lag-the-facts-of-life/
 3. Too many writes could go to the same master. May not be a big issue if one master only handles a shard. But still not the best choice when the traffic is write-heavy.
 
 (2) Peer to peer.
 Upside: 
-* If one master fails, other masters continue to update the database. Faster failover.
-  Good for write-heavy traffic.
+* If one master fails, other masters continue to update the database. Faster failover. Good for write-heavy traffic.
 * Masters can be located in several physical sites, i.e. distributed across the network.
   Downside:
-  Very hard to preserve absolute consistency(like write-write). 
+  Very hard to preserve absolute(strong) consistency(like write-write). If we wait until the syncing process finishes, it will take too long and may be unacceptable.
   http://stackoverflow.com/questions/21196000/mysql-master-master-data-replication-consistency
   How to do the failover?? What does the consistency here mean? Cassandra example?
 
