@@ -27,14 +27,27 @@
 	- Advantages
 		+ Error checking
 		+ Fragmenting the data for storage
+* About the size of disk block(sector).
+  - The disk has to be segmented into many sectors. Otherwise one read or write will operate on the whole track which is very costly. 
+  - Drawbacks when the sector size is too small: 
+    + Each sector is sensive to media defects and requires a long error correction section. 
+    + Other sections in each sector could take up much space when adding them up.
+  - Drawbacks when the sector size is too large:
+  	+ Read-modify-write is costly for small files. 
+  - So choosing the sector size is a trade-off. It used to be 512 bytes for a long time and now has increased to 4KB. 
+  - References:
+  	+ https://www.mirazon.com/understanding-hard-disk-sector-size-part-1-the-change/
+  	+ http://www.seagate.com/tech-insights/advanced-format-4k-sector-hard-drives-master-ti/
+
 
 ### How to save a much larger file in one machine 
 * Change chunk size
-	- 1 chunk = 64M = 64 * 1024K
+	- 1 chunk = 64M = 64 * 1024K. Usually multiple of disk sector size.
 	- Advantages
-		+ Reduce size of metadata
+		+ Reduce size of metadata -- ones used by meta data(inode) to point to used data blocks, and also the ones pointing to the free data blocks.
+		+ If the chunk size is too small, when writing data to a file, it needs to allocate a large number of disk blocks to the file one by one(because free disk blocks are discontiguous), which needs to send many write request to the disk and can be quite costly.
 	- Disadvantages
-		+ Waste space for small files
+		+ Waste space for small files. If we allow multiple files sharing the same chunk, it could be much harder to manage it and increase the complexity of the file system.
 
 ## Scale
 ### Architecture style
