@@ -7,6 +7,9 @@
 * Use multiple machines to store these files
 * No need to support file search for now, as it is usually not a necessary feature.
 
+## Examples
+* GFS and HDFS. HDFS was implemented by people who originally worked on Google GFS. GFS is closed source, while HDFS is open source.
+
 ## Service
 * Peer-to-peer
 * Master-slave
@@ -100,19 +103,25 @@
 * Replica: 3 copies
 	- Two copies in the same data center but on different racks
 	- Third copy in a different data center
+	- This can make sure data recovery is done quickly.
 * How to choose chunk servers
 	- Find servers which are not busy
 	- Find servers with lots of available disk space
+	- Round Robin.
 
 #### How to recover when a chunk is broken
 * Ask master for help
 
 #### How to find whether a chunk server is down
-* Heart beat message
+* Heart beat message. Better than health check since heart beat is one way and health check is round way. Also saves some traffic from master to chunk servers.
+* Good thing about health check is that it can choose which machine to monitor and when to send the check. Heartbeats could be too many for the monitoring machine if there are too many monitored servers. And health check is preferable if we only want to check the health at some time(like deployment time, or when cleaning bad servers).
 
 #### How to solve client bottleneck
-* Client only writes to a leader chunk server. The leader chunk server is responsible for communicating with other chunk servers. 
+* Client only writes to a leader chunk server. The leader chunk server is responsible for communicating with other chunk servers. This could save some traffic between client and chunk servers since each time it writes to a chunk server, it needs to receive a response. It could be also much faster since the physical distance between client and a chunk serve could be much further than within the chunk servers.
 * How to select leading slaves
 
 #### How to solve chunk server failure
 * Ask the client to retry
+
+## Questions
+* What's the exact layout of GFS servers? How many masters and how many data centers? Does it have serves all over the world and client accesses could always go to the closest one?
