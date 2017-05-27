@@ -199,10 +199,13 @@ class TinyURL
 * Web server
 	- Different web servers deployed in different geographical locations
 	- Use DNS to parse different web servers to different geographical locations
+      - Try make the distance between user to server shorter. Usually the communication between servers are way faster than the one between an end user and a server. 
 * Database 
 	- Centralized MySQL + Distributed memcached server
-	- Cache server deployed in different geographical locations
-
+	- Web and cache servers are deployed in different geographical locations
+        * This achitecture is good when there is only one or very few DB request for each user request sent to the web server. When there are many DB request for each user request, the distance between DB and web server becomes more important and can greatly affect the DB request latency. In that case, it is better to put DB closer to the web servers, and preferable the web servers should be in the same data center as the DB, instead of being distributed globaly.
+        * The data in the cache should be consistent with the one in the DB. For tiny URL, the data are not modified, so it is safe to use local cache.
+        
 ### What if one MySQL server could not handle
 #### Problematic scenarios
 * Too many write operations
