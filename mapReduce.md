@@ -1,36 +1,3 @@
-# TopK
-
-<!-- MarkdownTOC -->
-
-- [MapReduce](#mapreduce)
-	- [Standalone word count program](#standalone-word-count-program)
-	- [Distributed word count program](#distributed-word-count-program)
-	- [Interface structures](#interface-structures)
-	- [MapReduce steps](#mapreduce-steps)
-		- [Transmission in detail](#transmission-in-detail)
-	- [Word count MapReduce program](#word-count-mapreduce-program)
-- [Offline TopK](#offline-topk)
-	- [Algorithm level](#algorithm-level)
-	- [System level](#system-level)
-		- [All data is kept in memory](#all-data-is-kept-in-memory)
-		- [Too slow for large amounts of data - MapReduce](#too-slow-for-large-amounts-of-data---mapreduce)
-				- [TopK](#topk)
-- [Online TopK](#online-topk)
-	- [Algorithm level](#algorithm-level-1)
-		- [TreeMap](#treemap)
-		- [HashMap + TreeMap](#hashmap--treemap)
-		- [Approximate algorithms with LFU cache](#approximate-algorithms-with-lfu-cache)
-	- [System level](#system-level-1)
-		- [All data is kept in memory](#all-data-is-kept-in-memory-1)
-		- [Too slow for large amounts of data because of locking](#too-slow-for-large-amounts-of-data-because-of-locking)
-		- [Thundering herd problem](#thundering-herd-problem)
-		- [Low frequency words take up so much space](#low-frequency-words-take-up-so-much-space)
-		- [How to calculate topk recent X minutes](#how-to-calculate-topk-recent-x-minutes)
-			- [Storage](#storage)
-			- [Multi-level bucket](#multi-level-bucket)
-			- [Final data structure](#final-data-structure)
-
-<!-- /MarkdownTOC -->
 # MapReduce
 ## Standalone word count program
 * The program loops through all the documents. For each document, the words are extracted one by one using a tokenization process. For each word, its corresponding entry in a multiset called wordCount is incremented by one. At the end, a display() function prints out all the entries in wordCount.
