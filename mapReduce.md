@@ -62,20 +62,21 @@ for each wordCount received from first phase
 2. Split: Splits up the data across different machines, such as by hash value (SHA1, MD5)
 3. Map: Each map task works on a split of data. The mapper outputs intermediate data.
 4. Transmission: The system-provided shuffle process reorganizes the data so that all {Key, Value} pairs associated with a given key go to the same machine, to be processed by Reduce.
-5. Reduce: Intermediate data of the same key goes to the same reducer. 
-6. Output: Reducer output is stored. 
+5. Reduce: Intermediate data of the same key goes to the same reducer task. 
+6. Output: Reducer output is stored in files.
 
 ### Transmission in detail
-* Partition: Partition sorted output of map phase according to hash value. Write output to local disk. 
+* Partition: Partition sorted output of map phase according to hash value. Write output to local disk. Number of partition is usually equal to the number of reducers, and also number of output files.
 	- Why local disk, not GFS (final input/output all inside GFS): 
 		+ GFS can be too slow. 
 		+ Do not require replication. Just recompute if needed. 
-* External sorting: Sort each partition with external sorting.
-* Send: Send sorted partitioned data to corresponding reduce machines.
-* Merge sort: Merge sorted partitioned data from different machines by merge sort.
+* Fetch: Each reducer fetches map results from all the map machine disks. It only reads from the partition that corresponds to it. 
+* Sort: Each reducer sorts the fetched data by keys(uses external sort if the data is too large to fit in memory). For the same key, the values are also sorted! So think of this sorting is based on both key and value.
 
+Read more in the downloaded paper [MapReduce: Simplified Data Processing on Large Clusters](https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf), Section 3.1.
 
-## Word count MapReduce program
+## Examples
+### Word Count
 
 ```java
 public class WordCount 
@@ -111,6 +112,11 @@ public class WordCount
 }
 
 ```
+
+### Inverted Index
+See the video for the program. 
+More: http://blog.jobbole.com/82607/
+
 
 # Offline TopK
 ## Algorithm level
