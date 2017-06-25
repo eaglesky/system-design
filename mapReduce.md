@@ -63,17 +63,21 @@ for each wordCount received from first phase
 3. Map: Each map task works on a split of data. The mapper outputs intermediate data.
 4. Transmission: The system-provided shuffle process reorganizes the data so that all {Key, Value} pairs associated with a given key go to the same machine, to be processed by Reduce.
 5. Reduce: Intermediate data of the same key goes to the same reducer task. 
-6. Output: Reducer output is stored in files.
+6. Output: Reducer output is stored in files on GFS.
 
 ### Transmission in detail
 * Partition: Partition sorted output of map phase according to hash value. Write output to local disk. Number of partition is usually equal to the number of reducers, and also number of output files.
 	- Why local disk, not GFS (final input/output all inside GFS): 
 		+ GFS can be too slow. 
-		+ Do not require replication. Just recompute if needed. 
+		+ Do not require replication. Just recompute if needed. There is a large number of intermediate data.
 * Fetch: Each reducer fetches map results from all the map machine disks. It only reads from the partition that corresponds to it. 
 * Sort: Each reducer sorts the fetched data by keys(uses external sort if the data is too large to fit in memory). For the same key, the values are also sorted! So think of this sorting is based on both key and value.
 
 Read more in the downloaded paper [MapReduce: Simplified Data Processing on Large Clusters](https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf), Section 3.1.
+
+## Other Notes on Map Reduce System
+* Usually there is a worker pool and the workers are selected from them. So if one of them is down, we can select another idle machine to run the jobs again.
+* If one of the keys has too many values(appears too frequently), which could cause the reducer to run for a very long time, we could add a random suffix to it before hashing it, and remove it after all the jobs are done.
 
 ## Examples
 ### Word Count
@@ -116,6 +120,12 @@ public class WordCount
 ### Inverted Index
 See the video for the program. 
 More: http://blog.jobbole.com/82607/
+
+### Anagram
+Not hard. See the video.
+
+## Summary
+Map reduce can be used to optimize(parallelize) some solutions, especially when the keys need to be grouped together. Not applied to all problems. Just keep it in mind as a great way for optimization.
 
 
 # Offline TopK
