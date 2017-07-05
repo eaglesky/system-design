@@ -169,32 +169,18 @@ http://www.lecloud.net/post/9246290032/scalability-for-dummies-part-3-cache
 
 ### Database storage engine.
 
-A database storage engine is the underlying software that a DBMS uses to create,read,
-update and delete data from a database. The storage engine should be thought of as
-a “bolt on” to the database (server daemon), which controls the database’s interaction
-with memory and storage subsystems. Thus, the storage engine is not actually the database,
-but a service that the database consumes for the storage and retrieval of information.
-Given that the storage engine is responsible for managing the information stored
-in the database, it greatly affects the overall performance of the database (or
-lack thereof, if the wrong engine is chosen).
-https://www.percona.com/blog/2016/01/06/mongodb-revs-you-up-what-storage-engine-is-right-part-1/
-E.g., MyISAM, InnoDB, Memory, Archive, NDB..
-MyISAM vs InnoDB(default of MySQL):http://blog.danyll.com/myisam-vs-innodb/
+A database storage engine is the underlying software that a DBMS uses to create,read, update and delete data from a database. The storage engine should be thought of as a “bolt on” to the database (server daemon), which controls the database’s interaction with memory and storage subsystems. Thus, the storage engine is not actually the database, but a service that the database consumes for the storage and retrieval of information.  
+Given that the storage engine is responsible for managing the information stored in the database, it greatly affects the overall performance of the database (or lack thereof, if the wrong engine is chosen). https://www.percona.com/blog/2016/01/06/mongodb-revs-you-up-what-storage-engine-is-right-part-1/
+E.g., MyISAM, InnoDB, Memory, Archive, NDB..  
+MyISAM vs InnoDB(default of MySQL):http://blog.danyll.com/myisam-vs-innodb/  
 Comparison of all: http://zetcode.com/databases/mysqltutorial/storageengines/
 Database engines are responsible for indexing, according to Wikipedia.
 
 #### Database vs file system.
 
-A database is generally used for storing related, structured data, with well defined
-data formats, in an efficient manner for insert, update and/or retrieval (depending
-on application).
-On the other hand, a file system is a more unstructured data store for storing arbitrary,
-probably unrelated data. The file system is more general, and databases are built
-on top of the general data storage services provided by file system.
+A database is generally used for storing related, structured data, with well defined data formats, in an efficient manner for insert, update and/or retrieval (depending on application). On the other hand, a file system is a more unstructured data store for storing arbitrary, probably unrelated data. The file system is more general, and databases are built on top of the general data storage services provided by file system.
 
-The file system is useful if you are looking for a particular file, as operating systems
-maintain a sort of index. However, the contents of a txt file won't be indexed, which
-is one of the main advantages of a database.
+The file system is useful if you are looking for a particular file, as operating systems maintain a sort of index. However, the contents of a txt file won't be indexed, which is one of the main advantages of a database.
 
 For very complex operations, the file system is likely to be very slow.
 
@@ -213,10 +199,9 @@ https://www.quora.com/Linux-Kernel-How-do-the-path-look-up-mechanism-namei-work-
 ### Database indexing.
 
 http://www.programmerinterview.com/index.php/database-sql/what-is-an-index/
-Typically database index is a data structure like B+ tree(non-binary self-balancing
-tree).  Note that B+ tree is different from B tree.
+Typically database index is a data structure like B+ tree(non-binary self-balancing tree).  Note that B+ tree is different from B tree.
 
-More details on indexing are explained in the book *Database System Concepts* by Abraham Silberschatz.
+More details on indexing are explained in the book *Database System Concepts* by Abraham Silberschatz. Typically they are large and stored on disks.
 
 Apart from that, B+ tree is more cache friendly than Hash table, when processing a range query or the consecutive search keys are closed to each other. But for point query, using hash table residing in memory is extremely faster than using other data structures. Like Redis, the time complexity is O(1+n/k) where n is the number of items and k the number of buckets (Redis ensures that n/k is small). When hash table is stored on disk, the major overhead is reading the data into memory, and hash table is not so much faster than B+ tree even for point query, which is why most of the RDMSs prefer B+ tree.
 
