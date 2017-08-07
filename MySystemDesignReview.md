@@ -404,7 +404,7 @@ http://www.lecloud.net/post/9699762917/scalability-for-dummies-part-4-asynchroni
 * MAU: Monthly Active User
 
  For games, DAU/MAU of ~20-30% is considered to be pretty good.
- For social apps, like a messenger app, a successful one would have a DAU/MAU closer to 50%. E.g. For Twitter, MAU = 320M, DAU = 150M(or 200M, 100M for the average)
+ For social apps, like a messenger app, a successful one would have a DAU/MAU closer to 50%. E.g. For Twitter, MAU = 320M, DAU = 150M(or 200M, 100M for the average). For Facebook, MAU = 1.59 Billion, DAU = 1 Billion.
  In general most apps struggle to get to DAU/MAU of 20% or more.
 
 * Concurrent user number = DAU * session_seconds_per_user / 86400
