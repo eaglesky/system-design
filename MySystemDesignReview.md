@@ -395,28 +395,29 @@ http://www.lecloud.net/post/9699762917/scalability-for-dummies-part-4-asynchroni
   NoSQL databases with in-memory caching.
 * Asynchronously process the expensive tasks.
 
-
-# Interview strategies
-
 ## System analysis
-
+### DAU and MAU
 * DAU: Daily Active User.
 * MAU: Monthly Active User
-
- For games, DAU/MAU of ~20-30% is considered to be pretty good.
- For social apps, like a messenger app, a successful one would have a DAU/MAU closer to 50%. E.g. For Twitter, MAU = 320M, DAU = 150M(or 200M, 100M for the average). For Facebook, MAU = 1.59 Billion, DAU = 1 Billion.
- In general most apps struggle to get to DAU/MAU of 20% or more.
+For games, DAU/MAU of ~20-30% is considered to be pretty good.
+For social apps, like a messenger app, a successful one would have a DAU/MAU closer to 50%. E.g. For Twitter, MAU = 320M, DAU = 150M(or 200M, 100M for the average). For Facebook, MAU = 1.59 Billion, DAU = 1 Billion.
+In general most apps struggle to get to DAU/MAU of 20% or more.
 
 * Concurrent user number = DAU * session_seconds_per_user / 86400
-
- Peak_concurrent_user_number = concurrent_user_number * 3
- For Twitter, concurrent_user_number ~ 100K, peak ~ 300K
+Peak_concurrent_user_number = concurrent_user_number * 3
+For Twitter, concurrent_user_number ~ 100K, peak ~ 300K
 
 * For Twitter, Read QPS ~ 300K, write QPS ~ 6K.
+This might be estimated by doing:
+Read QPS ~ 150M * 60 / 86400 ~ 100K, 60 is estimated read per user.
+Write QPS ~ Read QPS / 60, 60 is estimated ratio of read to write.
 
- This might be estimated by doing:
- Read QPS ~ 150M * 60 / 86400 ~ 100K, 60 is estimated read per user.
- Write QPS ~ Read QPS / 60, 60 is estimated ratio of read to write.
+### Some System Concepts
+* **Latency** is the delay incurred in communicating a message (the time the message spends “on the wire”). 
+* **Processing time** is the amount of time a system takes to process a given request, not including the time it takes the message to get from the user to the system or the time it takes to get from the system back to the user.
+* **Response Time** is the total time it takes from when a user makes a request until they receive a response. Latency + Processing Time = Response Time. Refer to http://www.javidjamae.com/2005/04/07/response-time-vs-latency/ for more of above.
+* Throughput:  For Application Server, throughput can be defined as the number of requests **processed** per minute per server instance, which is a function of many factors, including the nature and size of user requests, number of users, and performance of Application Server instances and back-end databases. For HADB, throughput can be defined as volume of session data stored per minute, which is the product of the number of HADB requests per minute, and the average session size per request.  
+https://docs.oracle.com/cd/E19900-01/819-4741/abfcd/index.html
 
 * QPS vs Web/database server
   * QPS ~ 100: A laptop.
@@ -424,6 +425,14 @@ http://www.lecloud.net/post/9699762917/scalability-for-dummies-part-4-asynchroni
   * QPS ~ 10K: A NoSQL database like Cassandra.
   * QPS ~ (100K - 1M): A NoSQL database like like Memcached and Redis.  
 https://academy.datastax.com/planet-cassandra/nosql-performance-benchmarks
+The above are just estimation for common uses. Actual throughput depends on the hardware usage, and also the processing time of each request/query.
+
+### Analysis Steps
+* Estimate scale, starting from DAU. (e.g., number of new tweets, number of tweet views, how many timeline generations per sec., etc.).
+* Estimate storage. 
+* Estimate ingress and egress network bandwidth. And QPS.
+
+
 
 # Questions
 
