@@ -332,22 +332,11 @@ Column: HBase(CP), Cassandra(AP)
 Graph: Neo4j(CP)
 
 Why NoSQL?
-NoSQL encompasses a wide variety of different database technologies that were developed
-in response to the demands presented in building modern applications:
-* Developers are working with applications that create massive volumes of new, rapidly
-  changing data types — structured, semi-structured, unstructured and polymorphic data.
-* Long gone is the twelve-to-eighteen month waterfall development cycle. Now small
-  teams work in agile sprints, iterating quickly and pushing code every week or two,
-  some even multiple times every day.
-* Applications that once served a finite audience are now delivered as services that
-  must be always-on, accessible from many different devices and scaled globally to
-  millions of users.
-* Organizations are now turning to scale-out architectures using open source software,
-  commodity servers and cloud computing instead of large monolithic servers and storage
-  infrastructure.
-  Relational databases were not designed to cope with the scale and agility challenges
-  that face modern applications, nor were they built to take advantage of the commodity
-  storage and processing power available today.
+NoSQL encompasses a wide variety of different database technologies that were developed in response to the demands presented in building modern applications:
+* Developers are working with applications that create massive volumes of new, rapidly changing data types — structured, semi-structured, unstructured and polymorphic data.
+* Long gone is the twelve-to-eighteen month waterfall development cycle. Now small teams work in agile sprints, iterating quickly and pushing code every week or two, some even multiple times every day.
+* Applications that once served a finite audience are now delivered as services that must be always-on, accessible from many different devices and scaled globally to millions of users.
+* Organizations are now turning to scale-out architectures using open source software, commodity servers and cloud computing instead of large monolithic servers and storage infrastructure. Relational databases were not designed to cope with the scale and agility challenges that face modern applications, nor were they built to take advantage of the commodity storage and processing power available today.
 
 ##### Introduction to a few NoSQL databases.
 
@@ -372,10 +361,12 @@ in response to the demands presented in building modern applications:
 * Cassandra
   * Data format: `<row_key, column_key, value>`. 
    * row_key is the hash key and can not do range query on it. Like user_id.
-   * column_key is sorted and can do range query. Can be compound value like timestamp + user_id.
+   * column_key is sorted(either by time or name) and can do range query. Can be compound value like timestamp + user_id.
    * value is usally a string, or other object.
    * Example: Use `<owner_id, created_at, tweet_id>` to represent an owner with owner_id posted a tweet with tweet_id at created_at. Storing the data in this way can make it easy to solve questions like given a user, find out all his tweets between two times.
-  * More?
+  * More:
+    * Paper: *Cassandra - A Decentralized Structured Storage System*
+    * https://www.tutorialspoint.com/cassandra/cassandra_data_model.htm
 
 ##### Comparison of NoSQL and RDMS.
 * Many NoSQL databases do not(or cannot easily) provide good ACID transaction support.  
