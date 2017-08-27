@@ -63,6 +63,14 @@ Sessions are useful to keep the user logged in. Usually a session table looks li
 
 The sessions can be stored in either the database or the cache. Preferably they should be centralized so that every web server could access it.
 
+About sticky session:
+https://stackoverflow.com/questions/1553645/pros-and-cons-of-sticky-session-session-affinity-load-blancing-strategy
+
+One user can have multiple session_ids, each corresponds to a certain activity. This is probably why user_id is not used as session_id, otherwise user_id cannot be used as primary key for query. 
+Also, by storing a session ID you can identify different sessions of the same user, and you may want to handle them in any special way (e.g. just allow a single session, or have data that's associated with the session instead of to the user).
+And you can distinguish easly activity from different sessions, so you can kill a session without having to change your password if you left it open in a computer, and the other sessions won't notice a difference.
+https://stackoverflow.com/questions/13146298/why-should-i-use-session-id-in-cookie-instead-of-storing-login-and-hashed-pass
+
 ## Load balacing
 
 The DNS server can return the ip of load balancer instead of a server, and let the load balancer decide which server the request should be sent to. Usually a single load balancer can handle around 10M concurrent connections.
@@ -75,6 +83,7 @@ https://en.wikipedia.org/wiki/C10k_problem
 3.  Round robin. Example: BIND(the most widely used Domain Name System (DNS) software on the Internet) uses this strategy to resolve a host name --- same host name, but different ip each time. The drawback of this strategy is that one or few server could always receive requests that require most computation resource, making them much busier than the rest. Another thing that can show it is a bad strategy is DNS caching, which exists on the user's computer(maintained by the OS and browser). This caching is a map of host name and ip address that will expire(clear) after a certain amount of time(TTL). It is only used for speeding up the response time  (https://www.lifewire.com/introduction-to-domain-name-system-817512). So if an user keeps doing expensive work, it will always be done on the same server during TTL and that server will be always busy. Therefore instead of relying on the DNS server to do the load balancing, it is better to let the DNS server return the ip of the load balancer.
 
 Server-side sessions could cause problems for load balancing, because one session for a user is only stored on one server. Solution: store all the sessions on a dedicated session server, or the load balancer itself, which can be accessed by all servers.
+
 However what if the server is down?
 We could try using RAID to achieve data redundancy to some degree, but this is still not a good solution, as it is possible that the whole server is down. A better way to deal with it is to use multiple servers(like Memcached), which requires some syncing process. Sticky session can also be a solution here, which can be implemented by storing an id in the user's cookie and let LB to remember the mapping of that id to the ip of the server the session belongs to. This is what NGINX load balancer can do: https://www.nginx.com/resources/glossary/load-balancing/. And the session data is always located in the server's memory. This can be used together with centralized session database in case one of the server that has the user's session is down.  
 If the session data is not very large, it can also be stored in the user's browser cookie, or using URl rewriting. But this is not preferable since usually client should not be able to access the session data or has the chance of editing it. The session data should be only modified by the server(website).
@@ -202,6 +211,8 @@ http://www.programmerinterview.com/index.php/database-sql/what-is-an-index/
 Typically database index is a data structure like B+ tree(non-binary self-balancing tree).  Note that B+ tree is different from B tree.
 
 More details on indexing are explained in the book *Database System Concepts* by Abraham Silberschatz. Typically they are large and stored on disks.
+
+B+ trees are exceptionally good for range queries. Once the first record in the range has been found using the search algorithm described above, the rest of the records in the range can be found by sequential processing the remaining records in the leaf node, and then continuing down (actually right of the current leaf node) the linked list of leaf nodes as far as necessary. Once a record is found that has a search key value above the upper bound of the requested range, then the search completes.
 
 Apart from that, B+ tree is more cache friendly than Hash table, when processing a range query or the consecutive search keys are closed to each other. But for point query, using hash table residing in memory is extremely faster than using other data structures. Like Redis, the time complexity is O(1+n/k) where n is the number of items and k the number of buckets (Redis ensures that n/k is small). When hash table is stored on disk, the major overhead is reading the data into memory, and hash table is not so much faster than B+ tree even for point query, which is why most of the RDMSs prefer B+ tree.
 
@@ -368,11 +379,12 @@ NoSQL encompasses a wide variety of different database technologies that were de
     * Paper: *Cassandra - A Decentralized Structured Storage System*
     * https://www.tutorialspoint.com/cassandra/cassandra_data_model.htm
 
-##### Comparison of NoSQL and RDMS.
+##### Comparison of NoSQL and SQL.
 * Many NoSQL databases do not(or cannot easily) provide good ACID transaction support.  
   https://dzone.com/articles/workaround-lack-full-atomic
 * For some NoSQL databases, you have to handle data serialization and secondary index yourself?
-* NoSQL can handle much higher QPS than SQL.
+* NoSQL can handle much higher QPS than SQL(single box). But SQL can still achieve good performance with enough number of servers.
+* NoSQL has handled sharding and replica already.
 * More? https://docs.microsoft.com/en-us/azure/documentdb/documentdb-nosql-vs-sql
 
 
