@@ -138,7 +138,7 @@ Example: Memcached([Wikipedia](https://en.wikipedia.org/wiki/Memcached#Architect
 #### Comparison of the two
 https://dzone.com/articles/process-caching-vs-distributed
 
-#### Caching patterns
+### Caching patterns
 
 * Cache-aside pattern:
   https://blog.cdemi.io/design-patterns-cache-aside-pattern/  
@@ -161,6 +161,8 @@ https://dzone.com/articles/process-caching-vs-distributed
         Key key = hash(user.userId);
         //Invalidate the data in cache first, not set, 
         //otherwise the data would be inconsistent if the next statement failed.
+        //We might not need to do this if the set is to insert a new data,
+        //since the new data has not been loaded in cache yet.
         cache.remove(key);
         //Need to make sure the cache remove succeed before proceed
         database.set(key);
@@ -171,8 +173,15 @@ https://dzone.com/articles/process-caching-vs-distributed
 * Cache-through pattern:
   Cache handles the requests from the web server and persisit the data to the backed databased. E.g. Redis.
 
-#### Caching query result vs caching the objects(?)
+### Caching query result vs caching the objects(?)
 http://www.lecloud.net/post/9246290032/scalability-for-dummies-part-3-cache
+
+### Cache usages
+* Make sure writes always go to both database and cache, so that cache always contain data necessary to be queried. E.g. Twitter timeline. 
+* If there is some problem or it is expensive writing to cache, we can have a asyncynous server updating the cache periodically to make the data up-to-date. Need to maintain last update time(for each key). E.g. Facebook newsfeed.
+
+
+
 
 ## Database.
 
@@ -218,13 +227,29 @@ Apart from that, B+ tree is more cache friendly than Hash table, when processing
 
 http://stackoverflow.com/questions/15216897/how-does-redis-claim-o1-time-for-key-lookup
 
-Primary index is an index whose search key also defines the sequential order of the file. The search key typically is the primary key, but could be else too.  
+A Primary index is an index whose search key also defines the sequential order of the file. The search key typically is the primary key, and is guaranteed not to contain duplicates.
+A Secondary index is an index that is not a primary index and may have duplicates. eg. Employee name can be example of it. Because Employee name can have similar values.
 https://www.quora.com/What-is-difference-between-primary-index-and-secondary-index-exactly-And-whats-advantage-of-one-over-another
+https://stackoverflow.com/questions/20824686/what-is-difference-between-primary-index-and-secondary-index-exactly
+  * Global and local secondary index. http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html
 
 ### Normalization and denormalization.
 
 https://www.essentialsql.com/get-ready-to-learn-sql-database-normalization-explained-in-simple-english/
 http://www.vertabelo.com/blog/technical-articles/denormalization-when-why-and-how
+
+### Schema design cases
+#### Many to Many relation
+* http://www.joinfu.com/2005/12/managing-many-to-many-relationships-in-mysql-part-1/
+* https://stackoverflow.com/questions/3653462/is-storing-a-delimited-list-in-a-database-column-really-that-bad/3653574#3653574
+
+#### Friendship table
+* One direction friendship is easy to store. 
+* Two directions friendship can be represented by two records or one record.
+  * If A and B become friends, store A -> B and B -> A. The query for finding the friends of A only needs to check one column. But need to write twice when saving a new friendship. And there could be consistency issue if one of the write fails. We can solve this by using a transaction, or have a cron job to correct the inconsistencies periodically. This is usually more performant than the second approach, either in SQL or NoSQL.
+  * If A and B become friends, store A -> B only. The query for finding the friends of A needs to check both columns.
+* Usually two ids as primary keys are enough. Typically the first id is used as shard key if the table is distributed. This won't cause serious unbalancing issue, and if it does, deal with it, like Facebook TAO.
+
 
 ### ACID transaction.
 
@@ -270,9 +295,9 @@ https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.h
 
 #### Database partitioning
 
-https://en.wikipedia.org/wiki/Partition_(database)  
-Horizontal partitioning, or sharding in the distributed setting.  
-Vertical partitioning. Downside: need to do join when pulling data from multiple tables, and when a table is too large, still need to use horizontal partitioning. Upside is that some rarely-used columns are separated out, and when the machines that have the columns are down, the impact is small.
+* https://en.wikipedia.org/wiki/Partition_(database)  
+  Horizontal partitioning, or sharding in the distributed setting.  
+  Vertical partitioning. Downside: need to do join when pulling data from multiple tables, and when a table is too large, still need to use horizontal partitioning. Upside is that some rarely-used columns are separated out, and when the machines that have the columns are down, the impact is small.
 
 * Consistent hashing:
   Sharding requires hashing the key and find the machine the data should be sent to. Simple hashing like key % n could lead to difficulties of moving the data when adding a new machine. To make it easier, consistent hashing is used instead.
@@ -290,41 +315,49 @@ Vertical partitioning. Downside: need to do join when pulling data from multiple
     Implementation:
     http://blog.csdn.net/jmspan/article/details/51749521
 
-  The map of hashcodes to server id(routing table) is usually stored in the web server.  
+  The map of hashcodes to server id(routing table) is usually stored in the web server or config server.  
   Data on each virtual node can be replicated to the two other servers represented by the following virtual nodes(clockwise).  
   https://www.jiuzhang.com/qa/2280/  
   https://www.jiuzhang.com/qa/980/  
   Good thing about this is that when suddenly one server is down, the request for the data on that server will go to the server represented by the next virtual node(assuming the routing table on is updated in time upon failure) and thus get the replica data. Even if that server is down too, we still have replica data on the third server so the system can still be available(that's why we have two more copies on the next servers clockwise).
 
+* Usually there is a router to direct the query to the right shard(s), and merge the results if necessary and return to the client. There could be another config server storing meta data about chunks on the shards, and range of each shard.  
+E.g. https://docs.mongodb.com/manual/core/sharded-cluster-query-router/#routing-and-results-process
+https://docs.mongodb.com/manual/core/sharded-cluster-config-servers/#config-servers
+
+* The choice of shard key is very important. Sometimes if there could be uneven requests using user_id, then choosing user_id as shard key may cause some servers get too much load(hotspots). The solutions I've found are:
+  1. Choose another shard key, like id.
+  2. Still use user_id, but replicating the data to more machines.
+  3. Add cache servers to cache the hot data. Cache servers can handle more QPS. But may still need to use method 2 to mitigate hot spot issue.
+  4. Identify hot spot through proper monitoring and manually split the data to other servers.
+
+
 #### Database replication
+* In addition to increase availablility, database replication can also help distribute incoming traffic.
+* Master-slave.
+  * Master has a WAL(Write Ahead Log) to record every updates. Whenever an update happens, it will notify all the slaves to read the log and apply the updates to their local database.  
+  As the master-slave replication is a one-way replication (from master to slave),only the master database is used for the write operations, while read operations may be spread on multiple slave databases(and the master too).
+  * Upside: data replication due to the several backup slaves. Load balancing read to the slaves so that it can process large amount of traffic and scale out easily.
+  * Downside: 
+    - Eventual consistency for reads to the slaves. Might be acceptable. Can achieve strong consistency if reads and writes all go to the master.
+    - Single-point-failure of the master db(short time, not able to receive any writes during that time), though it could be replaced by a promoted slave, the data could be lost if the newly written data hasn't been read, or the data on the slaves could be inconsistent if not all the slaves get the newly written data before the master is down. But this could be eventually resolved by some syncing process.  
+    https://blog.mlab.com/2013/03/replication-lag-the-facts-of-life/
+    - Too many writes could go to the same master. May not be a big issue if one master only handles a shard. But still not the best choice when the traffic is write-heavy.
+  * When used with sharding, usually each shard consists of a master-slave cluster. E.g. MongoDB.
 
-(1) Master-slave.
-Master has a WAL(Write Ahead Log) to record every updates. Whenever an update happens, it will notify all the slaves to read the log and apply the updates to their local database.  
-As the master-slave replication is a one-way replication (from master to
-slave),only the master database is used for the write operations, while read operations may be spread on multiple slave databases(and the master too).
+* Peer to peer.
+  * Upside: 
+    - If one master fails, other masters continue to update the database. Faster failover. Good for write-heavy traffic.
+    - Masters can be located in several physical sites, i.e. distributed across the network.
+  * Downside:
+    - Very hard to preserve absolute(strong) consistency(like write-write). If we wait until the syncing process finishes, it will take too long and may be unacceptable. http://stackoverflow.com/questions/21196000/mysql-master-master-data-replication-consistency  
+    How to do the failover?? What does the consistency here mean? Cassandra example?
+  * When used with sharding, usually each data is replicated to two/three other machines. See the consistent hashing section.
 
-Upside: data replication due to the several backup slaves. Load balancing read to the slaves so that it can process large amount of traffic and scale out easily.
-
-Downside: 
-1. Eventual consistency for reads to the slaves. Might be acceptable. Can achieve strong consistency if reads and writes all go to the master.
-2. Single-point-failure of the master db(short time, not able to receive any writes during that time), though it could be replaced by a promoted slave, the data could be lost if the newly written data hasn't been read, or the data on the slaves could be inconsistent if not all the slaves get the newly written data before the master is down. But this could be eventually resolved by some syncing process.  
-https://blog.mlab.com/2013/03/replication-lag-the-facts-of-life/
-3. Too many writes could go to the same master. May not be a big issue if one master only handles a shard. But still not the best choice when the traffic is write-heavy.
-
-(2) Peer to peer.
-Upside: 
-* If one master fails, other masters continue to update the database. Faster failover. Good for write-heavy traffic.
-* Masters can be located in several physical sites, i.e. distributed across the network.
-  Downside:
-  Very hard to preserve absolute(strong) consistency(like write-write). If we wait until the syncing process finishes, it will take too long and may be unacceptable.
-  http://stackoverflow.com/questions/21196000/mysql-master-master-data-replication-consistency
-  How to do the failover?? What does the consistency here mean? Cassandra example?
-
-(3) Solutions to the eventual consistency:
-1. Send critical read requests to the master so that they would always return the most up-to-date data;
-2. Cache the data that has been written on the client side(or other places, for a period of time) so that you would not need to read the data you have just written.
-3. Minimize the replication lag to reduce the chance of stale data being read
-   from stale slaves.
+* Solutions to the eventual consistency:
+  1. Send critical read requests to the master so that they would always return the most up-to-date data;
+  2. Cache the data that has been written on the client side(or other places, for a period of time) so that you would not need to read the data you have just written.
+  3. Minimize the replication lag to reduce the chance of stale data being read from stale slaves.
 
 
 #### NoSQL databases.
@@ -375,6 +408,7 @@ NoSQL encompasses a wide variety of different database technologies that were de
    * column_key is sorted(either by time or name) and can do range query. Can be compound value like timestamp + user_id.
    * value is usally a string, or other object.
    * Example: Use `<owner_id, created_at, tweet_id>` to represent an owner with owner_id posted a tweet with tweet_id at created_at. Storing the data in this way can make it easy to solve questions like given a user, find out all his tweets between two times.
+   * Another example: `<user_id, friend_user_id, <is_mutual_friend, is_blocked, timestamp>>`
   * More:
     * Paper: *Cassandra - A Decentralized Structured Storage System*
     * https://www.tutorialspoint.com/cassandra/cassandra_data_model.htm
@@ -382,7 +416,7 @@ NoSQL encompasses a wide variety of different database technologies that were de
 ##### Comparison of NoSQL and SQL.
 * Many NoSQL databases do not(or cannot easily) provide good ACID transaction support.  
   https://dzone.com/articles/workaround-lack-full-atomic
-* For some NoSQL databases, you have to handle data serialization and secondary index yourself?
+* For SOME NoSQL databases, you have to handle data serialization and secondary index yourself?
 * NoSQL can handle much higher QPS than SQL(single box). But SQL can still achieve good performance with enough number of servers.
 * NoSQL has handled sharding and replica already.
 * More? https://docs.microsoft.com/en-us/azure/documentdb/documentdb-nosql-vs-sql
@@ -436,7 +470,13 @@ The above are just estimation for common uses. Actual throughput depends on the 
 * Estimate ingress and egress network bandwidth. And QPS.
 
 
-
-# Questions
-
-1. In url shortening design, how to do sharding for the custom urls?
+# Small design cases
+* How to find mutual friends?  
+  http://www.jiuzhang.com/qa/954/  
+  I personally think using a graph database is a good idea!
+  How Facebook store friends?
+  https://www.jiuzhang.com/qa/4867/
+  https://www.facebook.com/notes/facebook-engineering/tao-the-power-of-the-graph/10151525983993920
+* How to implement pagination?  
+  http://www.jiuzhang.com/qa/1839/
+* In url shortening design, how to do sharding for the custom urls?
