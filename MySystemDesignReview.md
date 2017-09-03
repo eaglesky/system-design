@@ -126,11 +126,11 @@ Examples:
 ### Local cache and distributed cache.
 
 #### Local cache
-A cache could be local to an application instance and stored in-memory.
+A cache could be local to an application server instance and stored in-memory.
 It is private and so different application instances could each have a copy of the same cached data. This data could quickly become inconsistent between caches(because after one write request sent to an application server, the server will update the data and update/invalidate the corresponding one in the associated cache, making it differ from the rest), so it may be necessary to expire data held in a private cache and refresh it more frequently. In these scenarios it may be appropriate to investigate the use of a shared or a distributed caching mechanism.
 
 #### Distributed cache
-A distributed cache may span multiple servers so that it can grow in size and in transactional capacity.  
+A distributed cache may span multiple servers so that it can grow in size and in transactional capacity. Different from local cache, it is shared by all application servers.  
 http://stackoverflow.com/questions/15457910/what-is-a-distributed-cache  
 Example: Memcached([Wikipedia](https://en.wikipedia.org/wiki/Memcached#Architecture)):  
 >  If a client wishes to set or read the value corresponding to a certain key, the client's library first computes a hash of the key to determine which server to use. Then it contacts that server. This gives a simple form of sharding and scalable shared-nothing architecture across the servers. The server computes a second hash of the key to determine where to store or read the corresponding value.
@@ -140,7 +140,7 @@ https://dzone.com/articles/process-caching-vs-distributed
 
 ### Caching patterns
 
-* Cache-aside pattern:
+* Cache-aside pattern
   https://blog.cdemi.io/design-patterns-cache-aside-pattern/  
   Example: Memcached + MySQL
   (Memcached is just a cache, not a database!)  
@@ -170,15 +170,21 @@ https://dzone.com/articles/process-caching-vs-distributed
   ```
   
 
-* Cache-through pattern:
+* Cache-through pattern
   Cache handles the requests from the web server and persisit the data to the backed databased. E.g. Redis.
+
+  * CDN(Content Divery Network) uses this pattern. The cache servers are located around the world, all getting data from the original server. They are usually used for storing STATIC data, like images, videos and audios. Usually the webpage response contains the urls of them, which are resolved by the local DNS server to the CDN cache servers that are closest to the client. The cache server returned the stored data directly to the incoming request if it exists, otherwise it fetches the data from the original server, cahce it and return it back. So essentially the cach server is a proxy, and it usually uses two ways of caching --- caching the data in memory and on the disk. I think in each location the CDN cache servers can be sharded too, if the data cannot fit in one server.  
+  Reference: https://www.nczonline.net/blog/2011/11/29/how-content-delivery-networks-cdns-work/  
+
+* Comparison of the two.
+  Most applications leveraging global caches tend to use the first type, where the cache itself manages eviction and fetching data to prevent a flood of requests for the same data from the clients. However, there are some cases where the second implementation makes more sense. For example, if the cache is being used for very large files, a low cache hit percentage would cause the cache buffer to become overwhelmed with cache misses; in this situation, it helps to have a large percentage of the total data set (or hot data set) in the cache. Another example is an architecture where the files stored in the cache are static and shouldn’t be evicted. (This could be because of application requirements around that data latency—certain pieces of data might need to be very fast for large data sets—where the application logic understands the eviction strategy or hot spots better than the cache.)
 
 ### Caching query result vs caching the objects(?)
 http://www.lecloud.net/post/9246290032/scalability-for-dummies-part-3-cache
 
 ### Cache usages
-* Make sure writes always go to both database and cache, so that cache always contain data necessary to be queried. E.g. Twitter timeline. 
-* If there is some problem or it is expensive writing to cache, we can have a asyncynous server updating the cache periodically to make the data up-to-date. Need to maintain last update time(for each key). E.g. Facebook newsfeed.
+* Make sure writes always go to both database and cache, so that cache always contain data necessary to be queried(cache aside/through). E.g. Twitter timeline. 
+* If there is some problem or it is expensive writing to cache(requires loading data from multiple sources), we can have a asyncynous server updating the cache periodically to make the data up-to-date. Need to maintain last update time(for each key). E.g. Facebook newsfeed.
 
 
 
@@ -243,7 +249,7 @@ http://www.vertabelo.com/blog/technical-articles/denormalization-when-why-and-ho
 * http://www.joinfu.com/2005/12/managing-many-to-many-relationships-in-mysql-part-1/
 * https://stackoverflow.com/questions/3653462/is-storing-a-delimited-list-in-a-database-column-really-that-bad/3653574#3653574
 
-#### Friendship table
+##### Friendship table
 * One direction friendship is easy to store. 
 * Two directions friendship can be represented by two records or one record.
   * If A and B become friends, store A -> B and B -> A. The query for finding the friends of A only needs to check one column. But need to write twice when saving a new friendship. And there could be consistency issue if one of the write fails. We can solve this by using a transaction, or have a cron job to correct the inconsistencies periodically. This is usually more performant than the second approach, either in SQL or NoSQL.
