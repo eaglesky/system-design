@@ -183,11 +183,10 @@ https://dzone.com/articles/process-caching-vs-distributed
 http://www.lecloud.net/post/9246290032/scalability-for-dummies-part-3-cache
 
 ### Cache usages
-* Make sure writes always go to both database and cache, so that cache always contain data necessary to be queried(cache aside/through). E.g. Twitter timeline. 
+* Write-through cache directs write I/O onto cache and through to underlying permanent storage before confirming I/O completion to the host. This ensures data updates are safely stored on, for example, a shared storage array, but has the disadvantage that I/O still experiences latency based on writing to that storage. Write-through cache is good for applications that write and then re-read data frequently as data is stored in cache and results in low read latency. This way can be used for twitter timeline caching, but may allow some delay for writing to cache.
+* Write-around cache is a similar technique to write-through cache, but write I/O is written directly to permanent storage, bypassing the cache. This can reduce the cache being flooded with write I/O that will not subsequently be re-read, but has the disadvantage is that a read request for recently written data will create a “cache miss” and have to be read from slower bulk storage and experience higher latency.
+* Write-back cache is where write I/O is directed to cache and completion is immediately confirmed to the host. This results in low latency and high throughput for write-intensive applications, but there is data availability exposure risk because the only copy of the written data is in cache. As we will discuss later, suppliers have added resiliency with products that duplicate writes. Users need to consider whether write-back cache offers enough protection as data is exposed until it is staged to external storage. Write-back cache is the best performer for mixed workloads as both read and write I/O have similar response time levels.
 * If there is some problem or it is expensive writing to cache(requires loading data from multiple sources), we can have a asyncynous server updating the cache periodically to make the data up-to-date. Need to maintain last update time(for each key). E.g. Facebook newsfeed.
-
-
-
 
 ## Database.
 
@@ -485,4 +484,5 @@ The above are just estimation for common uses. Actual throughput depends on the 
   https://www.facebook.com/notes/facebook-engineering/tao-the-power-of-the-graph/10151525983993920
 * How to implement pagination?  
   http://www.jiuzhang.com/qa/1839/
+* How to get media info for each post?
 * In url shortening design, how to do sharding for the custom urls?
