@@ -239,6 +239,8 @@ https://stackoverflow.com/questions/20824686/what-is-difference-between-primary-
   * Global and local secondary index. http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html
 
 ### Normalization and denormalization.
+Normalize until it hurts, denormalize until it works.  
+Build your database tier using everything they taught you in the classroom. Normalization is your friend here. Why? When you've effectively normalized your database, you can monitor the results of queries and eventually introduce the optimizations that you need to make things run faster.
 
 https://www.essentialsql.com/get-ready-to-learn-sql-database-normalization-explained-in-simple-english/
 http://www.vertabelo.com/blog/technical-articles/denormalization-when-why-and-how
