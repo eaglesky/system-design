@@ -1,6 +1,7 @@
 # Web Crawler
 
 ## Scenario
+* Usage: for collecting data/information from the web, given some seed urls.
 * Given seeds, crawl the web
 	- How many web pages?
 		+ 1 trillion(10^12) web pages
@@ -9,32 +10,28 @@
 	- How large?
 		+ Average size of a web page: 10k
 		+ 10pb(10^16 bytes) web page storage
+* So the input is a list of urls, and the output is a list of crawled urls and map of url to its html content.
 
 ## Initial design
 ### A simplistic news crawler
 * Given the URL of news list page
 	1. Send an HTTP request and grab the content of the news list page
 	2. Extract all the news titles from the news list page. (Regular expressions)
+    ```python
+    import urllib2
+    url = 'http://tech.163.com/it'
+    // get html
+    request = urllib2.Request(url)
+    response = urllib2.urlopen(request)
+    page = response.read()
 
-```python
-import urllib2
-url = 'http://tech.163.com/it'
-// get html
-request = urllib2.Request(url)
-response = urllib2.urlopen(request)
-page = response.read()
+    // extract info using regular expressions
+    ```
 
-// extract info using regular expressions
-```
-
-### A single threaded web crawler
+### Single-threaded implementation.
 * Input: Url seeds
-* Output: List of urls and their corresponding html contents.
-
-#### Overview
-* [Producer-consumer implementation in Python](http://agiliq.com/blog/2013/10/producer-consumer-problem-in-python/)  
-Why BFS ? Because it can be parallelized easily. But may use too much more memory compared with DFS?
-
+* Output: List of urls.
+* BFS is better than DFS since it is easier to break original crawling task into several small tasks that can be executed in parallel.  But may use too much more memory compared with DFS?
 ```
 // breath first search, single-threaded crawler
 function run
@@ -45,8 +42,10 @@ function run
 		url_queue.enqueue_all( url_list )
 	end
 ```
+Why not stop when the domain is outside the seed? Because usually the urls referred contain related data. If we want to get all the related content in a seed, we should include them as well.
 
-#### Initial implementation
+### Producer and consumer implementation(?)
+* [Producer-consumer implementation in Python](http://agiliq.com/blog/2013/10/producer-consumer-problem-in-python/)  
 * Problem: At some point, consumer has consumed everything and producer is still sleeping. Consumer tries to consume more but since queue is empty, an IndexError is raised.
 * Correct bnehavior: When there was nothing in the queue, consumer should have stopped running and waited instead of trying to consume from the queue. And once producer adds something to the queue, there should be a way for it to notify the consumer telling it has added something to queue. So, consumer can again consume from the queue. And thus IndexError will never be raised.
 
@@ -249,7 +248,7 @@ ProducerThread().start()
 ConsumerThread().start()
 ```
 
-### A multi-threaded web crawler
+### Multi-threaded implementation
 * How different threads work together
 	- sleep: Stop a random interval and come back to see whether the resource is available to use. 
 	- condition variable: As soon as the resource is released by other threads, you could get it immediately.
@@ -259,10 +258,19 @@ ConsumerThread().start()
 	- Thread number limitation
 		+ TCP/IP limitation on number of threads
 	- Network bottleneck for single machine
-* Each thread gets a uncrawled url from the shared queue and craw it, store its content to the db and the sub-urls back to the queue (throw away the crawled urls before it, but how? using a hashset that has elements already included in the queue?). The queue needs to be synchronized.
+* Each thread gets a uncrawled url from the shared queue and throw it if it is already crawed, or continue crawing it if otherwise , store its content to the db and the sub-urls back to the queue. May need a shared hash set that stores uncrawed urls. The queue needs to be synchronized -- the queue is locked when any thread is reading from or writing to it(better way?)
+* Jave implementation?
 
-### A distributed web crawler
-* URL queue is inside memory. Queue is too big to completely fit into memory. Use a MySQL DB task table
+### Distributed implementation
+* Service
+    - Crawling service.
+    - Task service.
+    - Storage service.
+
+* Storage
+Tasks are stored in DB, and output url contents are stored in BigTable.
+
+* URL queue is too big to completely fit into memory. Use a MySQL DB task table instead.
 	- state (working/idle): Whether it is being crawled.
 	- priority (1/0): 
 	- available time: frequency. When to fetch the next time. This can be adjusted to be very close to the real page update time.
@@ -275,11 +283,6 @@ ConsumerThread().start()
 | 4  | “http://www.sina3.com/” | “idle”    | 2        | “2016-03-12 04:25 am” | 
 
 The tasks in the task table never get moved out. Everytime before adding a new task, I think there may probably be a "select" call that checks if the task is already in the queue. Insert it only when it is not.
-
-## Service
-* Crawler service
-* Task service
-* Storage service
 
 ## Scale
 ### Shard task table
