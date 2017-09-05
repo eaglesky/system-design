@@ -2,6 +2,8 @@
 
 ## Scenario
 * Usage: for collecting data/information from the web, given some seed urls.
+* Assuming crawling for HTML pages only. But the design should be extensible to support other media types like sound files, images and videos.
+* So the input is a list of urls, and the output is a list of crawled urls and map of url to its html content.
 * Given seeds, crawl the web
 	- How many web pages?
 		+ 1 trillion(10^12) web pages
@@ -10,7 +12,7 @@
 	- How large?
 		+ Average size of a web page: 10k
 		+ 10pb(10^16 bytes) web page storage
-* So the input is a list of urls, and the output is a list of crawled urls and map of url to its html content.
+
 
 ## Initial design
 ### A simplistic news crawler
@@ -258,7 +260,7 @@ ConsumerThread().start()
 	- Thread number limitation
 		+ TCP/IP limitation on number of threads
 	- Network bottleneck for single machine
-* Each thread gets a uncrawled url from the shared queue and throw it if it is already crawed, or continue crawing it if otherwise , store its content to the db and the sub-urls back to the queue. May need a shared hash set that stores uncrawed urls. The queue needs to be synchronized -- the queue is locked when any thread is reading from or writing to it(better way?)
+* Each thread gets a uncrawled url from the shared queue and craw it, store its content to the db, dedupe according to the shared url_seen_map and add the sub-urls back to the queue(and the map too). The queue and map need to be synchronized -- the queue is locked when any thread is reading from or writing to it(better way?)
 * Jave implementation?
 
 ### Distributed implementation
@@ -268,7 +270,7 @@ ConsumerThread().start()
     - Storage service.
 
 * Storage
-Tasks are stored in DB, and output url contents are stored in BigTable.
+Tasks are stored in DB, and output url contents are stored in HDFS.
 
 * URL queue is too big to completely fit into memory. Use a MySQL DB task table instead.
 	- state (working/idle): Whether it is being crawled.
@@ -283,6 +285,7 @@ Tasks are stored in DB, and output url contents are stored in BigTable.
 | 4  | “http://www.sina3.com/” | “idle”    | 2        | “2016-03-12 04:25 am” | 
 
 The tasks in the task table never get moved out. Everytime before adding a new task, I think there may probably be a "select" call that checks if the task is already in the queue. Insert it only when it is not.
+
 
 ## Scale
 ### Shard task table
