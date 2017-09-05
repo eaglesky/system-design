@@ -16,7 +16,6 @@
     <data key="d0"/>
     <node id="n0" yfiles.foldertype="group">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
@@ -45,7 +44,6 @@
       </data>
       <graph edgedefault="directed" id="n0:">
         <node id="n0::n0">
-          <data key="d5"/>
           <data key="d6">
             <y:SVGNode>
               <y:Geometry height="46.887996673583984" width="39.527000427246094" x="1096.2543386259274" y="224.05674597185782"/>
@@ -67,7 +65,6 @@
           </data>
         </node>
         <node id="n0::n1">
-          <data key="d5"/>
           <data key="d6">
             <y:SVGNode>
               <y:Geometry height="46.887996673583984" width="39.527000427246094" x="1026.7273381986813" y="304.64024397295645"/>
@@ -89,7 +86,6 @@
           </data>
         </node>
         <node id="n0::n2">
-          <data key="d5"/>
           <data key="d6">
             <y:SVGNode>
               <y:Geometry height="46.887996673583984" width="39.527000427246094" x="1096.2543386259274" y="304.64024397295645"/>
@@ -111,7 +107,6 @@
           </data>
         </node>
         <node id="n0::n3">
-          <data key="d5"/>
           <data key="d6">
             <y:SVGNode>
               <y:Geometry height="46.887996673583984" width="39.527000427246094" x="1026.7273381986813" y="224.05674597185782"/>
@@ -142,7 +137,6 @@
       </graph>
     </node>
     <node id="n1">
-      <data key="d5"/>
       <data key="d6">
         <y:SVGNode>
           <y:Geometry height="56.231998443603516" width="35.095298767089844" x="524.377458423102" y="59.03950588603027"/>
@@ -166,7 +160,6 @@ Why queue? To ensure no two crawlers get the same url<y:LabelModel>
     </node>
     <node id="n2" yfiles.foldertype="group">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
@@ -195,7 +188,6 @@ Why queue? To ensure no two crawlers get the same url<y:LabelModel>
       </data>
       <graph edgedefault="directed" id="n2:">
         <node id="n2::n0">
-          <data key="d5"/>
           <data key="d6">
             <y:SVGNode>
               <y:Geometry height="56.231998443603516" width="35.095298767089844" x="550.0955892495774" y="256.43640645911194"/>
@@ -217,7 +209,6 @@ Why queue? To ensure no two crawlers get the same url<y:LabelModel>
           </data>
         </node>
         <node id="n2::n1">
-          <data key="d5"/>
           <data key="d6">
             <y:SVGNode>
               <y:Geometry height="56.231998443603516" width="35.095298767089844" x="498.65932759662655" y="256.43640645911194"/>
@@ -353,7 +344,6 @@ Why queue? To ensure no two crawlers get the same url<y:LabelModel>
     </node>
     <node id="n5" yfiles.foldertype="group">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
@@ -382,7 +372,6 @@ Why queue? To ensure no two crawlers get the same url<y:LabelModel>
       </data>
       <graph edgedefault="directed" id="n5:">
         <node id="n5::n0">
-          <data key="d5"/>
           <data key="d6">
             <y:SVGNode>
               <y:Geometry height="47.612998962402344" width="39.25" x="57.151587588382085" y="590.7853107029297"/>
@@ -404,7 +393,6 @@ Why queue? To ensure no two crawlers get the same url<y:LabelModel>
           </data>
         </node>
         <node id="n5::n1">
-          <data key="d5"/>
           <data key="d6">
             <y:SVGNode>
               <y:Geometry height="47.612998962402344" width="39.25" x="126.40158758838209" y="590.7853107029297"/>
@@ -426,7 +414,6 @@ Why queue? To ensure no two crawlers get the same url<y:LabelModel>
           </data>
         </node>
         <node id="n5::n2">
-          <data key="d5"/>
           <data key="d6">
             <y:SVGNode>
               <y:Geometry height="47.612998962402344" width="39.25" x="91.77658758838209" y="661.7853107029297"/>
@@ -451,7 +438,6 @@ Why queue? To ensure no two crawlers get the same url<y:LabelModel>
     </node>
     <node id="n6" yfiles.foldertype="group">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
@@ -491,7 +477,6 @@ Dedupe can be done by using either bloom filter(preferable) or shared cache</y:N
       </data>
       <graph edgedefault="directed" id="n6:">
         <node id="n6::n0">
-          <data key="d5"/>
           <data key="d6">
             <y:SVGNode>
               <y:Geometry height="56.231998443603516" width="35.095298767089844" x="465.5154992054228" y="559.1663112217285"/>
@@ -512,13 +497,12 @@ Dedupe can be done by using either bloom filter(preferable) or shared cache</y:N
           </data>
         </node>
         <node id="n6::n1">
-          <data key="d5"/>
           <data key="d6">
             <y:SVGNode>
               <y:Geometry height="56.231998443603516" width="35.095298767089844" x="680.5939055538852" y="559.1663112217285"/>
               <y:Fill color="#CCCCFF" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="32.265625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="232.65625" x="-98.78047561645508" y="60.231998443603516">Url fechers.
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="32.265625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="232.65625" x="-98.78047561645508" y="60.231998443603516">Url pushers.
 Maybe can just use schedulers instead?<y:LabelModel>
                   <y:SmartNodeLabelModel distance="4.0"/>
                 </y:LabelModel>
@@ -536,7 +520,6 @@ Maybe can just use schedulers instead?<y:LabelModel>
       </graph>
     </node>
     <edge id="e0" source="n4" target="n5">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -555,7 +538,6 @@ Maybe can just use schedulers instead?<y:LabelModel>
       </data>
     </edge>
     <edge id="e1" source="n3" target="n4">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -575,7 +557,6 @@ from given urls<y:LabelModel>
       </data>
     </edge>
     <edge id="e2" source="n2" target="n0">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="51.62429057888767" sy="-59.58217163868528" tx="-64.97913705496842" ty="-61.958747645058224">
@@ -592,7 +573,6 @@ and also consider priority to see if each url should be crawled.<y:PreferredPlac
       </data>
     </edge>
     <edge id="e3" source="n0" target="n2">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-63.114210834764094" sy="-32.144332208054834" tx="54.63110102156634" ty="-29.76775620168189"/>
@@ -605,7 +585,6 @@ and also consider priority to see if each url should be crawled.<y:PreferredPlac
       </data>
     </edge>
     <edge id="e4" source="n2" target="n0">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="50.0635641316685" sy="10.198191584924245" tx="-69.96551616961085" ty="7.821615578551302"/>
@@ -618,7 +597,6 @@ and also consider priority to see if each url should be crawled.<y:PreferredPlac
       </data>
     </edge>
     <edge id="e5" source="n2" target="n1">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -631,7 +609,6 @@ and also consider priority to see if each url should be crawled.<y:PreferredPlac
       </data>
     </edge>
     <edge id="e6" source="n4" target="n1">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="65.27408597267345" sy="-103.23758444528477" tx="-15.460257973747503" ty="0.0"/>
@@ -650,7 +627,6 @@ and also consider priority to see if each url should be crawled.<y:PreferredPlac
       </data>
     </edge>
     <edge id="e7" source="n4" target="n3">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -661,7 +637,6 @@ and also consider priority to see if each url should be crawled.<y:PreferredPlac
       </data>
     </edge>
     <edge id="e8" source="n4" target="n6">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -680,7 +655,6 @@ and also consider priority to see if each url should be crawled.<y:PreferredPlac
       </data>
     </edge>
     <edge id="e9" source="n6" target="n0">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -691,7 +665,6 @@ and also consider priority to see if each url should be crawled.<y:PreferredPlac
       </data>
     </edge>
     <edge id="n6::e0" source="n6::n0" target="n6::n1">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
