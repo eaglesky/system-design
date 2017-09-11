@@ -476,6 +476,10 @@ The above are just estimation for common uses. Actual throughput depends on the 
 * Estimate storage. 
 * Estimate ingress and egress network bandwidth. And QPS.
 
+# Design Examples
+* Twitter -- timeline and newsfeed. (See Nine Chapter slide for details)
+* [Web crawler](crawler.md)
+
 
 # Small design cases
 * How to find mutual friends?  

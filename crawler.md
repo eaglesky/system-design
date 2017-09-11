@@ -307,6 +307,8 @@ I think to implement this, we should use two other attributes -- last_crawled_ti
 ### Multi-region
 * When Google's webpage crawls China's webpages, it will be really really slow. Deploy crawler servers in multiple regions.
 
+## Diagram
+![Diagram](imgs/crawler.svg)
 
 ## Reference
 * [blog post](http://agiliq.com/blog/2013/10/producer-consumer-problem-in-python/)
