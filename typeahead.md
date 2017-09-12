@@ -2,11 +2,12 @@
 
 ## Scenario
 * Google suggestion
-	- Prefix -> top n hot key words
+	- Prefix -> top n hot key words(in x years)
 	- DAU: 500M
-	- Search: 6*6*500M = 18b (Every one search for 6 words, each word has 6 characters)
+	- Search: 6 * 6 * 500M = 18B (Each user searchs for 6 words everyday, each word has 6 characters)
 	- QPS = 18b / 86400 ~ 200k
 	- Peak QPS = QPS * 2 ~ 400k
+	- Storage: Suppose 1 new word per person each day, then there are 500M new words each day. Assuming 6 characters per word on average, then the storage that is needed is 6 * 2 * 500M = 6GB per day. Assuming we store data for the last 10 years, then the total size would be: 6GB * 10 * 365 ~= 22TB. This time length may be shortened, depending on the actual requirement.
 * Twitter typeahead
 
 ## Initial design
@@ -68,17 +69,17 @@ I think we might be able to store this prefix table in Redis, so accessing it wo
 	- Once per week. Each week data collection service will fetch all the data within the most recent one week and aggregate them. 
 * How does data collection service update query service? Offline update and works online.
 	- All in-memory trie must have already been serialized(for backup in case the server is down). Read QPS already really high. Do not write to in-memory trie directly.
-	- Use another machine. Data collection service updates query service.  Memory has a limit on the rate at which data can be read from or stored into a semiconductor memory by a CPU(a.k.a. memory bandwidth).If we update the trie while we are using it, the read operations will be affected as some operations have to wait due to the limited bandwidth. However I think the CPU is more likely to be the bottleneck than the memory bandwidth, since the update must take quite a lot of CPU cycles. 
+	- Use another machine. Data collection service updates query service.  Memory has a limit on the rate at which data can be read from or stored into a semiconductor memory by a CPU(a.k.a. memory bandwidth).If we update the trie while we are using it, the read operations will be affected as some operations have to wait due to the limited bandwidth(or because of concurrent access to the common data structure). However I think the CPU is more likely to be the bottleneck than the memory bandwidth, since the update must take quite a lot of CPU cycles. 
 	http://www.nic.uoregon.edu/~khuck/ts/acumem-report/manual_html/ch_intro_bw.html  
 	That's why we should do the update on another machine --- data collectio service will aggregate the data into word counts table, copy the deserialized data from the other machine, deserialize the trie from the disk, and update the trie using the data in the word counts table. After it is done, we can have a scheduler at the front of the servers and forward the traffic to the other machine with up-to-date trie. The old machine will be used for update instead.  
-	Instead of updating the existing trie, why not just create a new trie from the word counts table?
-	How does the server read data from the very large word counts table?
+	Instead of updating the existing trie, why not just create a new trie from the word counts table? -- I think it would be more expensive.
+	How does the server read data from the very large word counts table? --- We could use several servers do this job in parallel.
 
 ## Scale
 ### How to reduce response time
 * Cache result
-	- Front-end browser cache the results. Set an expiration time on it. So either when cache expires or the user closes the browser, the cache will be invalidated.
-* Pre-fetch
+	- Front-end browser cache the results. Or maybe along with words searched by the user. In the format of map of prefixes and word list. Set an expiration time on it. So either when cache expires or the user closes the browser, the cache will be invalidated.
+* Pre-fetch ?
 	- Fetch the latest 1000 results starting with the input prefix. Say when you enter "a", 1000 strings starting with "a" will be fetched and the top 5 starting with "am" may very likely be in those strings.
 
 ### What if the trie is too large for one machine
@@ -92,6 +93,13 @@ I think we might be able to store this prefix table in Redis, so accessing it wo
 	- Log with 1/10,000 probability
 		+ Say over the past two weeks "amazon" was searched 1 billion times, with 1/1000 probability we will only log 1 million times. 
 		+ For a term that's searched 1000 times, we might end up logging only once or even zero times. 
+
+## Final Design
+It might be easier and more flexible to use HashMap as the in-memory data structure instead of trie. Sometimes the typed words may not necessarily be the prefix of the suggestions.
+https://www.facebook.com/Engineering/videos/432864835468/
+https://blog.evernote.com/tech/2013/05/21/an-inside-look-at-type-ahead-search-in-evernote/
+https://www.jiuzhang.com/qa/1947/
+![Diagram](imgs/type_ahead.svg)
 
 ## Questions
 * How to include the recent popular words that have not showed up more than previous popular words?  
