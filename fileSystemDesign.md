@@ -104,6 +104,7 @@
 	- Two copies in the same data center but on different racks
 	- Third copy in a different data center
 	- This can make sure data recovery is done quickly.
+  - The replica server can store chunks for other files as well.
 * How to choose chunk servers
 	- Find servers which are not busy
 	- Find servers with lots of available disk space
@@ -117,8 +118,8 @@
 * Good thing about health check is that it can choose which machine to monitor and when to send the check. Heartbeats could be too many for the monitoring machine if there are too many monitored servers. And health check is preferable if we only want to check the health at some time(like deployment time, or when cleaning bad servers).
 
 #### How to solve client bottleneck
-* Client only writes to a leader chunk server. The leader chunk server is responsible for communicating with other chunk servers. This could save some traffic between client and chunk servers since each time it writes to a chunk server, it needs to receive a response. It could be also much faster since the physical distance between client and a chunk serve could be much further than within the chunk servers.
-* How to select leading slaves
+* Client only writes to a leader chunk server. The leader chunk server is responsible for communicating with other chunk servers. This could save some traffic between client and chunk servers since each time it writes to a chunk server, it needs to receive a response. It could be also much faster since the physical distance between client and a chunk server could be much further than within the chunk servers.
+* How to select leading slaves, closest(preferable) or most free one.
 
 #### How to solve chunk server failure
 * Ask the client to retry

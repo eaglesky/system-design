@@ -479,7 +479,8 @@ The above are just estimation for common uses. Actual throughput depends on the 
 # Design Examples
 * Twitter -- timeline and newsfeed. (See Nine Chapter slide for details)
 * [Web crawler](crawler.md)
-
+* [Type-ahead/Google Suggestion](typeahead.md)
+* [Distributed file system](fileSystemDesign.md)
 
 # Small design cases
 * How to find mutual friends?  
