@@ -25,12 +25,14 @@ https://hostingfacts.com/different-types-of-web-hosting/.
 ### Computer Protocols- TCP/IP, POP, SMTP, HTTP, FTP and More
 
 http://vlaurie.com/computers2/Articles/protocol.htm
+FTP is application level, built on top of TCP. 
 
 #### TCP vs UDP
+When transmitting a large file, TCP could be slow if the distance is long. Because the large file transmitted package by package, whose size is determined by MTU. Each package will be only sent when the previous one is sent successfully to the destination and the sender got ACK. So the total transmission time = number of packages * RTT of each package. The latter is mostly affected by the distance.
+http://moo.nac.uci.edu/~hjm/HOWTO_move_data.html
 
 https://www.howtogeek.com/190014/htg-explains-what-is-the-difference-between-tcp-and-udp/
-UDP is less reliable but much faster, so it is preferable for transmitting time-critical
-data, like live video stream and online game data.
+UDP is less reliable but much faster, so it is preferable for transmitting time-critical data, like live video stream and online game data.
 
 #### Ports
 
@@ -173,8 +175,9 @@ https://dzone.com/articles/process-caching-vs-distributed
 * Cache-through pattern
   Cache handles the requests from the web server and persisit the data to the backed databased. E.g. Redis.
 
-  * CDN(Content Divery Network) uses this pattern. The cache servers are located around the world, all getting data from the original server. They are usually used for storing STATIC data, like images, videos and audios. Usually the webpage response contains the urls of them, which are resolved by the local DNS server to the CDN cache servers that are closest to the client. The cache server returned the stored data directly to the incoming request if it exists, otherwise it fetches the data from the original server, cahce it and return it back. So essentially the cach server is a proxy, and it usually uses two ways of caching --- caching the data in memory and on the disk. I think in each location the CDN cache servers can be sharded too, if the data cannot fit in one server.  
+  * CDN(Content Divery Network) uses this pattern. The cache servers are located around the world, all getting data from the original server. They are usually used for storing STATIC data, like images, videos and audios. Usually the webpage response contains the urls of them, which are resolved by the local DNS server to the CDN cache servers that are closest to the client. The cache server returned the stored data directly to the incoming request if it exists, otherwise it fetches the data from the original server, cache it and return it back. So essentially the cach server is a proxy, and it usually uses two ways of caching --- caching the data in memory and on the disk. I think in each location the CDN cache servers can be sharded too, if the data cannot fit in one server.  
   Reference: https://www.nczonline.net/blog/2011/11/29/how-content-delivery-networks-cdns-work/  
+  This works great for transimtting media files because they are usually large and the latency is mostly affected by the physical distance between the server and clients. Getting the files is fast since it is just one file system read access. Similar optimization can be used if the distance between the sender and receiver plays a major role in latency -- like the queries sent to the cache from the webserver. Shortening the distance between the webserver and cache could greatly reduce the latency, so one way to do that would be to deploy webservers and the cache together and distributedly around the world. This works well if there are very few DB queries for each request, see more in [Tiny URL](tinyURL.md).
 
 * Comparison of the two.
   Most applications leveraging global caches tend to use the first type, where the cache itself manages eviction and fetching data to prevent a flood of requests for the same data from the clients. However, there are some cases where the second implementation makes more sense. For example, if the cache is being used for very large files, a low cache hit percentage would cause the cache buffer to become overwhelmed with cache misses; in this situation, it helps to have a large percentage of the total data set (or hot data set) in the cache. Another example is an architecture where the files stored in the cache are static and shouldn’t be evicted. (This could be because of application requirements around that data latency—certain pieces of data might need to be very fast for large data sets—where the application logic understands the eviction strategy or hot spots better than the cache.)
@@ -481,6 +484,8 @@ The above are just estimation for common uses. Actual throughput depends on the 
 * [Web crawler](crawler.md)
 * [Type-ahead/Google Suggestion](typeahead.md)
 * [Distributed file system](fileSystemDesign.md)
+* [Tiny URL](tinyURL.md). Application of internationally distributed DB, compound id that contains shard key, global unique ID.
+
 
 # Small design cases
 * How to find mutual friends?  
