@@ -484,7 +484,7 @@ The above are just estimation for common uses. Actual throughput depends on the 
 * [Web crawler](crawler.md)
 * [Type-ahead/Google Suggestion](typeahead.md)
 * [Distributed file system](fileSystemDesign.md)
-* [Tiny URL](tinyURL.md). Application of internationally distributed DB, compound id that contains shard key, global unique ID.
+* [Tiny URL](tinyURL.md). Application of internationally distributed DB, compound id that contains shard key, global unique ID for distributed DB.
 
 
 # Small design cases
