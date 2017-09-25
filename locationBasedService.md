@@ -52,7 +52,7 @@
     ```
     This is too slow -- run time is linear to the number of records.
   * Spatial indexing. To speed the location query up, we can try indexing the locations in the DB, which essentially maintaining a B tree containing the sorted data in its leaves and linking them together. If we use the default index of multi-value fields, i.e., (x1, y1) < (x2, y2) <=> (x1 < x2) || ((x1 == x2) && (y1 < y2)). This comparator is valid, but using it would return locations of same x coordinate for the location queries, neglecting too many useful results. This indexing can be visualized by following diagram. Image a 1D zigzag line from (0, 0) to (4, 4) crossing all the 2D points. The closer to the origin the 2D point is on the zigzag line, the smaller it is after the default indexing.
-  <img src="imgs/default_location_indexing.png" width="100">
+  <img src="imgs/default_location_indexing.png" width="100">  
   There are two other ways of indexing the coordinates that works great for our use, both of which map the 2D cooridinates to a 1D value using some special algorithms. 
     - Google S2. Used by Uber. More precise and has richer APIs compared to the other.
       + It first partition the sphere space into 2D grid. The size of cell can be specified. 
