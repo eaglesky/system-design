@@ -429,6 +429,7 @@ NoSQL encompasses a wide variety of different database technologies that were de
 * For SOME NoSQL databases, you have to handle data serialization and secondary index yourself?
 * NoSQL can handle much higher QPS than SQL(single box). But SQL can still achieve good performance with enough number of servers.
 * NoSQL has handled sharding and replica already.
+* For tables that are frequenly inserted or deleted, index tree may be frequently updated, which is costly. Prefer NoSQLs that do not index on that column.
 * More? https://docs.microsoft.com/en-us/azure/documentdb/documentdb-nosql-vs-sql
 
 
@@ -485,8 +486,9 @@ The above are just estimation for common uses. Actual throughput depends on the 
   - Esimation. Usually need to estimate DAU and QPS. For storage, it maybe okay to delay estimating the number.
 * Service and Storage. 
   - Try to give a high level design first that handles all the required use cases. After this, we should be clear about what services and tables are involved. 
-  - Note that each service usually correspond to a servlet that handles particular requests. Difference services can run either on the same server or different servers. As long as they don't store data(stateless), they will perform the same, and scale horizontally in the same way. For each request, total_processing_time = in_queue_time + actual_processing_time. Since different services typically don't share any data, when they run in parallel on the same machine, they should not affect each other, and thus actual_processing_time are the same. in_queue_time should be the same too, so total_processing_time should be equal.
-  - Dive into each part, figuring out how to store each table, and the workflow of handling the requests.
+  - Note that each service usually correspond to a servlet that handles particular requests. Difference services can run either on the same server or different servers. As long as they don't store data(stateless), they will perform the same, and scale horizontally in the same way. For each request, total_processing_time = in_queue_time + actual_processing_time. Since different services typically don't share any data, when they run in parallel on the same machine, they should not affect each other, and thus actual_processing_time are the same. in_queue_time should be the same too, so total_processing_time should be equal.  
+  However when the services interact with each other, it is better to have them running on different machines.
+  - Dive into each part, figuring out how to store each table, and the workflow of handling the requests. Do not keep a connection for too long. For requests that takes long time to process, try saving the intermediate result into the DB, and have the client pull the result periodically.
 * Scale.
 
 # Design Examples

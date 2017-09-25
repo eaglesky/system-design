@@ -1,0 +1,971 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.17.1-->
+  <key attr.name="Description" attr.type="string" for="graph" id="d0"/>
+  <key for="port" id="d1" yfiles.type="portgraphics"/>
+  <key for="port" id="d2" yfiles.type="portgeometry"/>
+  <key for="port" id="d3" yfiles.type="portuserdata"/>
+  <key attr.name="Property 1" attr.type="string" for="node" id="d4">
+    <default/>
+  </key>
+  <key attr.name="url" attr.type="string" for="node" id="d5"/>
+  <key attr.name="description" attr.type="string" for="node" id="d6"/>
+  <key for="node" id="d7" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d8" yfiles.type="resources"/>
+  <key attr.name="url" attr.type="string" for="edge" id="d9"/>
+  <key attr.name="description" attr.type="string" for="edge" id="d10"/>
+  <key for="edge" id="d11" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <data key="d0"/>
+    <node id="n0">
+      <data key="d6"/>
+      <data key="d7">
+        <y:ImageNode>
+          <y:Geometry height="58.0" width="64.0" x="-1.0" y="101.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="39.173828125" x="12.4130859375" y="62.0">Driver</y:NodeLabel>
+          <y:Image alphaImage="true" refid="1"/>
+        </y:ImageNode>
+      </data>
+    </node>
+    <node id="n1">
+      <data key="d7">
+        <y:ImageNode>
+          <y:Geometry height="119.0" width="128.30913729317274" x="308.84543135341363" y="88.546875"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="71.095703125" x="28.60671708408637" y="123.0">Geo Service</y:NodeLabel>
+          <y:Image alphaImage="true" refid="2"/>
+        </y:ImageNode>
+      </data>
+    </node>
+    <node id="n2">
+      <data key="d6"/>
+      <data key="d7">
+        <y:ImageNode>
+          <y:Geometry height="64.0" width="64.0" x="-1.0" y="372.6599685359478"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="62.705078125" x="0.6474609375" y="68.0">Passenger</y:NodeLabel>
+          <y:Image alphaImage="true" refid="3"/>
+        </y:ImageNode>
+      </data>
+    </node>
+    <node id="n3">
+      <data key="d7">
+        <y:ImageNode>
+          <y:Geometry height="119.0" width="128.30913729317268" x="308.8454313534137" y="353.7537185359478"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="99.203125" x="14.553006146586313" y="123.0">Dispatch Service</y:NodeLabel>
+          <y:Image alphaImage="true" refid="2"/>
+        </y:ImageNode>
+      </data>
+    </node>
+    <node id="n4">
+      <data key="d6"/>
+      <data key="d7">
+        <y:SVGNode>
+          <y:Geometry height="73.88799667358398" width="39.527000427246094" x="870.2099255269866" y="575.3274969170016"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="33.63671875" x="2.945140838623047" y="77.88799667358404">Trips<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="-0.5" nodeRatioX="0.0" nodeRatioY="0.5" offsetX="0.0" offsetY="4.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="4"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n5" yfiles.foldertype="group">
+      <data key="d6"/>
+      <data key="d7">
+        <y:ProxyAutoBoundsNode>
+          <y:Realizers active="0">
+            <y:GenericGroupNode configuration="com.yworks.bpmn.Artifact.withShadow">
+              <y:Geometry height="184.85284042358398" width="470.53705313721446" x="823.3335944888034" y="-2.83203125"/>
+              <y:Fill color="#FFFFFFE6" transparent="false"/>
+              <y:BorderStyle color="#000000" type="dashed_dotted" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="51.337890625" x="209.59958125610717" y="162.72002792358398">Group 1<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.5" nodeRatioX="0.0" nodeRatioY="0.5" offsetX="0.0" offsetY="-4.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4cc"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffffe6"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ARTIFACT_TYPE_GROUP"/>
+              </y:StyleProperties>
+              <y:State autoResize="true" closed="false" closedHeight="80.0" closedWidth="100.0"/>
+              <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+              <y:BorderInsets bottom="0" bottomF="0.0" left="34" leftF="34.04601386109141" right="0" rightF="0.0" top="0" topF="0.0"/>
+            </y:GenericGroupNode>
+            <y:GroupNode>
+              <y:Geometry height="50.0" width="50.0" x="0.0" y="60.0"/>
+              <y:Fill color="#F5F5F5" transparent="false"/>
+              <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.666015625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.75830078125" x="-6.879150390625" y="0.0">Folder 1</y:NodeLabel>
+              <y:Shape type="roundrectangle"/>
+              <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+              <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+              <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+            </y:GroupNode>
+          </y:Realizers>
+        </y:ProxyAutoBoundsNode>
+      </data>
+      <graph edgedefault="directed" id="n5:">
+        <node id="n5::n0">
+          <data key="d6"/>
+          <data key="d7">
+            <y:SVGNode>
+              <y:Geometry height="46.887996673583984" width="39.527000427246094" x="914.3436471987718" y="98.0"/>
+              <y:Fill color="#CCCCFF" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="123.455078125" x="-41.96403884887695" y="50.887996673583984">Geo Database(Redis)<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="-0.5" nodeRatioX="0.0" nodeRatioY="0.5" offsetX="0.0" offsetY="4.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:SVGNodeProperties usingVisualBounds="true"/>
+              <y:SVGModel svgBoundsPolicy="0">
+                <y:SVGContent refid="4"/>
+              </y:SVGModel>
+            </y:SVGNode>
+          </data>
+        </node>
+        <node id="n5::n1">
+          <data key="d6"/>
+          <data key="d7">
+            <y:GenericNode configuration="com.yworks.bpmn.Artifact.withShadow">
+              <y:Geometry height="73.88799667358398" width="272.5270004272461" x="1006.3436471987718" y="12.556001663208008"/>
+              <y:Fill color="#FFFFFFE6" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="74.6640625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="227.916015625" x="22.305492401123047" y="-0.3880329132080078">geo_hash, 	driver_ids
+9q9hvt, 	{1001, 1233}
+9q9hv, 	{1001, 1233, 1444}
+9q9h, 	{1001, 1233, 1444, 222, 3333}
+...	...<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4cc"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffffe6"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ARTIFACT_TYPE_ANNOTATION"/>
+              </y:StyleProperties>
+            </y:GenericNode>
+          </data>
+        </node>
+      </graph>
+    </node>
+    <node id="n6" yfiles.foldertype="group">
+      <data key="d6"/>
+      <data key="d7">
+        <y:ProxyAutoBoundsNode>
+          <y:Realizers active="0">
+            <y:GenericGroupNode configuration="com.yworks.bpmn.Artifact.withShadow">
+              <y:Geometry height="166.5448366880403" width="347.20390514539145" x="896.4616395998949" y="235.1359410214915"/>
+              <y:Fill color="#FFFFFFE6" transparent="false"/>
+              <y:BorderStyle color="#000000" type="dashed_dotted" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="51.337890625" x="147.93300726019584" y="144.4120241880403">Group 2<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.5" nodeRatioX="0.0" nodeRatioY="0.5" offsetX="0.0" offsetY="-4.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4cc"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffffe6"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ARTIFACT_TYPE_GROUP"/>
+              </y:StyleProperties>
+              <y:State autoResize="true" closed="false" closedHeight="80.0" closedWidth="100.0"/>
+              <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+              <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="7" rightF="7.39880557848528" top="0" topF="0.0"/>
+            </y:GenericGroupNode>
+            <y:GroupNode>
+              <y:Geometry height="50.0" width="50.0" x="0.0" y="60.0"/>
+              <y:Fill color="#F5F5F5" transparent="false"/>
+              <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.666015625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.75830078125" x="-6.879150390625" y="0.0">Folder 2</y:NodeLabel>
+              <y:Shape type="roundrectangle"/>
+              <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+              <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+              <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+            </y:GroupNode>
+          </y:Realizers>
+        </y:ProxyAutoBoundsNode>
+      </data>
+      <graph edgedefault="directed" id="n6:">
+        <node id="n6::n0">
+          <data key="d6"/>
+          <data key="d7">
+            <y:SVGNode>
+              <y:Geometry height="46.887996673583984" width="39.527000427246094" x="914.3436471987718" y="317.6599685359478"/>
+              <y:Fill color="#CCCCFF" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="45.291015625" x="-2.882007598876953" y="50.887996673583984">Drivers<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="-0.5" nodeRatioX="0.0" nodeRatioY="0.5" offsetX="0.0" offsetY="4.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:SVGNodeProperties usingVisualBounds="true"/>
+              <y:SVGModel svgBoundsPolicy="0">
+                <y:SVGContent refid="4"/>
+              </y:SVGModel>
+            </y:SVGNode>
+          </data>
+        </node>
+        <node id="n6::n1">
+          <data key="d6"/>
+          <data key="d7">
+            <y:GenericNode configuration="com.yworks.bpmn.Artifact.withShadow">
+              <y:Geometry height="37.56578085802033" width="240.14236149476358" x="981.1243776720376" y="250.1359410214915"/>
+              <y:Fill color="#FFFFFFE6" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="229.720703125" x="5.210829184881845" y="9.716484179010138">driver_id, status, trip_id, (origin, dest)?<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4cc"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffffe6"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ARTIFACT_TYPE_ANNOTATION"/>
+              </y:StyleProperties>
+            </y:GenericNode>
+          </data>
+        </node>
+      </graph>
+    </node>
+    <edge id="n5::e0" source="n5::n0" target="n5::n1">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+          <y:Arrows source="none" target="none"/>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_ASSOCIATION"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e0" source="n0" target="n1">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="17.0" sy="-21.0" tx="-32.077284323293185" ty="-39.04687500000001"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="249.021484375" x="0.5214118957519531" y="-24.06640625000003">driver_id, current (x, y) and previous (x, y)<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e1" source="n1" target="n5::n0">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="54.13041729555725" sy="-37.18750000000001" tx="-18.0" ty="-9.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="32.265625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="257.88671875" x="89.50152090918664" y="-38.46735499198398">Write driver_id for current (x, y, geo_hash), 
+update driver_id for previous one<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="23.042335067802735" distanceToCenter="true" position="left" ratio="0.3941934206057174" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e2" source="n2" target="n1">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="-3.0" sy="-28.0" tx="-60.14490810617471" ty="0.0"/>
+          <y:LineStyle color="#0000FF" type="line" width="1.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#0000FF" verticalTextPosition="bottom" visible="true" width="154.791015625" x="-5.5849623778364865" y="-83.83046754654276">Get {driver_id} using (x, y)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="13.36103422770765" distanceToCenter="true" position="left" ratio="0.35826691958647705" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e3" source="n1" target="n5::n0">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="48.11592648493976" sy="-3.7187500000000004" tx="5.747021556186041" ty="22.884126663208008"/>
+          <y:LineStyle color="#0000FF" type="line" width="1.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#0000FF" verticalTextPosition="bottom" visible="true" width="226.169921875" x="48.46891163369207" y="-17.196585024240335">Read {driver_id} using (x, y, geo_hash)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="0.0" distance="8.130178774240301" distanceToCenter="true" position="left" ratio="0.17200383479614528" segment="0"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e4" source="n2" target="n3">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="11.0" sy="-10.0" tx="-52.1255870253514" ty="-18.593749999999996"/>
+          <y:LineStyle color="#339966" type="line" width="1.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="32.265625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#008000" verticalTextPosition="bottom" visible="true" width="179.248046875" x="19.99825462040161" y="-32.13281710858348">1. Origin, Destination, user_id
+Get trip_id back
+<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="16.0" distanceToCenter="true" position="left" ratio="0.2650713299585826" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e5" source="n3" target="n4">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="14.942531569730193" sy="42.96921611182023" tx="0.0" ty="36.87885127349273"/>
+          <y:LineStyle color="#339966" type="line" width="1.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="32.265625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#008000" verticalTextPosition="bottom" visible="true" width="118.697265625" x="94.35603607533426" y="73.41615411470275">2. Create a new trip
+and return trip_id
+<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="28.452554739156025" distanceToCenter="true" position="right" ratio="0.37924780907690614" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e6" source="n0" target="n3">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="19.754156213875262" sy="-13.928491857390469" tx="0.0" ty="-53.60575199826393"/>
+          <y:LineStyle color="#993366" type="line" width="1.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#993366" verticalTextPosition="bottom" visible="true" width="172.5390625" x="35.58688527373238" y="22.26750513824834">1. Get trip_id if assigned one<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="48.482124322495956" distanceToCenter="true" position="left" ratio="0.2798961334890775" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e7" source="n3" target="n6::n0">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="1.1243211574181622" sy="-41.882732179195955" tx="-18.33204643152942" ty="-16.70274246342234"/>
+          <y:LineStyle color="#993366" type="line" width="1.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#993366" verticalTextPosition="bottom" visible="true" width="179.189453125" x="166.66996722033332" y="-46.672891375035476">2. Read trip_id using driver_id<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="15.326732959512741" distanceToCenter="true" position="left" ratio="0.5542886928775638" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="n6::e0" source="n6::n0" target="n6::n1">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+          <y:Arrows source="none" target="none"/>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_ASSOCIATION"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e8" source="n3" target="n6::n0">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="46.08273310874915" sy="1.3574213927084315" tx="-10.766265573509145" ty="21.80767052611094"/>
+          <y:LineStyle color="#008000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#008000" verticalTextPosition="bottom" visible="true" width="284.001953125" x="144.8555590546007" y="-25.238584410672615">4. update (status_assigned, trip_id) for driver_id
+<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="13.168998950384623" distanceToCenter="true" position="right" ratio="0.4375132515388268" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e9" source="n0" target="n3">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="27.447178876447083" sy="10.982065563587923" tx="-19.487367660760356" ty="-50.34208113709707"/>
+          <y:LineStyle color="#993366" type="line" width="1.0"/>
+          <y:Arrows source="none" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="32.265625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#993366" verticalTextPosition="bottom" visible="true" width="99.71875" x="27.31100810481425" y="47.35307346923278">3. Accept trip_id
+for driver_id<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="4.35009748328325" distanceToCenter="true" position="right" ratio="0.18214993384613953" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e10" source="n3" target="n4">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="57.43140439577962" sy="-35.21051942105652" tx="-9.378060292620944" ty="-24.758053589937322"/>
+          <y:LineStyle color="#993366" type="line" width="1.0"/>
+          <y:Arrows source="none" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#993366" verticalTextPosition="bottom" visible="true" width="175.8203125" x="173.07048671121765" y="59.76013084385255">4. update driver_id for trip_id<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="47.70155998220974" distanceToCenter="true" position="left" ratio="0.5515031216292768" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e11" source="n0" target="n3">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="-10.820264467123337" sy="17.286882945271543" tx="-45.145176240963565" ty="-37.73244637372994"/>
+          <y:LineStyle color="#993366" type="line" width="1.0"/>
+          <y:Arrows source="none" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="32.265625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#993366" verticalTextPosition="bottom" visible="true" width="94.615234375" x="146.99650861862438" y="160.64765402988633">3' Reject trip_id
+for driver_id<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="26.218822265228017" distanceToCenter="true" position="right" ratio="0.8315753478913507" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e12" source="n3" target="n6::n0">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="62.03671924765763" sy="-35.21051942105652" tx="-10.087707810693814" ty="0.0"/>
+          <y:LineStyle color="#993366" type="line" width="1.0"/>
+          <y:Arrows source="none" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#993366" verticalTextPosition="bottom" visible="true" width="270.015625" x="118.27753764207387" y="-23.66237915222439">4'. update (status_idle, trip_id_0) for driver_id<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="4.525076814378826" distanceToCenter="true" position="right" ratio="0.5642200722864884" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e13" source="n3" target="n1">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="2.552166333097375" sy="-52.86400808977049" tx="2.552166333097375" ty="47.156620046066905"/>
+          <y:LineStyle color="#008000" type="line" width="1.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#008000" verticalTextPosition="bottom" visible="true" width="212.728515625" x="-76.36424602041825" y="-84.00671617147924">3. Read {driver_id} using origin(x, y)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="0.0" distance="30.0" distanceToCenter="true" position="right" ratio="0.5" segment="0"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e14" source="n3" target="n4">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="56.554326288841935" sy="-21.33992118135251" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#993366" type="line" width="1.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#993366" verticalTextPosition="bottom" visible="true" width="165.326171875" x="65.25863054669549" y="69.51890067551369">4'. Read origin using trip_id<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="7.026351982401833" distanceToCenter="true" position="right" ratio="0.2260149071849315" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e15" source="n3" target="n1">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="23.769275904087237" sy="-52.86400808977049" tx="23.769275904087237" ty="29.503131377352815"/>
+          <y:LineStyle color="#993366" type="line" width="1.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#993366" verticalTextPosition="bottom" visible="true" width="21.9296875" x="0.12069289966092356" y="-104.204897906148">5'. <y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="11.085547854948661" distanceToCenter="true" position="right" ratio="0.6708708972190939" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#008000" verticalTextPosition="bottom" visible="true" width="464.693359375" x="22.104807895148497" y="-104.204897906148">--&gt; 4. Exclude current driver_id and continue searching other available drivers<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="254.45149878793623" distanceToCenter="true" position="right" ratio="0.6708708972190939" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+    <edge id="e16" source="n2" target="n3">
+      <data key="d10"/>
+      <data key="d11">
+        <y:GenericEdge configuration="com.yworks.bpmn.Connection">
+          <y:Path sx="-6.60531485187807" sy="18.168280963698237" tx="-49.756970960075364" ty="9.574530963698237"/>
+          <y:LineStyle color="#FF0000" type="line" width="1.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="32.265625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#FF0000" verticalTextPosition="bottom" visible="true" width="204.484375" x="41.10423401302245" y="-0.0034083103703892448">trip_id, 
+get driver_id and related info back<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="16.12940176029606" distanceToCenter="true" position="right" ratio="0.25875235920754347" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:StyleProperties>
+            <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="CONNECTION_TYPE_SEQUENCE_FLOW"/>
+          </y:StyleProperties>
+        </y:GenericEdge>
+      </data>
+    </edge>
+  </graph>
+  <data key="d8">
+    <y:Resources>
+      <y:Resource id="1" type="java.awt.image.BufferedImage">iVBORw0KGgoAAAANSUhEUgAAAEAAAAA6CAYAAAAA0F95AAAD4UlEQVR42u2bX0hTURjAr8PZamTi&#13;
+bM7CQB+2wCEZe6jU3koQsUH+C0JIYlFB9mDo1HzwTYzVXpowZRYZBFE5KPElIoMlQhkES6jRS2At&#13;
+GBTu//w6Rzax27l/3N+Tux/8Xrze737fT+8959ydMUx2ogBxFxFGgADriJeIvcwOCp2Ixtlc2EkC&#13;
+jiUhoE8SIAmgP/YhTiMuIq7zcCcJAU6BnFcRRoQmF40fQNxDhJJoLN3gUeM5oiZbzRsQPyhonE0A&#13;
+cSbTzasR3ylsPkEQUZtJAXaKm0/wKlPN7yfd81VVVTA6OgoTExNZZXx8HOrq6rgkHM2EgD72haqr&#13;
+q8Hn80GuIhwOQ319PUmALRNz+U/sC01PT0OuY2FhgSTgF0KZTgEn2RcpLi6GtbU1oCF0Ol3G1xIP&#13;
+2BcwmUxAS4yNjZEEuNLVfGl8ePnrAouLi9QIWF1dBblcTpKgT4eAa+zEer0eaIvW1laSAGs6Hn4f&#13;
+2YktFgt1AmZnZ0kCfIjdqQg4zk5aVFQEXq+XOgHRaBQqKipIEs6nIsDBTtjW1ga0Rn9/P0nA61SW&#13;
+un52wrm5OWoFrKysQEFBAUnC4WQEXGYnqqyshPX1daA5GhsbSQJuJfPwe89ONDw8DLSHw+EgCfiJ&#13;
+2CW2+YOIG6RFBh7+GhoaqMZgMHAtkCwILV/je+LjZuQ/WPKmwkOEit18MeLtDm98K18Qh7be70/y&#13;
+qPkE7xByLOBUHjaf4AoW8IjrFwoLC6Gjo2PjDczU1NTGClCpVFLbEK63q6tro1673Q49PT2gUCiE&#13;
+/guYb6SDpaWl4HK5/hlmPB4PaLVa6povKyuDpaUl4uQIv7bjOZeJkQ44nU7OsdbtdnMtP3PG/Pw8&#13;
+Z73Ly8sgk8k4BfzzQ/yGRSiMRiM1zdfW1grW29TUJF5AZ2enYEL8JpgWAd3d3YL1ms1m8QLwywWh&#13;
+GBgYoEZAe3u7YL29vb3iBahUKggGg7wJeaacWae8vBxCoRBvvTU1NeIFYIaGhjiTzczMUDcK4FuS&#13;
+KyYnJ3lHAeIBvK4eHBwEv9+/mSgWi4HNZhMaW3MCrndkZAQCgcBmvZFIBKxWq9CIxZ+4pKRk4wna&#13;
+0tICGo2G+tldot7m5mZQq9VizsnbabAkQBIgCZAESAIkAZIASQDzmIBfxIlejnNzgUdks08J5xLj&#13;
+ay63oyUREyIFKMQmlARIAiQB+S3ALSLZC4oE3BZRbxQhE5vwmYiEFooEXBJRr3s7Cc8ywl9SOEKR&#13;
+ALyR+7dAzebt7hC5z5PsJkNfnOP6lCu+UUqx3YT4fjEhPsT/4njjxBsmC9/KSCFOxJ9NiZnsZ8QQ&#13;
+3/aYPwdmAD7+lmGoAAAAAElFTkSuQmCC</y:Resource>
+      <y:Resource id="2" type="java.awt.image.BufferedImage">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</y:Resource>
+      <y:Resource id="3" type="java.awt.image.BufferedImage">iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAADfUlEQVR42u1aSWhUQRD9TsYVY0RB&#13;
+XFEhwQ08uYGHgKjRGPEiJIKGREFBhCSCQVQIHjyauF3EKEEQIWJGR1EjIagXRQ8uB3fE3YMYjUuE&#13;
+GI3V0IHmUZmeZP4s9acL3mXqdf357/fvqur+nhdMm0toJYzxstAKCJ8IvYQ2Qjibbn4m4Z2++T4c&#13;
+yyYBFhB+gAAKpQMJ0ptmJGrFhL8Q8ythSrYIoGwPEzcaRAGGE84QZsHvQ/QCiLHXBkmAofqpqjEv&#13;
+CePAP41ZD57GkxUkCJBDaIZxV/STN20nE78iCAKMJNxmxu5gZskL4DxnhBL5CkwgvIWxaspPBV45&#13;
+c401QVkElzIp7zTzurwGzoXBCOC3DfQ6BwglzO8NMF4JMhs4tcD5QxgvSYA6Y4pjylMNz2eI0Qic&#13;
+iYQe4GyRIsAu8N/T0zoWp4uQB5x24LRIEaCR4WxnZsF34GwGThX4vxFCEgQYRrgPnI+6Cowl1GVm&#13;
+jwCvNV/KGqC6vH/AKwfOSvD/1HWAWR53xLMOZGoWiACvjekLuoCzCDjYHzRIEmAF8LoJucC5CZxt&#13;
+4D8C/kuSBMjRC5fJXW65wXrw14D/oSQBlF0FbrVlpT8H/jLwf5AmwCHgHgR/KfjbwV8E/l/SBNhn&#13;
+qfhKwH8H/IXg75HWDKEAJ7JNANsrUJbMVyATBLgG3CrLItgM/g2JLILpFiDMpMFlwDlqmSGYBh9I&#13;
+EqCIKYRGA+cWcLZa6oSoJAGiwGsF/wjCb+AstJTC9VIEWMI0QxuBsyrZzVC6BFBP9hFw3us22bRT&#13;
+luk9z+922G9/f7wmhoNNTh5zCIL7/9XMeWFIggA1THGDf3w3k9/x44gbwDmfaImaKgGU7dW+TkI+&#13;
++MYSvkCM48CZzGyKVkoSQNl+vdB5ltyvbrTAMkO6mbNEkQcjhczByEmmgMITpEgQToYm6VLWHNup&#13;
+fzetgrnGaukCjCLcjSM7qFT5CjhPvAAcjqoscBbGXWR4tUz8TX5tVMTyh5OwCHLNUYse80xnA9Nm&#13;
+6GrQjP2YOVUSK0DfFG9iUmOIyfsKxX5uVWWCAP1ZHRM34vdeXaYKsI5pnDp0MZSQABI+k1usy2CM&#13;
+ud6P3VoJAkwnvIF4h/3arpbyoWS+USBd9wbxsXQQvhSdozdQc5N5YJHqZihl5gRwAjgBxC+CTgAn&#13;
+gBPACeAEcAI4AZw5c+Ystv0H+CI/GH1CTzEAAAAASUVORK5CYII=</y:Resource>
+      <y:Resource id="4">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" width="41px" height="48px" viewBox="-0.875 -0.887 41 48" enable-background="new -0.875 -0.887 41 48"
+	 xml:space="preserve"&gt;
+&lt;defs&gt;
+&lt;/defs&gt;
+&lt;linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="642.8008" y1="-979.1445" x2="682.0508" y2="-979.1445" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#3C89C9"/&gt;
+	&lt;stop  offset="0.1482" style="stop-color:#60A6DD"/&gt;
+	&lt;stop  offset="0.3113" style="stop-color:#81C1F0"/&gt;
+	&lt;stop  offset="0.4476" style="stop-color:#95D1FB"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="0.636" style="stop-color:#98D4FD"/&gt;
+	&lt;stop  offset="0.7293" style="stop-color:#8DCAF6"/&gt;
+	&lt;stop  offset="0.8214" style="stop-color:#79BBEB"/&gt;
+	&lt;stop  offset="0.912" style="stop-color:#5EA5DC"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_1_)" d="M19.625,36.763C8.787,36.763,0,34.888,0,32.575v10c0,2.313,8.787,4.188,19.625,4.188
+	c10.839,0,19.625-1.875,19.625-4.188v-10C39.25,34.888,30.464,36.763,19.625,36.763z"/&gt;
+&lt;linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="642.8008" y1="-973.1445" x2="682.0508" y2="-973.1445" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="0.0039" style="stop-color:#9DD7FF"/&gt;
+	&lt;stop  offset="0.2273" style="stop-color:#BDE5FF"/&gt;
+	&lt;stop  offset="0.4138" style="stop-color:#D1EEFF"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#D9F1FF"/&gt;
+	&lt;stop  offset="0.6155" style="stop-color:#D5EFFE"/&gt;
+	&lt;stop  offset="0.6891" style="stop-color:#C9E7FA"/&gt;
+	&lt;stop  offset="0.7617" style="stop-color:#B6DAF3"/&gt;
+	&lt;stop  offset="0.8337" style="stop-color:#9AC8EA"/&gt;
+	&lt;stop  offset="0.9052" style="stop-color:#77B0DD"/&gt;
+	&lt;stop  offset="0.9754" style="stop-color:#4D94CF"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_2_)" d="M19.625,36.763c10.839,0,19.625-1.875,19.625-4.188l-1.229-2c0,2.168-8.235,3.927-18.396,3.927
+	c-9.481,0-17.396-1.959-18.396-3.927l-1.229,2C0,34.888,8.787,36.763,19.625,36.763z"/&gt;
+&lt;path fill="#3C89C9" d="M19.625,26.468c10.16,0,19.625,2.775,19.625,2.775c-0.375,2.721-5.367,5.438-19.554,5.438
+	c-12.125,0-18.467-2.484-19.541-4.918C-0.127,29.125,9.465,26.468,19.625,26.468z"/&gt;
+&lt;linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="642.8008" y1="-965.6948" x2="682.0508" y2="-965.6948" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#3C89C9"/&gt;
+	&lt;stop  offset="0.1482" style="stop-color:#60A6DD"/&gt;
+	&lt;stop  offset="0.3113" style="stop-color:#81C1F0"/&gt;
+	&lt;stop  offset="0.4476" style="stop-color:#95D1FB"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="0.636" style="stop-color:#98D4FD"/&gt;
+	&lt;stop  offset="0.7293" style="stop-color:#8DCAF6"/&gt;
+	&lt;stop  offset="0.8214" style="stop-color:#79BBEB"/&gt;
+	&lt;stop  offset="0.912" style="stop-color:#5EA5DC"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_3_)" d="M19.625,23.313C8.787,23.313,0,21.438,0,19.125v10c0,2.313,8.787,4.188,19.625,4.188
+	c10.839,0,19.625-1.875,19.625-4.188v-10C39.25,21.438,30.464,23.313,19.625,23.313z"/&gt;
+&lt;linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="642.8008" y1="-959.6948" x2="682.0508" y2="-959.6948" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="0.0039" style="stop-color:#9DD7FF"/&gt;
+	&lt;stop  offset="0.2273" style="stop-color:#BDE5FF"/&gt;
+	&lt;stop  offset="0.4138" style="stop-color:#D1EEFF"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#D9F1FF"/&gt;
+	&lt;stop  offset="0.6155" style="stop-color:#D5EFFE"/&gt;
+	&lt;stop  offset="0.6891" style="stop-color:#C9E7FA"/&gt;
+	&lt;stop  offset="0.7617" style="stop-color:#B6DAF3"/&gt;
+	&lt;stop  offset="0.8337" style="stop-color:#9AC8EA"/&gt;
+	&lt;stop  offset="0.9052" style="stop-color:#77B0DD"/&gt;
+	&lt;stop  offset="0.9754" style="stop-color:#4D94CF"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_4_)" d="M19.625,23.313c10.839,0,19.625-1.875,19.625-4.188l-1.229-2c0,2.168-8.235,3.926-18.396,3.926
+	c-9.481,0-17.396-1.959-18.396-3.926l-1.229,2C0,21.438,8.787,23.313,19.625,23.313z"/&gt;
+&lt;path fill="#3C89C9" d="M19.476,13.019c10.161,0,19.625,2.775,19.625,2.775c-0.375,2.721-5.367,5.438-19.555,5.438
+	c-12.125,0-18.467-2.485-19.541-4.918C-0.277,15.674,9.316,13.019,19.476,13.019z"/&gt;
+&lt;linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="642.8008" y1="-952.4946" x2="682.0508" y2="-952.4946" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#3C89C9"/&gt;
+	&lt;stop  offset="0.1482" style="stop-color:#60A6DD"/&gt;
+	&lt;stop  offset="0.3113" style="stop-color:#81C1F0"/&gt;
+	&lt;stop  offset="0.4476" style="stop-color:#95D1FB"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="0.636" style="stop-color:#98D4FD"/&gt;
+	&lt;stop  offset="0.7293" style="stop-color:#8DCAF6"/&gt;
+	&lt;stop  offset="0.8214" style="stop-color:#79BBEB"/&gt;
+	&lt;stop  offset="0.912" style="stop-color:#5EA5DC"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_5_)" d="M19.625,10.113C8.787,10.113,0,8.238,0,5.925v10c0,2.313,8.787,4.188,19.625,4.188
+	c10.839,0,19.625-1.875,19.625-4.188v-10C39.25,8.238,30.464,10.113,19.625,10.113z"/&gt;
+&lt;linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="642.8008" y1="-946.4946" x2="682.0508" y2="-946.4946" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="0.0039" style="stop-color:#9DD7FF"/&gt;
+	&lt;stop  offset="0.2273" style="stop-color:#BDE5FF"/&gt;
+	&lt;stop  offset="0.4138" style="stop-color:#D1EEFF"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#D9F1FF"/&gt;
+	&lt;stop  offset="0.6155" style="stop-color:#D5EFFE"/&gt;
+	&lt;stop  offset="0.6891" style="stop-color:#C9E7FA"/&gt;
+	&lt;stop  offset="0.7617" style="stop-color:#B6DAF3"/&gt;
+	&lt;stop  offset="0.8337" style="stop-color:#9AC8EA"/&gt;
+	&lt;stop  offset="0.9052" style="stop-color:#77B0DD"/&gt;
+	&lt;stop  offset="0.9754" style="stop-color:#4D94CF"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_6_)" d="M19.625,10.113c10.839,0,19.625-1.875,19.625-4.188l-1.229-2c0,2.168-8.235,3.926-18.396,3.926
+	c-9.481,0-17.396-1.959-18.396-3.926L0,5.925C0,8.238,8.787,10.113,19.625,10.113z"/&gt;
+&lt;linearGradient id="SVGID_7_" gradientUnits="userSpaceOnUse" x1="644.0293" y1="-943.4014" x2="680.8223" y2="-943.4014" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;ellipse fill="url(#SVGID_7_)" cx="19.625" cy="3.926" rx="18.396" ry="3.926"/&gt;
+&lt;path opacity="0.24" fill="#FFFFFF" enable-background="new    " d="M31.04,45.982c0,0-4.354,0.664-7.29,0.781
+	c-3.125,0.125-8.952,0-8.952,0l-2.384-10.292l0.044-2.108l-1.251-1.154L9.789,23.024l-0.082-0.119L9.5,20.529l-1.65-1.254
+	L5.329,8.793c0,0,4.213,0.903,7.234,1.07s8.375,0.25,8.375,0.25l3,9.875l-0.25,1.313l1.063,2.168l2.312,9.645l-0.521,1.416
+	l1.46,1.834L31.04,45.982z"/&gt;
+&lt;/svg&gt;
+</y:Resource>
+    </y:Resources>
+  </data>
+</graphml>

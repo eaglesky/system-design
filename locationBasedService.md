@@ -36,9 +36,9 @@
 * Locations table.
 (driver_id, latitude, longitude, last_updated_time, is_current)
 * Trips table.
-(trip_id, origin, destination, driver_id, passenger_id, creation_date, start_date, end_date, is_deleted, price)
+(trip_id, origin, destination, driver_id(along with denormalized info like car license number, photo_id), passenger_id, creation_date, start_date, end_date, is_deleted, price)
 * Drivers table.
-(driver_id, status, trip_id)
+(driver_id, status, trip_id(may add denormalized columns like origin and destination), last_updated_time)
 
 ## Detailed design
 * How to get the locations of nearby drivers?  
@@ -66,4 +66,14 @@
       + Why horizontal and vertical are done alternatively? Because this can ensure that the hash code of two locations can have similar distance(length of common prefix) if the two locations change. Say two locations are lined up vertically, and another two are lined up horizontally. The hash code distance should end up almost the same, which cannot be achieved if we put all latitude digits first and then longitude digits.
       + The above method actually converts a 2D coordinates into 1D value on the Peano curve. Close points on the curve TYPICALLY BUT NOT NECESSARILY close in the 2D plane, which is the main difference from Hilbert curve. The reason for the sudden change can be easily seen from the Peano curve graph. Or think about two geo hashs: 0111, 1000. They differ only by 1, but the actual location they represent are far away from each other. Therefore when using this method, the actual distance should also be calculated.
       + The binary number is usually converted into a base-32 string. For Geohash, 6 letters has the max error of 0.6km, which is usually enough.
-    - It seems that Google S2 is a preferable choice. It can also be converted into base-32 string.
+  * How to store the geo data?
+    - SQL is not good, no matter we use 64-bit number directly or convert it into base-32 string. We have to index on the geo hash value, and updating the index tree is costly.
+    - NoSQL - Cassandra is not good either for the same reason.
+    - NoSQL - MemCached. Not good since it doesn't persist data. Also it dosn't support Set data structure directly(?).
+    - NoSQL - Redis. Use the string representation of geo hash value(geohash/Google S2) as the key, the value is the (hash) set of drivers with that location. We want to store the map hierachically. Say the geo hash value is 9q9hvt, we store three keys: 9q9hvt, 9q9hv, 9q9h. When the user want to get the nearby drivers, he sends his coordinates and its geo hash value, first return the drivers corresponding to the 6-digit geohash, if nothing, find the drivers with 5-digit geohash, until 3-digit one. To update, driver sends his current and previous location to the service, which will update the map in Redis accordingly.
+* ![Diagram](imgs/location_based_service.svg)
+  * In the above diagram, black and blue arrows represent the workflow for the first stage. 
+  * The green arrows show the workflow for handling passenger's trip request. Note that the passenger's location and origin's location may differ greatly. So the nearby drivers' locations should center on the origin's location rather than the passenger's. This request will be handled by dispatch service, which creates a new trip and assign an available driver immediately. If the driver accepts it, trip table will be updated with the driver's brief info, and since the passenger keeps asking the server for response(red arrow), he should be notified very soon with the driver's info.
+  * The dark purple arrows represent the workflow of driver's interaction with dispatch service. He keeps asking the server for new trip when idle, or asking to see if the trip is canceled when confirmed a trip. There are just two status here: idle and assigned. If the driver accepts the trip, the trip table will be updated with his brief info. Otherwise, drivers table will be updated with idle status, and a new round of searching for available drivers will be started with trip info.
+  * After the driver picks up the passenger, he clicks on "start trip" which sends request to the server that modifies the start_date for the corresponding trip. After dropping the passenger off, he clicks on "end trip" which sends request to the server that modifies the end_date for that trip. Also marking the driver "idle" in the drivers table. This is not drawn in the diagram yet. 
+  * If the passenger rejects the trip after seeing the confirmation, it will send a request to the server with pr_id, trip_id and corresponding data in the trips table and drivers table will be updated. This is not drawn in the diagram yet.
