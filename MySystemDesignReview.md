@@ -479,6 +479,16 @@ The above are just estimation for common uses. Actual throughput depends on the 
 * Estimate storage. 
 * Estimate ingress and egress network bandwidth. And QPS.
 
+## System Design Workflow
+* Scnario. 
+  - Use cases.
+  - Esimation. Usually need to estimate DAU and QPS. For storage, it maybe okay to delay estimating the number.
+* Service and Storage. 
+  - Try to give a high level design first that handles all the required use cases. After this, we should be clear about what services and tables are involved. 
+  - Note that each service usually correspond to a servlet that handles particular requests. Difference services can run either on the same server or different servers. As long as they don't store data(stateless), they will perform the same, and scale horizontally in the same way. For each request, total_processing_time = in_queue_time + actual_processing_time. Since different services typically don't share any data, when they run in parallel on the same machine, they should not affect each other, and thus actual_processing_time are the same. in_queue_time should be the same too, so total_processing_time should be equal.
+  - Dive into each part, figuring out how to store each table, and the workflow of handling the requests.
+* Scale.
+
 # Design Examples
 * Twitter -- timeline and newsfeed. (See Nine Chapter slide for details)
 * [Web crawler](crawler.md)
