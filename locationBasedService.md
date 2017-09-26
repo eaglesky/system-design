@@ -52,7 +52,7 @@
     ```
     This is too slow -- run time is linear to the number of records.
   * Spatial indexing. To speed the location query up, we can try indexing the locations in the DB, which essentially maintaining a B tree containing the sorted data in its leaves and linking them together. If we use the default index of multi-value fields, i.e., (x1, y1) < (x2, y2) <=> (x1 < x2) || ((x1 == x2) && (y1 < y2)). This comparator is valid, but using it would return locations of same x coordinate for the location queries, neglecting too many useful results. This indexing can be visualized by following diagram. Image a 1D zigzag line from (0, 0) to (4, 4) crossing all the 2D points. The closer to the origin the 2D point is on the zigzag line, the smaller it is after the default indexing.  
-  <img src="imgs/default_location_indexing.png" width="100">  
+  <img src="imgs/default_location_indexing.png" width="100" />
   There are two other ways of indexing the coordinates that works great for our use, both of which map the 2D cooridinates to a 1D value using some special algorithms. 
     - Google S2. Used by Uber. More precise and has richer APIs compared to the other.
       + It first partition the sphere space into 2D grid. The size of cell can be specified. 
@@ -77,3 +77,11 @@
   * The dark purple arrows represent the workflow of driver's interaction with dispatch service. He keeps asking the server for new trip when idle, or asking to see if the trip is canceled when confirmed a trip. There are just two status here: idle and assigned. If the driver accepts the trip, the trip table will be updated with his brief info. Otherwise, drivers table will be updated with idle status, and a new round of searching for available drivers will be started with trip info.
   * After the driver picks up the passenger, he clicks on "start trip" which sends request to the server that modifies the start_date for the corresponding trip. After dropping the passenger off, he clicks on "end trip" which sends request to the server that modifies the end_date for that trip. Also marking the driver "idle" in the drivers table. This is not drawn in the diagram yet. 
   * If the passenger rejects the trip after seeing the confirmation, it will send a request to the server with pr_id, trip_id and corresponding data in the trips table and drivers table will be updated. This is not drawn in the diagram yet.
+* Given a user's location, how to find out which area he is in? This info is useful for implementing dynamic pricing and showing which products are available to the user. The area is defined by geo-fences, which could be a lot. So search in hierachy is much faster than doing a naive linear search. Typially this is implemented with a dedicated service.
+https://eng.uber.com/go-geofence/
+  * Point in polygon algorithm -- ray casting. http://www.geeksforgeeks.org/how-to-check-if-a-given-point-lies-inside-a-polygon/
+  https://en.wikipedia.org/wiki/Point_in_polygon
+
+## Scale
+* As for the data replication in Redis, it can be either done by its default -- master-slave for each shard, or by saving several replica in seperate machines. 
+* We can also use Riak, which is also a key-value NoSQL database. Compared with Redis, it is slower but has good scalability. https://stackoverflow.com/questions/37059609/what-are-riak-advantages-for-redis-key-value-store

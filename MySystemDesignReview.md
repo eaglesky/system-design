@@ -81,7 +81,16 @@ https://en.wikipedia.org/wiki/C10k_problem
 ### Load balancing strategies
 
 1.  Based on load of the server(how busy it is, the cpu usage, or the number of connections).
-2.  Store different types of files on different servers, and use the suffix of url to discreminate them. 
+2.  Store different types of files on different servers, and use the suffix of url to discreminate them. This is often used if the backend uses microservices. https://docs.microsoft.com/en-us/azure/application-gateway/application-gateway-url-route-overview. Changes in routing rules on the LBs often require an update in the public DNS, which can be done atomically. http://www.trinimbus.com/blog/using-application-load-balancers-to-refactor-monolithic-applications/
+For example if we have a large application that would benefit by migrating part of the application to a microservice architecture, we can use path based routing to direct requests to a new set of resources as follows:
+  * Identify path pattern match conditions.
+  * Review any dependencies required to decouple the application components.
+  * Design the architecture to support the new microservice component.
+  * Deploy the new microservice architecture.
+  * Create a new Application Load Balancer with 2 Target Groups. One for the main application, and one for the new microservice.  Note: CloudFormation support is already available.
+  * Test using the new ALB based application before updating public DNS entries to ensure the new ALB and the new Microservice are working correctly.
+  * Consider solutions to migrate traffic from an existing Classic Elastic Load Balancer, to the new Application Load Balancer. For example you may want to use a Route53 Weighted Record set to send 10% of the traffic to the new ALB to reduce impacts, before routing the remaining traffic from the Classic Elastic Load Balancer.
+  * Keep the Classic Elastic Load Balancer around to allow for a quicker rollback and to ensure all cached DNS entries expire before removing the old ELB.
 3.  Round robin. Example: BIND(the most widely used Domain Name System (DNS) software on the Internet) uses this strategy to resolve a host name --- same host name, but different ip each time. The drawback of this strategy is that one or few server could always receive requests that require most computation resource, making them much busier than the rest. Another thing that can show it is a bad strategy is DNS caching, which exists on the user's computer(maintained by the OS and browser). This caching is a map of host name and ip address that will expire(clear) after a certain amount of time(TTL). It is only used for speeding up the response time  (https://www.lifewire.com/introduction-to-domain-name-system-817512). So if an user keeps doing expensive work, it will always be done on the same server during TTL and that server will be always busy. Therefore instead of relying on the DNS server to do the load balancing, it is better to let the DNS server return the ip of the load balancer.
 
 Server-side sessions could cause problems for load balancing, because one session for a user is only stored on one server. Solution: store all the sessions on a dedicated session server, or the load balancer itself, which can be accessed by all servers.
