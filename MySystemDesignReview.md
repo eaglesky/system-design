@@ -200,9 +200,18 @@ http://www.lecloud.net/post/9246290032/scalability-for-dummies-part-3-cache
 * Write-back cache is where write I/O is directed to cache and completion is immediately confirmed to the host. This results in low latency and high throughput for write-intensive applications, but there is data availability exposure risk because the only copy of the written data is in cache. As we will discuss later, suppliers have added resiliency with products that duplicate writes. Users need to consider whether write-back cache offers enough protection as data is exposed until it is staged to external storage. Write-back cache is the best performer for mixed workloads as both read and write I/O have similar response time levels.
 * If there is some problem or it is expensive writing to cache(requires loading data from multiple sources), we can have a asyncynous server updating the cache periodically to make the data up-to-date. Need to maintain last update time(for each key). E.g. Facebook newsfeed.
 
-## Database.
+## Bloom Filter
+Bloom Filter is used to check if an element has appeared or not. If it says no, then it is guaranteeded to be no. However if it says yes, there is still a chance(false positive rate, FPR) that it has not appeared. So generally it is a space-efficient way of doing fast-no.
 
-### Database storage engine.
+Algorithm is as follows:
+* An empty Bloom filter is a bit array of m bits, all set to 0. There must also be k different hash functions defined, each of which maps or hashes some set element to one of the m array positions, generating a uniform random distribution. Typically, k is a constant, much smaller than m, which is proportional to the number of elements to be added; the precise choice of k and the constant of proportionality of m are determined by the intended false positive rate of the filter.
+* To add an element, feed it to each of the k hash functions to get k array positions. Set the bits at all these positions to 1.
+* To query for an element (test whether it is in the set), feed it to each of the k hash functions to get k array positions. If any of the bits at these positions is 0, the element is definitely not in the set – if it were, then all the bits would have been set to 1 when it was inserted. If all are 1, then either the element is in the set, or the bits have by chance been set to 1 during the insertion of other elements, resulting in a false positive. In a simple Bloom filter, there is no way to distinguish between the two cases, but more advanced techniques can address this problem.
+* More here: https://en.wikipedia.org/wiki/Bloom_filter
+
+## Database
+
+### Database storage engine
 
 A database storage engine is the underlying software that a DBMS uses to create,read, update and delete data from a database. The storage engine should be thought of as a “bolt on” to the database (server daemon), which controls the database’s interaction with memory and storage subsystems. Thus, the storage engine is not actually the database, but a service that the database consumes for the storage and retrieval of information.  
 Given that the storage engine is responsible for managing the information stored in the database, it greatly affects the overall performance of the database (or lack thereof, if the wrong engine is chosen). https://www.percona.com/blog/2016/01/06/mongodb-revs-you-up-what-storage-engine-is-right-part-1/
@@ -274,7 +283,7 @@ http://www.vertabelo.com/blog/technical-articles/denormalization-when-why-and-ho
 
 * Atomicity. In a transaction involving two or more discrete pieces of information, either all of the pieces are committed or none are.
 * Consistency. A transaction either creates a new and valid state of data, or, if any failure occurs, returns all data to its state before the transaction was started.
-* Isolation. A transaction in process and not yet committed must remain isolated from any other transaction.
+* Isolation. A transaction in process and not yet committed must remain isolated from any other transaction. A transaction could only lock affected rows but not the whole table for some database engines.
 * Durability. Committed data is saved by the system such that, even in the event of a failure and system restart, the data is available in its correct state.
 
 ### Improving database query performance.
@@ -328,7 +337,7 @@ https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.h
    2. The data is not evenly distributed.
   
   * Consistent hashing II(solve the above problems):  
-    Algorithm:
+    Algorithm: (Note that the hash function should be chosen such that the hash codes are uniform distributed on the circle -- more in *Introduction to Algorithms* Hash Functions chapter.)
     http://afghl.github.io/2016/07/04/consistent-hashing.html
     https://loveforprogramming.quora.com/Distributed-Systems-Part-1-A-peek-into-consistent-hashing  
     Implementation:
@@ -379,27 +388,22 @@ https://docs.mongodb.com/manual/core/sharded-cluster-config-servers/#config-serv
   3. Minimize the replication lag to reduce the chance of stale data being read from stale slaves.
 
 
-#### NoSQL databases.
+#### NoSQL databases
 
 ##### General introduction.
-
-Good introduction video: https://www.youtube.com/watch?v=qI_g07C_Q5I
-
-Hard to define, usually has characteristics:
-Non-relational, cluster-friendly, schema-less, open-source.
-
-Types:
-Key-value: Redis(CP?), Memcached, Oracle NoSQL database.
-Document: MongoDB(CP, by default read and write go to the master)
-Column: HBase(CP), Cassandra(AP)
-Graph: Neo4j(CP)
-
-Why NoSQL?
+* Good introduction video: https://www.youtube.com/watch?v=qI_g07C_Q5I
+Hard to define, usually has characteristics: Non-relational, cluster-friendly, schema-less, open-source.
+  * Types:
+    * Key-value: Redis(CP?), Memcached, Oracle NoSQL database.
+    * Document: MongoDB(CP, by default read and write go to the master)
+    * Column: HBase(CP), Cassandra(AP)
+    * Graph: Neo4j(CP)
+* Why NoSQL?
 NoSQL encompasses a wide variety of different database technologies that were developed in response to the demands presented in building modern applications:
-* Developers are working with applications that create massive volumes of new, rapidly changing data types — structured, semi-structured, unstructured and polymorphic data.
-* Long gone is the twelve-to-eighteen month waterfall development cycle. Now small teams work in agile sprints, iterating quickly and pushing code every week or two, some even multiple times every day.
-* Applications that once served a finite audience are now delivered as services that must be always-on, accessible from many different devices and scaled globally to millions of users.
-* Organizations are now turning to scale-out architectures using open source software, commodity servers and cloud computing instead of large monolithic servers and storage infrastructure. Relational databases were not designed to cope with the scale and agility challenges that face modern applications, nor were they built to take advantage of the commodity storage and processing power available today.
+  * Developers are working with applications that create massive volumes of new, rapidly changing data types — structured, semi-structured, unstructured and polymorphic data.
+  * Long gone is the twelve-to-eighteen month waterfall development cycle. Now small teams work in agile sprints, iterating quickly and pushing code every week or two, some even multiple times every day.
+  * Applications that once served a finite audience are now delivered as services that must be always-on, accessible from many different devices and scaled globally to millions of users.
+  * Organizations are now turning to scale-out architectures using open source software, commodity servers and cloud computing instead of large monolithic servers and storage infrastructure. Relational databases were not designed to cope with the scale and agility challenges that face modern applications, nor were they built to take advantage of the commodity storage and processing power available today.
 
 ##### Introduction to a few NoSQL databases.
 
@@ -418,10 +422,12 @@ NoSQL encompasses a wide variety of different database technologies that were de
   Architecture: https://www.mongodb.com/presentations/webinar-everything-you-need-know-about-sharding?jmp=docs&_ga=1.78388884.1635526347.1487659117
 
 * HBase
+  Open Source of Bigtable.
   Introduction and Data Model: http://hbase.apache.org/0.94/book/datamodel.html
   Data Model and Architecture:  https://www.edureka.co/blog/hbase-architecture/
 
 * Cassandra
+  * Developed by Facebook developers who are authors of Amazon's Dynamo. Inspired by the paper: http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf.
   * Data format: `<row_key, column_key, value>`. 
    * row_key is the hash key and can not do range query on it. Like user_id.
    * column_key is sorted(either by time or name) and can do range query. Can be compound value like timestamp + user_id.
@@ -505,8 +511,19 @@ The above are just estimation for common uses. Actual throughput depends on the 
 * [Web crawler](crawler.md)
 * [Type-ahead/Google Suggestion](typeahead.md)
 * [Distributed file system](fileSystemDesign.md)
-* [Tiny URL](tinyURL.md). Application of internationally distributed DB, compound id that contains shard key, global unique ID for distributed DB.
-
+* Big Table. See Nine Chapter slides for details.
+  - How to store chunk files.
+  - Application of Bloom Filter.
+  - Read/write eventually goes to the slave servers.
+* [Tiny URL](tinyURL.md).
+  - Application of internationally distributed DB
+  - Compound id that contains shard key
+  - Generate global unique ID for distributed DB.
+* [Location based service](locationBasedService.md).
+  - Write and read heavy system.
+  - Business logic involves multiple workflows.
+  - Design the system so that each request is processed as fast as possible, and let the client pulling the result repeatedly instead of waiting indefinitely.
+  - Spatial indexing algorithms for fast geo location look-up.
 
 # Small design cases
 * How to find mutual friends?  
