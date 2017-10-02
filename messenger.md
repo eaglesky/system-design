@@ -1,56 +1,29 @@
 # Messenger
-
-<!-- MarkdownTOC -->
-
-- [Scenario](#scenario)
-	- [Core features](#core-features)
-		- [One to one chatting](#one-to-one-chatting)
-		- [Group chatting](#group-chatting)
-		- [User online status](#user-online-status)
-	- [Common features](#common-features)
-		- [History info](#history-info)
-		- [Log in from multiple devices](#log-in-from-multiple-devices)
-		- [Friendship / Contact book](#friendship--contact-book)
-- [Estimation](#estimation)
-- [Service](#service)
-	- [Message service](#message-service)
-- [Storage](#storage)
-	- [Message table](#message-table)
-	- [Thread table](#thread-table)
-	- [Initial solution](#initial-solution)
-- [Scale](#scale)
-	- [Sharding](#sharding)
-	- [Speed up with Push service](#speed-up-with-push-service)
-		- [Socket](#socket)
-		- [Push service](#push-service)
-			- [Initialization and termination](#initialization-and-termination)
-			- [Number of push servers](#number-of-push-servers)
-			- [Steps](#steps)
-	- [Channel service](#channel-service)
-	- [How to check / update online status](#how-to-check--update-online-status)
-		- [Online status pull](#online-status-pull)
-		- [Online status push](#online-status-push)
-
-<!-- /MarkdownTOC -->
-
 ## Scenario
-### Core features
-#### One to one chatting
-#### Group chatting
-#### User online status
+### Core use cases
+* One to one chatting
+* Group chatting
+* User online status
 
-### Common features
-#### History info
-#### Log in from multiple devices
-#### Friendship / Contact book
+### Common use cases
+* History info
+* Log in from multiple devices
+* Friendship / Contact book
 
-## Estimation
+### Estimation
+* Requests sent from the client(analyzed from the use cases)
+	1. Read (thread_ids, thread_name, thread_last_msg) <- (user_id)
+	2. Read (latest_n_msgs(msg, timestamp, sender_id)) <- (thread_id)
+	3. Write (sender_id, thread_id, msg, timestamp, new_thread_info)
+	4. Read (thread_info) <- (user_id, thread_id)
+	5. Write (thread_info, user_id, thread_id)
 * DAU: 100M 
 * QPS: Suppose a user posts 20 messages / day
-	- Average QPS = 100M * 20 / 86400 ~ 20k
-	- Peak QPS = 20k * 5 = 100k
+	- Average Write QPS = 100M * 20 / 86400 ~ 20k
+	- Peak Write QPS = 20k * 5 = 100k
+	- If we send 1, 2 perodically -- every 1s, then the read QPS the system needs to support is 100M QPS -- too high and need to use a better way.
 * Storage: Suppose A user sends 20 messages / day
-	- 100M * 20 * 30 Bytes = 30G
+	- 100M * 20 * 30 Bytes = 30G new data each day.
 
 ## Service
 ### Message service
@@ -62,40 +35,46 @@
 	- No modification required
 * Schema
 
-| Columns   | Type      |                  | 
-|-----------|-----------|------------------| 
-| messageId | integer   | userID+Timestamp | 
-| threadId  | integer   | the thread it belongs. Foreign key  | 
-| userId    | integer   |                  | 
-| content   | text      |                  | 
-| createdAt | timestamp |                  | 
+	| Columns      | Type      |                  | 
+	|-----------   |-----------|------------------| 
+	| message_id   | integer   | sender_id+timestamp. Primary key    | 
+	| thread_id    | integer   | the thread it belongs. Foreign key  | 
+	| sender_id    | integer   |                  									 | 
+	| content   	 | text      |                  									 | 
+	| created_time | timestamp |                  									 |	
 
-### Thread table
+	* For message_id, the timestamp has the granularity of second, since two messages cannot be sent out by same user within 1 sec. We can use 64bits integer to store the composite id, where first 32bits storing the timestamp and the rest storing the sender_id. If we use epoch time starting from today, then for the next 100years, the time is 86400s/day x 365 x 100 = 3B, smaller than the largest number that can be represented by 32bits(4B, remember this!). The rest of bits can store as many as 4 billion people, which can be more if we use larger data type or reduce the space left for the timestamp.
+	A better way might be remove the message_id and use (thread_id, created_time) as the primary key. Most of the NoSQL databases allow composite primary keys(https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key/). 
+
+### User-thread table
 * SQL database
-    - Need to support multiple index
-    - Index by 
-    	+ Owner user Id: Search all of chat participated by me
-    	+ Thread id: Get all detailed info about a thread (e.g. label)
-    	+ Participants hash: Find whether a certain group of persons already has a chat group
-    	+ Updated time: Order chats by update time
+	- One machine is probably enough. Assuming 8 billion people on earth all use this system. The size of this table = 8 x 10^9 x 10 x 30 = 2TB. 
+  - Need to support multiple indices
+  - Build the following indices:
+    + user_id(+updated_time): Search all threads the user participates, and order by updated time. Since there are usually not many threads for each user, it is okay to query on user_id only and then sort the result in memory.
+    + user_id + thread id: Get all detailed info about a thread (e.g. label, participants, and user-related info like mute or not).
+    + participants_hash: Find whether a certain group of persons already has a chat group. This is used to prevent from creating another group with same participants, but I think it should be allowed, so this column can be removed.
 * Schema
-	- Primary key is userId + threadId
-		+ Why not use UUID as primary key? Need sharding. Not possible to maintain a global ID across different machines. Use UUID, really low efficiency.
 
-| Columns          | Type      |                          | 
-|------------------|-----------|--------------------------| 
-| userId           | integer   |                          | 
-| threadId         | integer   | createUserId + timestamp | 
-| participantsId   | text      | json                     | 
-| participantsHash | string    | avoid duplicates threads | 
-| createdAt        | timestamp |                          | 
-| updatedAt        | timestamp | index=true               | 
-| label            | string    |                          | 
-| mute             | boolean   |                          | 
+	| Columns          | Type      |                          | 
+	|------------------|-----------|--------------------------| 
+	| user_id           | integer   | id of a participant in the thread| 
+	| thread_id         | integer   | createUserId + timestamp | 
+	| participants_ids   | text      | json                     | 
+	| participants_hash | string    | avoid duplicates threads | 
+	| created_time        | timestamp |                          | 
+	| updated_time        | timestamp | index=true               | 
+	| label            | string    |                          | 
+	| mute             | boolean   |                          | 
+
+	- Primary key is user_id + thread_id
+		+ Why not use UUID as primary key? Need sharding. Not possible to maintain a global ID across different machines. Use UUID, really low efficiency.
+	- If a thread has n participants, when a new thread is created, n rows must be inserted to Thread table with their corresponding user ids. The shared information can be stored in a separate table, but that would make getting full information of a thread slower since it requires two queries. 
+	- thread_id can be stored using 64-bits integer, same ways as the message_id.
 
 ### Initial solution
 * Sender sends message and message receiverId to server
-* Server creates a thread for each receiver and message sender
+* Server creates a thread for each receiver and sender
 * Server creates a new message (with thread_id)
 * How does user receives information
 	- Pull server every 10 second
@@ -103,7 +82,7 @@
 ## Scale
 ### Sharding
 * Message table
-	- NoSQL. Do not need to take care of sharding/replica. Just need to do some configuration. 
+	- Shard by thread_id. For each shard, build local index on (thread_id, created_time). The primary key should be (message_id, thread_id), because most of the NoSQL databases enforce that shard key is part of primary key, so that they can easily check if there are duplicate rows inserted(otherwise, another row with same shard key and same primary key could be stored into a different machine and NoSQL has no way of detecting that).
 * Thread table
 	- According to userId. 
 	- Why not according to threadId?

@@ -240,6 +240,10 @@ When handling small data sets with arbitrary, probably unrelated data, file is m
 
 https://www.quora.com/Linux-Kernel-How-do-the-path-look-up-mechanism-namei-work-in-Linux
 
+### Primary key.
+* Every table should have a primary key that uniquely identifies each row. It cannot be null. A table can have only one primary key, which may consist of single or multiple fields(E.g. primary key in association tables is often made of the two associated ids).
+* In NoSQL databases, there must be a primary key too, which is the key in the (key, value) map and can be a composite key too(https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key/). Since those databases are usually distributed, it is better to create the PM from existing columns rather than generating a global unique id for it. This is also the preferable way for SQL database too as you don't have to save it first to get the primary key value.
+
 ### Database indexing.
 
 http://www.programmerinterview.com/index.php/database-sql/what-is-an-index/
@@ -258,6 +262,7 @@ A Secondary index is an index that is not a primary index and may have duplicate
 https://www.quora.com/What-is-difference-between-primary-index-and-secondary-index-exactly-And-whats-advantage-of-one-over-another
 https://stackoverflow.com/questions/20824686/what-is-difference-between-primary-index-and-secondary-index-exactly
   * Global and local secondary index. http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html
+If the column being indexed could have duplicate values, then in the index tree, there may be multiple leaves with same key(column value). So query on that indexed column may involve a small linear search at last. If there are not many duplicates, searching the index tree is still fast and log time.
 
 ### Normalization and denormalization.
 Normalize until it hurts, denormalize until it works.  
@@ -270,6 +275,13 @@ http://www.vertabelo.com/blog/technical-articles/denormalization-when-why-and-ho
 #### Many to Many relation
 * http://www.joinfu.com/2005/12/managing-many-to-many-relationships-in-mysql-part-1/
 * https://stackoverflow.com/questions/3653462/is-storing-a-delimited-list-in-a-database-column-really-that-bad/3653574#3653574
+* Multi-value field vs association table.
+  - The former is a deformalized form, so it is faster to get the associated values using multi-value field than assocication table.
+  - The former way has limit on the number of multi-values.
+  - It is hard to join the multi-value field with the other table, some old version of MySQL doesn't have direct support on that. 
+  - It is possible to denomalize the association table by adding columns from the other table to it. E.g. User id and thread id(conversation id) has many-to-many relation. The association table can include the complete info of each thread in it.
+  - It is hard to query on the multi-value field.
+  - If just update associations, no need to touch the two joined tables using the latter way. 
 
 ##### Friendship table
 * One direction friendship is easy to store. 
@@ -353,11 +365,11 @@ https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.h
 E.g. https://docs.mongodb.com/manual/core/sharded-cluster-query-router/#routing-and-results-process
 https://docs.mongodb.com/manual/core/sharded-cluster-config-servers/#config-servers
 
-* The choice of shard key is very important. Sometimes if there could be uneven requests using user_id, then choosing user_id as shard key may cause some servers get too much load(hotspots). The solutions I've found are:
+* The choice of shard key is very important. Sometimes if there could be uneven requests using user_id, then choosing user_id as shard key may cause some servers get too much load(hot spots). The solutions I've found are:
   1. Choose another shard key, like id.
   2. Still use user_id, but replicating the data to more machines.
   3. Add cache servers to cache the hot data. Cache servers can handle more QPS. But may still need to use method 2 to mitigate hot spot issue.
-  4. Identify hot spot through proper monitoring and manually split the data to other servers.
+  4. Identify hot spot through proper monitoring and manually split the data to other servers. One way is to first identify the partition key that is hot, then split the data by assigning the partition key of each part a random suffix. This should be added to some special logic and repeatedly query them(https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key/)
 
 
 #### Database replication
