@@ -59,7 +59,7 @@
 	| Columns          | Type      |                          | 
 	|------------------|-----------|--------------------------| 
 	| user_id           | integer   | id of a participant in the thread| 
-	| thread_id         | integer   | createUserId + timestamp | 
+	| thread_id         | integer   | creater_id + created_time | 
 	| participants_ids   | text      | json                     | 
 	| participants_hash | string    | avoid duplicates threads | 
 	| created_time        | timestamp |                          | 
@@ -82,13 +82,12 @@
 ## Scale
 ### Sharding
 * Message table
-	- Shard by thread_id. For each shard, build local index on (thread_id, created_time). The primary key should be (message_id, thread_id), because most of the NoSQL databases enforce that shard key is part of primary key, so that they can easily check if there are duplicate rows inserted(otherwise, another row with same shard key and same primary key could be stored into a different machine and NoSQL has no way of detecting that).
-* Thread table
-	- According to userId. 
-	- Why not according to threadId?
-		+ To make the most frequent queries more efficient: Select * from thread table where user_id = XX order by updatedAt
+	- Shard by (thread_id, created_time). It can also be used as primary key since it can uniquely identify each message. Using thread_id along as shard key would cause hot spot for writes when a certain thread has many participants talking all the time. However reads using thread_id have to go to all the shards(how to improve this?). 
+* User-thread table
+	- Shard by userId. There shouldn't be write hot spot since users typically not creating new groups freqently(unless it is a bot). And users typically give even read to this table.
 
 ### Speed up with Push service
+Even with pre-generated user-message table like the one in Twitter design, it is still slow as the latency includes push time and polling period. 
 #### Socket
 * HTTP vs Socket
 	- HTTP: Only client can ask server for data

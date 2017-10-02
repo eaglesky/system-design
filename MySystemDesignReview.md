@@ -365,11 +365,14 @@ https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.h
 E.g. https://docs.mongodb.com/manual/core/sharded-cluster-query-router/#routing-and-results-process
 https://docs.mongodb.com/manual/core/sharded-cluster-config-servers/#config-servers
 
-* The choice of shard key is very important. Sometimes if there could be uneven requests using user_id, then choosing user_id as shard key may cause some servers get too much load(hot spots). The solutions I've found are:
-  1. Choose another shard key, like id.
-  2. Still use user_id, but replicating the data to more machines.
-  3. Add cache servers to cache the hot data. Cache servers can handle more QPS. But may still need to use method 2 to mitigate hot spot issue.
-  4. Identify hot spot through proper monitoring and manually split the data to other servers. One way is to first identify the partition key that is hot, then split the data by assigning the partition key of each part a random suffix. This should be added to some special logic and repeatedly query them(https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key/)
+* The choice of shard key is very important.
+  * Besides consistent hashing, range based partitioning is also often used(MongoDB, HBase..). In that case, using some increasing keys like timestamp as shard key could result in hot spot. https://medium.com/@jeeyoungk/how-sharding-works-b4dec46b3f6.
+  * Shard key must be part of primairy key, so that it is easy to check if there are duplicate rows inserted(otherwise, another row with same shard key and same primary key could be stored into a different machine and NoSQL has no way of detecting that). Both shard key and primary key can be composite.
+  * Sometimes if there could be uneven requests using user_id, then choosing user_id as shard key may cause some servers get too much load(hot spots). The solutions I've found are:
+    1. Choose another shard key, like id.
+    2. Still use user_id, but replicating the data to more machines.
+    3. Add cache servers to cache the hot data. Cache servers can handle more QPS. But may still need to use method 2 to mitigate hot spot issue.
+    4. Identify hot spot through proper monitoring and manually split the data to other servers. One way is to first identify the partition key that is hot, then split the data by assigning the partition key of each part a random suffix. This should be added to some special logic and repeatedly query them(https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key/). This seems the only way to handle write hot spot.
 
 
 #### Database replication
