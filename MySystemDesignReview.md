@@ -25,14 +25,17 @@ https://hostingfacts.com/different-types-of-web-hosting/.
 ### Computer Protocols- TCP/IP, POP, SMTP, HTTP, FTP and More
 
 http://vlaurie.com/computers2/Articles/protocol.htm
-FTP is application level, built on top of TCP. 
+https://www.quora.com/What-is-the-difference-between-HTTP-protocol-and-TCP-protocol/answer/Daniel-Miller-7?srid=nZLo
 
-#### TCP vs UDP
+#### TCP, UDP, FCP.
+TCP first tries to establish a reliable connection between client and server by using three-way handshaking. Once it is done, the client starts sending data over the connection.
 When transmitting a large file, TCP could be slow if the distance is long. Because the large file transmitted package by package, whose size is determined by MTU. Each package will be only sent when the previous one is sent successfully to the destination and the sender got ACK. So the total transmission time = number of packages * RTT of each package. The latter is mostly affected by the distance.
 http://moo.nac.uci.edu/~hjm/HOWTO_move_data.html
 
 https://www.howtogeek.com/190014/htg-explains-what-is-the-difference-between-tcp-and-udp/
 UDP is less reliable but much faster, so it is preferable for transmitting time-critical data, like live video stream and online game data.
+
+FTP is application level, built on top of TCP. 
 
 #### Ports
 
@@ -40,6 +43,22 @@ Open tcp port 80(http) and tcp port 443(https) for the traffic coming into the L
 Opening tcp port 80 for the inside traffic after first layer of LB can save putting
 SSL certificate on all of the web servers.
 Open tcp port 3306(MySQL db server default)
+
+### (Long)polling, WebSocket, Server-Sent Events 
+* Http polling. Client repeatedly sends HTTP requests to the server and expects response for every one of them. Each connection is usually short, and many requests just got empty response. 
+* Http long polling. Similar to the previous one, client repeatedly sends Http requests to the server. But the difference is for each request it waits until either there is a valid result computed by the server or a timeout. This way could waste ports on the server if the connection persists too long for a single response. 
+* WebSocket. A computer communications protocol, providing full-duplex(two-way) communication channels over a single TCP connection, which is at the same layer as Http.  It provides a persistent connection between a client and a server that both parties can use to start sending data at any time. The client establishes a WebSocket connection through a process known as the WebSocket handshake. If the process succeeds, then the server and client can exchange data in both directions at any time. The WebSocket protocol enables communication between a client and a server with lower overheads, facilitating real-time data transfer from and to the server. This is made possible by providing a standardized way for the server to send content to the browser without being asked by the client, and allowing for messages to be passed back and forth while keeping the connection open. 
+The WebSocket protocol is currently supported in most major browsers including Google Chrome, Microsoft Edge, Internet Explorer, Firefox, Safari and Opera. WebSocket also requires web applications on the server to support it.
+* Server-Sent Events (SSEs). Under SSEs the client establishes a persistent and long-term connection with the server. The server uses this connection to send data to a client. If the client wants to send data to the server, it would require the use of another technology/protocol to do so.
+  1. Client requests data from a server using regular HTTP.
+  2. The requested webpage opens a connection to the server.
+  3. The server sends the data to the client whenever there’s new information available.
+
+  SSEs are best when we need real-time traffic from the server to the client or if the server is generating data in a loop and will be sending multiple events to the client.
+* Ref:
+  - Grokking the System Design Interview.
+  - https://stackoverflow.com/questions/5195452/websockets-vs-server-sent-events-eventsource
+
 
 ### Cookies
 

@@ -12,7 +12,7 @@
 
 ### Estimation
 * Requests sent from the client(analyzed from the use cases)
-	1. Read (thread_ids, thread_name, thread_last_msg) <- (user_id)
+	1. Read (thread_ids, thread_name, thread_last_msg, thread_user_setting) <- (user_id)
 	2. Read (latest_n_msgs(msg, timestamp, sender_id)) <- (thread_id)
 	3. Write (sender_id, thread_id, msg, timestamp, new_thread_info)
 	4. Read (thread_info) <- (user_id, thread_id)
@@ -88,12 +88,13 @@
 
 ### Speed up with Push service
 Even with pre-generated user-message table like the one in Twitter design, it is still slow as the latency includes push time and polling period. 
+
 #### Socket
 * HTTP vs Socket
 	- HTTP: Only client can ask server for data
 	- Socket: Server could push data to client
 * What if user A does not connect to server
-	- Relies on Android GCM/IOS APNS
+	- Relies on Android GCM(Google Cloud Messaging)/IOS APNS(Apple Push Notification service). They are two public services for sending push notifications, which stores the message queue for each user(sent from the app server) and push the messages to them when they are online. We can also implement our push service like below.
 
 #### Push service
 ##### Initialization and termination
@@ -116,7 +117,7 @@ Even with pre-generated user-message table like the one in Twitter design, it is
 	- If there are 500 people in a group, message service needs to send the message to 500 push service. If most of receivers within push service are not connected, it means huge waste of resources. 
 * Add a channel service
 	- Each thread should have an additional field called channel. Channel service knows which users are online/offline. For big groups, online users need to first subscribe to corresponding channels. 
-		+ When users become online, message service finds the users' associated channel and notify channel service to subscribe. When users become offline, push service knows that the user is offline and will notify channel service to subscribe. 
+		+ When users become online, message service finds the users' associated channel and notify channel service to subscribe. When users become offline, push service knows that the user is offline and will notify channel service to unsubscribe. 
 	- Channel service stores all info inside memory. 
 
 ### How to check / update online status
