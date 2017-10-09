@@ -1,6 +1,6 @@
 # Knowledge
 
-## Network.
+## Network
 
 ### How does webserver work with browser?
 
@@ -27,7 +27,6 @@ https://hostingfacts.com/different-types-of-web-hosting/.
 http://vlaurie.com/computers2/Articles/protocol.htm
 https://www.quora.com/What-is-the-difference-between-HTTP-protocol-and-TCP-protocol/answer/Daniel-Miller-7?srid=nZLo
 
-#### TCP, UDP, FCP.
 TCP first tries to establish a reliable connection between client and server by using three-way handshaking. Once it is done, the client starts sending data over the connection.
 When transmitting a large file, TCP could be slow if the distance is long. Because the large file transmitted package by package, whose size is determined by MTU. Each package will be only sent when the previous one is sent successfully to the destination and the sender got ACK. So the total transmission time = number of packages * RTT of each package. The latter is mostly affected by the distance.
 http://moo.nac.uci.edu/~hjm/HOWTO_move_data.html
@@ -44,11 +43,14 @@ Opening tcp port 80 for the inside traffic after first layer of LB can save putt
 SSL certificate on all of the web servers.
 Open tcp port 3306(MySQL db server default)
 
+Usually one process runs on a specific port. When multiple clients are connecting to the server, the server can just use one process to hold the connection, which are distinguished by using the ip address of clients and their port numbers. https://mrotaru.wordpress.com/2013/10/10/scaling-to-12-million-concurrent-connections-how-migratorydata-did-it/. So now the maximum number of concurrent connections is around 10 million(C10M), and whatsapp has achieved 2 million by the early 2010s. 
+
 ### (Long)polling, WebSocket, Server-Sent Events 
 * Http polling. Client repeatedly sends HTTP requests to the server and expects response for every one of them. Each connection is usually short, and many requests just got empty response. 
-* Http long polling. Similar to the previous one, client repeatedly sends Http requests to the server. But the difference is for each request it waits until either there is a valid result computed by the server or a timeout. This way could waste ports on the server if the connection persists too long for a single response. 
+* Http long polling. Similar to the previous one, client repeatedly sends Http requests to the server. But the difference is for each request it waits until either there is a valid result computed by the server or a timeout. This way could waste ports on the server(same as the other long-connection ways) if the connection lasts too long for a single response. 
 * WebSocket. A computer communications protocol, providing full-duplex(two-way) communication channels over a single TCP connection, which is at the same layer as Http.  It provides a persistent connection between a client and a server that both parties can use to start sending data at any time. The client establishes a WebSocket connection through a process known as the WebSocket handshake. If the process succeeds, then the server and client can exchange data in both directions at any time. The WebSocket protocol enables communication between a client and a server with lower overheads, facilitating real-time data transfer from and to the server. This is made possible by providing a standardized way for the server to send content to the browser without being asked by the client, and allowing for messages to be passed back and forth while keeping the connection open. 
 The WebSocket protocol is currently supported in most major browsers including Google Chrome, Microsoft Edge, Internet Explorer, Firefox, Safari and Opera. WebSocket also requires web applications on the server to support it.
+Compared with long polling which could disconnect from time to time, WebSocket connection is more stable.
 * Server-Sent Events (SSEs). Under SSEs the client establishes a persistent and long-term connection with the server. The server uses this connection to send data to a client. If the client wants to send data to the server, it would require the use of another technology/protocol to do so.
   1. Client requests data from a server using regular HTTP.
   2. The requested webpage opens a connection to the server.
@@ -95,7 +97,8 @@ https://stackoverflow.com/questions/13146298/why-should-i-use-session-id-in-cook
 ## Load balacing
 
 The DNS server can return the ip of load balancer instead of a server, and let the load balancer decide which server the request should be sent to. Usually a single load balancer can handle around 10M concurrent connections.
-https://en.wikipedia.org/wiki/C10k_problem
+C10K problem: https://en.wikipedia.org/wiki/C10k_problem
+It can route request very quickly since it doesn't spend much time processing each request. https://serverfault.com/questions/710606/how-do-load-balance-servers-handle-all-the-traffic
 
 ### Load balancing strategies
 
@@ -524,6 +527,8 @@ https://docs.oracle.com/cd/E19900-01/819-4741/abfcd/index.html
 https://academy.datastax.com/planet-cassandra/nosql-performance-benchmarks
 The above are just estimation for common uses. Actual throughput depends on the hardware usage, and also the processing time of each request/query.
 
+* Latency Numbers Every Programmer Should Know: https://gist.github.com/jboner/2841832
+
 ### Analysis Steps
 * Estimate scale, starting from DAU. (e.g., number of new tweets, number of tweet views, how many timeline generations per sec., etc.).
 * Estimate storage. 
@@ -536,8 +541,11 @@ The above are just estimation for common uses. Actual throughput depends on the 
 * Service and Storage. 
   - Try to give a high level design first that handles all the required use cases. After this, we should be clear about what services and tables are involved. 
   - Note that each service usually correspond to a servlet that handles particular requests. Difference services can run either on the same server or different servers. As long as they don't store data(stateless), they will perform the same, and scale horizontally in the same way. For each request, total_processing_time = in_queue_time + actual_processing_time. Since different services typically don't share any data, when they run in parallel on the same machine, they should not affect each other, and thus actual_processing_time are the same. in_queue_time should be the same too, so total_processing_time should be equal.  
-  However when the services interact with each other, it is better to have them running on different machines.
-  - Dive into each part, figuring out how to store each table, and the workflow of handling the requests. Do not keep a connection for too long. For requests that takes long time to process, try saving the intermediate result into the DB, and have the client pull the result periodically.
+  However when the services interact with each other, it is better to have them running on different machines. Try decouping after you are done with the entire workflow(including the DB schema design). Using decoupled services can make it easier to optimize each service using different technologies and upgrade it. 
+  - Dive into each part, figuring out how to store each table, and the workflow of handling the requests.
+    + Do not keep a connection for too long, unless it is used for push messages from server to client. For requests that takes long time to process, try saving the intermediate result into the DB, and have the client pull the result periodically.
+    + Try not use polling if the information being pulled is not frequently updated. In this case try pulling the data only when necessary, and optimize the read as much as possible(like using cache). Make good use of local storage.
+
 * Scale.
 
 # Design Examples
