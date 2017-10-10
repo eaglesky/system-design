@@ -537,6 +537,9 @@ The above are just estimation for common uses. Actual throughput depends on the 
 ## System Design Workflow
 * Scnario. 
   - Use cases.
+  - Design the APIs according to use cases.
+    + (Returned values) <-- read(...)
+    + write(...)
   - Esimation. Usually need to estimate DAU and QPS. For storage, it maybe okay to delay estimating the number.
 * Service and Storage. 
   - Try to give a high level design first that handles all the required use cases. After this, we should be clear about what services and tables are involved. 
@@ -544,9 +547,15 @@ The above are just estimation for common uses. Actual throughput depends on the 
   However when the services interact with each other, it is better to have them running on different machines. Try decouping after you are done with the entire workflow(including the DB schema design). Using decoupled services can make it easier to optimize each service using different technologies and upgrade it. 
   - Dive into each part, figuring out how to store each table, and the workflow of handling the requests.
     + Do not keep a connection for too long, unless it is used for push messages from server to client. For requests that takes long time to process, try saving the intermediate result into the DB, and have the client pull the result periodically.
-    + Try not use polling if the information being pulled is not frequently updated. In this case try pulling the data only when necessary, and optimize the read as much as possible(like using cache). Make good use of local storage.
-
+    + Try focusing on latency as much as you can at first. 
 * Scale.
+  - Improve the latency. 
+    + Send request only when necessary, instead of polling all the time. Make use of local data wisely. 
+    + Add cache for reads. 
+    + For write, may use cache too(write-back).
+    + Use NoSQL.
+    + Asynchonous server.
+  - Handle the growing traffic and data. Sharding each DB if necessary. Figure out what DB to use for each table. 
 
 # Design Examples
 * Twitter -- timeline and newsfeed. (See Nine Chapter slide for details)
@@ -566,6 +575,9 @@ The above are just estimation for common uses. Actual throughput depends on the 
   - Business logic involves multiple workflows.
   - Design the system so that each request is processed as fast as possible, and let the client pulling the result repeatedly instead of waiting indefinitely.
   - Spatial indexing algorithms for fast geo location look-up.
+* [Facebook messenger](messenger.md).
+  - Push technology to implement real-time service.
+  - Real-time online status implementation.
 
 # Small design cases
 * How to find mutual friends?  

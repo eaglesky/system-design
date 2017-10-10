@@ -119,7 +119,7 @@ Even with pre-generated user-message table like the one in Twitter design, it is
 5. Push service master send the msgs to the push servers responsible for the specified users(fan-out).
 6. The push server push the msg to User A if he is connected. Otherwise store the msg in the message queue for A.
 
-### Channel service
+### Channel service(not implenmented in my design)
 * In case of large group chatting
 	- If there are 500 people in a group, message service needs to send the message to 500 push servers. If most of receivers within push service are not connected, it means huge waste of resources. 
 * Add a channel service
@@ -128,13 +128,20 @@ Even with pre-generated user-message table like the one in Twitter design, it is
 	- Channel service stores all info inside memory. 
 
 ### How to check / update online status
+
+#### Online status vs socket connection
+User is often seen as online when he is focusing(using) the app, otherwise he should be treated as "away". Socket connection lasts while the user's app is open, so it is possible that the user is away but still has the socket connection and thus be able to receive messages. They are two different concept, and thus we should not display online status based on the socket connection info returned by the push servers. However in Facebook Chat, they are treated as the same, and thus the presence server uses the info from the push servers.
+https://www.jiuzhang.com/qa/2068/
+
 #### Online status pull
-* When users become online, send a heartbeat msg to the server every 3-5 seconds. 
-* The server sends its online status to friends every 3-5 seconds. 
+* In general there are two pulling requests -- heartbeat and online status request. They may be implemented as one. We only pull when the user is focusing(using) the app, which can often be detected by the app code. So assuming 100M DAU, each user spend 1h actually using the app every day, the number of concurrent users is 100M / 24 ~= 4M. 
+* When users become online, send a heartbeat msg to the server every 3-5 seconds. Store each user and its last pulled time in the memory of a server(one is enough!). The data is replicated on some other servers for backup. And since it is memory-access, the latency is low and the throuput is high. Facebook Chat's presence server is similar, but the data comes from the channel servers.  If one is not enough to handle the traffic, we can add more servers with same data, and write to one of them can be sent to the others. This is eventual consistent and the temporary inconsistency should be tolerable, if the polling time is longer than the sync time.
+https://www.jiuzhang.com/qa/2000/
 * If after 1 min, the server does not receive the heartbeat msg, considers the user is already offline. 
+* Each user pulls the online status of his friends(or viewable friends) periodically. I think the latency should be acceptable even if we query the friendship DB(or its cache) everytime. Or since the friends do not change that frequently, we can also pull it much less frequently and most of the time send the local stored friends list. 
 
 #### Online status push
-* Wasteful because most users are not online
+* Wasteful because most users are not online. This way has to push data to multiple friends of the same user, using too much resource if there are a lot concurrent users. Also a certain amount of delay time is often acceptable, so this push is not a better choice here.
 
 ### Detailed design
 * ![Diagram](imgs/messenger.svg)
@@ -144,3 +151,8 @@ Even with pre-generated user-message table like the one in Twitter design, it is
 * During push from message server to push service master, the created time is generated on the webserver to keep the order of messages in the same conversation. Some says there should be a sequence id here, why?
 * It might be okay not to log message data at all and ask the client to store them on their devices, which is what Whatsapp does.
 * Facebook uses HBase to store messages. (trade-offs?)
+
+## References
+* Facebook Chat. This is the one in the browser, a bit different from Facebook Messenger. 
+	- Blog and video links: https://www.facebook.com/notes/facebook-engineering/chat-stability-and-%20scalability/51412338919
+	- https://www.facebook.com/note.php?note_id=14218138919&id=9445547199&index=9
