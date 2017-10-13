@@ -482,6 +482,7 @@ NoSQL encompasses a wide variety of different database technologies that were de
 * NoSQL can handle much higher QPS than SQL(single box). But SQL can still achieve good performance with enough number of servers.
 * NoSQL has handled sharding and replica already.
 * For tables that are frequenly inserted or deleted, index tree may be frequently updated, which is costly. Prefer NoSQLs that do not index on that column.
+* SQL is better at handling complex queries like joins.
 * More? https://docs.microsoft.com/en-us/azure/documentdb/documentdb-nosql-vs-sql
 
 
