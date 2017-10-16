@@ -168,6 +168,12 @@ http://stackoverflow.com/questions/15457910/what-is-a-distributed-cache
 Example: Memcached([Wikipedia](https://en.wikipedia.org/wiki/Memcached#Architecture)):  
 >  If a client wishes to set or read the value corresponding to a certain key, the client's library first computes a hash of the key to determine which server to use. Then it contacts that server. This gives a simple form of sharding and scalable shared-nothing architecture across the servers. The server computes a second hash of the key to determine where to store or read the corresponding value.
 
+* Memcached.
+  - https://www.usenix.org/system/files/conference/nsdi13/nsdi13-final170_update.pdf
+  - Does it support composite key?
+  - increment/decrement is atomic. Can take ttl to specify after how long the entry should expire.
+
+
 #### Comparison of the two
 https://dzone.com/articles/process-caching-vs-distributed
 
@@ -383,6 +389,8 @@ https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.h
   https://www.jiuzhang.com/qa/980/  
   Good thing about this is that when suddenly one server is down, the request for the data on that server will go to the server represented by the next virtual node(assuming the routing table on is updated in time upon failure) and thus get the replica data. Even if that server is down too, we still have replica data on the third server so the system can still be available(that's why we have two more copies on the next servers clockwise).
 
+  Note that the number of virtual node should be the same for all the physical servers, because the more virtual node a server has, the more data it will own. Also ideally the number of virtual node of each server should be much larger than the total number of servers. Because sometimes all of the exisiting servers are nearly full and we want to add one more to make rooms for each one of them. The new virtual nodes should be adjacent to the virtual nodes of each of the existing servers to make sure the new server can get data from each one of them. --> This is my understanding.
+
 * Usually there is a router to direct the query to the right shard(s), and merge the results if necessary and return to the client. There could be another config server storing meta data about chunks on the shards, and range of each shard.  
 E.g. https://docs.mongodb.com/manual/core/sharded-cluster-query-router/#routing-and-results-process
 https://docs.mongodb.com/manual/core/sharded-cluster-config-servers/#config-servers
@@ -579,6 +587,11 @@ The above are just estimation for common uses. Actual throughput depends on the 
 * [Facebook messenger](messenger.md).
   - Push technology to implement real-time service.
   - Real-time online status implementation.
+* [Monitor systems](monitorSystem.md).
+  - Rate Limiter.
+    + Good application of Memcached. (More on Memcached?)
+  - Data Log.
+    + Write heavy, read light system.
 
 # Small design cases
 * How to find mutual friends?  

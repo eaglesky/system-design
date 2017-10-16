@@ -1,7 +1,7 @@
 # User System
 
 ## Scenario 
-### Features
+### Use cases
 * Register
 * Login/out
 * View/edit user profiles
