@@ -1,0 +1,1548 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.17.1-->
+  <key attr.name="Description" attr.type="string" for="graph" id="d0"/>
+  <key for="port" id="d1" yfiles.type="portgraphics"/>
+  <key for="port" id="d2" yfiles.type="portgeometry"/>
+  <key for="port" id="d3" yfiles.type="portuserdata"/>
+  <key attr.name="url" attr.type="string" for="node" id="d4"/>
+  <key attr.name="description" attr.type="string" for="node" id="d5"/>
+  <key for="node" id="d6" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d7" yfiles.type="resources"/>
+  <key attr.name="url" attr.type="string" for="edge" id="d8"/>
+  <key attr.name="description" attr.type="string" for="edge" id="d9"/>
+  <key for="edge" id="d10" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <data key="d0"/>
+    <node id="n0" yfiles.foldertype="group">
+      <data key="d4"/>
+      <data key="d6">
+        <y:ProxyAutoBoundsNode>
+          <y:Realizers active="0">
+            <y:ProxyAutoBoundsNode>
+              <y:Realizers active="0">
+                <y:GroupNode>
+                  <y:Geometry height="202.13001251220703" width="119.09529876708984" x="363.4523506164551" y="104.21798515319824"/>
+                  <y:Fill color="#F5F5F5" transparent="false"/>
+                  <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+                  <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.666015625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="119.09529876708984" x="0.0" y="0.0">Tweet Service</y:NodeLabel>
+                  <y:Shape type="roundrectangle"/>
+                  <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+                  <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+                  <y:BorderInsets bottom="0" bottomF="0.0" left="29" leftF="29.0" right="25" rightF="25.0" top="0" topF="0.0"/>
+                </y:GroupNode>
+                <y:GroupNode>
+                  <y:Geometry height="50.0" width="50.0" x="0.0" y="60.0"/>
+                  <y:Fill color="#F5F5F5" transparent="false"/>
+                  <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+                  <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.666015625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.75830078125" x="-6.879150390625" y="0.0">Folder 5</y:NodeLabel>
+                  <y:Shape type="roundrectangle"/>
+                  <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+                  <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+                  <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+                </y:GroupNode>
+              </y:Realizers>
+            </y:ProxyAutoBoundsNode>
+            <y:GroupNode>
+              <y:Geometry height="50.0" width="50.0" x="0.0" y="60.0"/>
+              <y:Fill color="#F5F5F5" transparent="false"/>
+              <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.666015625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.75830078125" x="-6.879150390625" y="0.0">Folder 1</y:NodeLabel>
+              <y:Shape type="roundrectangle"/>
+              <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+              <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+              <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+            </y:GroupNode>
+          </y:Realizers>
+        </y:ProxyAutoBoundsNode>
+      </data>
+      <graph edgedefault="directed" id="n0:">
+        <node id="n0::n0">
+          <data key="d5"/>
+          <data key="d6">
+            <y:SVGNode>
+              <y:Geometry height="56.231998443603516" width="35.095298767089844" x="407.4523506164551" y="140.88400077819824"/>
+              <y:Fill color="#CCCCFF" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="15.547649383544922" y="60.231998443603516">
+                <y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="-0.5" nodeRatioX="0.0" nodeRatioY="0.5" offsetX="0.0" offsetY="4.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:SVGNodeProperties usingVisualBounds="true"/>
+              <y:SVGModel svgBoundsPolicy="0">
+                <y:SVGContent refid="1"/>
+              </y:SVGModel>
+            </y:SVGNode>
+          </data>
+        </node>
+        <node id="n0::n1">
+          <data key="d5"/>
+          <data key="d6">
+            <y:SVGNode>
+              <y:Geometry height="56.231998443603516" width="35.095298767089844" x="407.4523506164551" y="227.11599922180176"/>
+              <y:Fill color="#CCCCFF" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="15.547649383544922" y="60.231998443603516">
+                <y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="-0.5" nodeRatioX="0.0" nodeRatioY="0.5" offsetX="0.0" offsetY="4.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:SVGNodeProperties usingVisualBounds="true"/>
+              <y:SVGModel svgBoundsPolicy="0">
+                <y:SVGContent refid="1"/>
+              </y:SVGModel>
+            </y:SVGNode>
+          </data>
+        </node>
+      </graph>
+    </node>
+    <node id="n1">
+      <data key="d5"/>
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="45.56999588012695" width="67.49800109863281" x="19.250999450683594" y="140.88400077819824"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="42.103515625" x="12.697242736816406" y="49.56999588012695">User A<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="-0.5" nodeRatioX="0.0" nodeRatioY="0.5" offsetX="0.0" offsetY="4.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="2"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n2">
+      <data key="d5"/>
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="38.0" width="23.0" x="41.5" y="321.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="40.7265625" x="-8.86328125" y="42.0">User B<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="-0.5" nodeRatioX="0.0" nodeRatioY="0.5" offsetX="0.0" offsetY="4.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="3"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n3" yfiles.foldertype="group">
+      <data key="d4"/>
+      <data key="d6">
+        <y:ProxyAutoBoundsNode>
+          <y:Realizers active="0">
+            <y:ProxyAutoBoundsNode>
+              <y:Realizers active="0">
+                <y:GroupNode>
+                  <y:Geometry height="194.798828125" width="119.09529876708996" x="1004.0785022557842" y="80.333984375"/>
+                  <y:Fill color="#F5F5F5" transparent="false"/>
+                  <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+                  <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.666015625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="124.7470703125" x="-2.8258857727049644" y="0.0">Tweet NoSQL DB</y:NodeLabel>
+                  <y:Shape type="roundrectangle"/>
+                  <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+                  <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+                  <y:BorderInsets bottom="0" bottomF="0.0" left="15" leftF="14.683189392089957" right="0" rightF="0.0" top="0" topF="0.0"/>
+                </y:GroupNode>
+                <y:GroupNode>
+                  <y:Geometry height="50.0" width="50.0" x="0.0" y="60.0"/>
+                  <y:Fill color="#F5F5F5" transparent="false"/>
+                  <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+                  <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.666015625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.75830078125" x="-6.879150390625" y="0.0">Folder 5</y:NodeLabel>
+                  <y:Shape type="roundrectangle"/>
+                  <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+                  <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+                  <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+                </y:GroupNode>
+              </y:Realizers>
+            </y:ProxyAutoBoundsNode>
+            <y:GroupNode>
+              <y:Geometry height="50.0" width="50.0" x="0.0" y="60.0"/>
+              <y:Fill color="#F5F5F5" transparent="false"/>
+              <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.666015625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.75830078125" x="-6.879150390625" y="0.0">Folder 2</y:NodeLabel>
+              <y:Shape type="roundrectangle"/>
+              <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+              <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+              <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+            </y:GroupNode>
+          </y:Realizers>
+        </y:ProxyAutoBoundsNode>
+      </data>
+      <graph edgedefault="directed" id="n3:">
+        <node id="n3::n0">
+          <data key="d6">
+            <y:ImageNode>
+              <y:Geometry height="64.0" width="64.0" x="1038.9677463353742" y="117.0"/>
+              <y:Fill color="#CCCCFF" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="74.412109375" x="-5.2060546875" y="68.0">Tweet Table</y:NodeLabel>
+              <y:Image alphaImage="true" refid="4"/>
+            </y:ImageNode>
+          </data>
+        </node>
+        <node id="n3::n1">
+          <data key="d5"/>
+          <data key="d6">
+            <y:ImageNode>
+              <y:Geometry height="27.0" width="29.095298767089844" x="1056.4200969518292" y="211.0"/>
+              <y:Fill color="#CCCCFF" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="64.392578125" x="-17.648639678955078" y="31.0">id -&gt; data</y:NodeLabel>
+              <y:Image alphaImage="true" refid="5"/>
+            </y:ImageNode>
+          </data>
+        </node>
+      </graph>
+    </node>
+    <node id="n4">
+      <data key="d6">
+        <y:ImageNode>
+          <y:Geometry height="64.0" width="64.0" x="780.1032940686168" y="117.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="93.021484375" x="-14.5107421875" y="68.0">Timeline Cache</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="254.59375" x="-95.296875" y="-22.1328125">user_id -&gt; {tweet_ids_of_user_last_3_days}<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.5" nodeRatioX="0.0" nodeRatioY="-0.5" offsetX="0.0" offsetY="-4.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Image alphaImage="true" refid="6"/>
+        </y:ImageNode>
+      </data>
+    </node>
+    <node id="n5">
+      <data key="d6">
+        <y:ImageNode>
+          <y:Geometry height="64.0" width="64.0" x="780.1032940686168" y="368.8598664065021"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="99.255859375" x="-17.6279296875" y="68.0">Newsfeed Cache</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="289.19921875" x="-93.62349055786513" y="-22.1328125">user_id -&gt; {tweet_ids_of_followees_last_n_posts}<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.5" nodeRatioX="0.2965018565177324" nodeRatioY="-0.5" offsetX="0.0" offsetY="-4.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Image alphaImage="true" refid="6"/>
+        </y:ImageNode>
+      </data>
+    </node>
+    <node id="n6">
+      <data key="d5"/>
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="56.231998443603516" width="35.095298767089844" x="407.4523506164551" y="541.7738548710644"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="109.451171875" x="-37.17793655395508" y="60.231998443603516">Friendship Service<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="-0.5" nodeRatioX="0.0" nodeRatioY="0.5" offsetX="0.0" offsetY="4.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n7" yfiles.foldertype="group">
+      <data key="d4"/>
+      <data key="d6">
+        <y:ProxyAutoBoundsNode>
+          <y:Realizers active="0">
+            <y:ProxyAutoBoundsNode>
+              <y:Realizers active="0">
+                <y:GroupNode>
+                  <y:Geometry height="167.98377910015518" width="165.677734375" x="696.9282553237255" y="560.9612264815585"/>
+                  <y:Fill color="#F5F5F5" transparent="false"/>
+                  <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+                  <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.666015625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="165.677734375" x="0.0" y="0.0">Friendship DB</y:NodeLabel>
+                  <y:Shape type="roundrectangle"/>
+                  <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+                  <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+                  <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+                </y:GroupNode>
+                <y:GroupNode>
+                  <y:Geometry height="50.0" width="50.0" x="0.0" y="60.0"/>
+                  <y:Fill color="#F5F5F5" transparent="false"/>
+                  <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+                  <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.666015625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.75830078125" x="-6.879150390625" y="0.0">Folder 5</y:NodeLabel>
+                  <y:Shape type="roundrectangle"/>
+                  <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+                  <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+                  <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+                </y:GroupNode>
+              </y:Realizers>
+            </y:ProxyAutoBoundsNode>
+            <y:GroupNode>
+              <y:Geometry height="50.0" width="50.0" x="0.0" y="60.0"/>
+              <y:Fill color="#F5F5F5" transparent="false"/>
+              <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.666015625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.75830078125" x="-6.879150390625" y="0.0">Folder 3</y:NodeLabel>
+              <y:Shape type="roundrectangle"/>
+              <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+              <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+              <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+            </y:GroupNode>
+          </y:Realizers>
+        </y:ProxyAutoBoundsNode>
+      </data>
+      <graph edgedefault="directed" id="n7:">
+        <node id="n7::n0">
+          <data key="d5"/>
+          <data key="d6">
+            <y:SVGNode>
+              <y:Geometry height="46.887996673583984" width="39.527000427246094" x="760.0036222976024" y="644.9241964081297"/>
+              <y:Fill color="#CCCCFF" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="111.1328125" x="-35.80290603637695" y="50.887996673583984">user1_id, user2_id<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="-0.5" nodeRatioX="0.0" nodeRatioY="0.5" offsetX="0.0" offsetY="4.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:SVGNodeProperties usingVisualBounds="true"/>
+              <y:SVGModel svgBoundsPolicy="0">
+                <y:SVGContent refid="7"/>
+              </y:SVGModel>
+            </y:SVGNode>
+          </data>
+        </node>
+        <node id="n7::n1">
+          <data key="d5"/>
+          <data key="d6">
+            <y:ImageNode>
+              <y:Geometry height="27.0" width="29.095298767089844" x="765.2194731276805" y="597.6272421065585"/>
+              <y:Fill color="#CCCCFF" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="135.677734375" x="-53.29121780395508" y="31.0">user_id -&gt; {friend_ids}</y:NodeLabel>
+              <y:Image alphaImage="true" refid="5"/>
+            </y:ImageNode>
+          </data>
+        </node>
+      </graph>
+    </node>
+    <node id="n8">
+      <data key="d5"/>
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="56.231998443603516" width="35.095298767089844" x="407.4523506164551" y="372.7438671847003"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="99.912109375" x="-32.40840530395508" y="60.231998443603516">Newsfeed Server<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="-0.5" nodeRatioX="0.0" nodeRatioY="0.5" offsetX="0.0" offsetY="4.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <edge id="e0" source="n1" target="n2">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="57.736328125" x="-27.868164062500227" y="52.218377113342285">following<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="0.9999999999997726" distanceToCenter="true" position="left" ratio="0.44361601270911044" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e1" source="n2" target="n0::n1">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#0000FF" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#0000FF" verticalTextPosition="bottom" visible="true" width="273.853515625" x="22.312925401197873" y="-39.29856763667442">1. write_post(user_id, post_info, created_time)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="5.902638184885861" distanceToCenter="true" position="right" ratio="0.28823972810478254" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e2" source="n4" target="n3::n0">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#0000FF" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#0000FF" verticalTextPosition="bottom" visible="true" width="153.82421875" x="39.480640482637" y="-18.75170770679847">write_through/write_back<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="9.685301456798483" distanceToCenter="true" position="left" ratio="2.439651959762841" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e3" source="n0::n1" target="n4">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#0000FF" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#0000FF" verticalTextPosition="bottom" visible="true" width="79.509765625" x="136.22399098933033" y="-64.80646070262566">2. write_post<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="7.181018471950043" distanceToCenter="true" position="left" ratio="0.5289646437596132" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e4" source="n6" target="n7::n0">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#008000" type="line" width="1.0"/>
+          <y:Arrows source="standard" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e5" source="n2" target="n6">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#339966" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#008000" verticalTextPosition="bottom" visible="true" width="259.322265625" x="-19.614974412794226" y="94.20662958396963">write(user_id, friend_id, follow_or_unfollow)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="0.0" distance="30.0" distanceToCenter="true" position="right" ratio="0.5" segment="0"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e6" source="n0::n1" target="n8">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#0000FF" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#0000FF" verticalTextPosition="bottom" visible="true" width="164.201171875" x="-82.10058593750006" y="50.322836022695185">3. write_post_to_news_feed<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="10.0" distanceToCenter="false" position="center" ratio="0.7399204433135779" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e7" source="n8" target="n7::n1">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#0000FF" type="line" width="1.0"/>
+          <y:Arrows source="standard" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#0000FF" verticalTextPosition="bottom" visible="true" width="146.875" x="81.74879543867291" y="56.48548073740517">4. get_followers(user_id)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="22.732790944548423" distanceToCenter="true" position="left" ratio="0.3000564532712065" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e8" source="n8" target="n5">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#0000FF" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#0000FF" verticalTextPosition="bottom" visible="true" width="319.990234375" x="15.02155320611405" y="-27.57066046083486">5. write(user_id, post_info, created_time, follower_ids)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="18.504257336086873" distanceToCenter="true" position="left" ratio="2.439651959762841" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e9" source="n4" target="n3::n1">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="standard" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="123.7890625" x="26.741775667754155" y="-0.1039714972699528">read_tweet(tweet_id)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="16.213556420604856" distanceToCenter="true" position="left" ratio="0.16813282387912826" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e10" source="n3::n0" target="n3">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e11" source="n1" target="n0::n0">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="10.83025138764728" sy="-18.558852811127736" tx="-12.820991380454757" ty="-23.889854092866017"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="standard" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="202.10546875" x="38.466866321293764" y="-24.6310189174325">read_timeline(user_id, timestamp)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="15.564605376324296" distanceToCenter="true" position="left" ratio="0.2157739616726879" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e12" source="n0::n0" target="n4">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="13.635876257410928" sy="-19.480376153221755" tx="-25.11866057930797" ty="-12.70880997215454"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="standard" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="256.017578125" x="40.8112200170965" y="-31.020277826896205">tweet_objects &lt;--read(user_id, timestamp)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="15.531787041596553" distanceToCenter="true" position="left" ratio="0.5" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e13" source="n5" target="n3::n1">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="standard" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="123.7890625" x="87.15741090307677" y="-74.31232350967781">read_tweet(tweet_id)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="0.0" distance="30.0" distanceToCenter="true" position="right" ratio="0.5" segment="0"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e14" source="n1" target="n0::n0">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="19.649207266935832" sy="22.596274625552212" tx="-8.411513440810495" ty="17.26527334381393"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="210.021484375" x="46.55687381736669" y="-20.221534390717295">read_newsfeed(user_id, timestamp)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="11.155127436679656" distanceToCenter="true" position="left" ratio="0.4124077030291149" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e15" source="n0::n0" target="n5">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="7.756572337885245" sy="20.204925303576772" tx="-13.360052740256492" ty="-22.04738969822131"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="standard" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="256.017578125" x="76.48847457126283" y="80.00020290086314">tweet_objects &lt;--read(user_id, timestamp)<y:LabelModel>
+              <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="14.986039173390553" distanceToCenter="true" position="left" ratio="0.5025348393392715" segment="-1"/>
+            </y:ModelParameter>
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+  </graph>
+  <data key="d7">
+    <y:Resources>
+      <y:Resource id="1">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" width="36px" height="57px" viewBox="0 -0.741 36 57" enable-background="new 0 -0.741 36 57"
+	 xml:space="preserve"&gt;
+&lt;defs&gt;
+&lt;/defs&gt;
+&lt;linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="230.1768" y1="798.6021" x2="180.3346" y2="798.6021" gradientTransform="matrix(1 0 0 1 -195.2002 -770.8008)"&gt;
+	&lt;stop  offset="0" style="stop-color:#4D4D4D"/&gt;
+	&lt;stop  offset="1" style="stop-color:#8D8D8D"/&gt;
+&lt;/linearGradient&gt;
+&lt;rect y="0.943" fill="url(#SVGID_1_)" width="34.977" height="53.716"/&gt;
+&lt;linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="224.6807" y1="798.6021" x2="200.6973" y2="798.6021" gradientTransform="matrix(1 0 0 1 -195.2002 -770.8008)"&gt;
+	&lt;stop  offset="0.0319" style="stop-color:#848484"/&gt;
+	&lt;stop  offset="0.1202" style="stop-color:#8C8C8C"/&gt;
+	&lt;stop  offset="0.308" style="stop-color:#969696"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#999999"/&gt;
+	&lt;stop  offset="0.5501" style="stop-color:#9C9C9C"/&gt;
+	&lt;stop  offset="0.6256" style="stop-color:#B0B0B0"/&gt;
+	&lt;stop  offset="0.7118" style="stop-color:#BEBEBE"/&gt;
+	&lt;stop  offset="0.8178" style="stop-color:#C7C7C7"/&gt;
+	&lt;stop  offset="1" style="stop-color:#C9C9C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_2_)" d="M5.497,0.943c7.945-1.258,16.04-1.258,23.983,0c0,17.905,0,35.811,0,53.716
+	c-7.943,1.258-16.039,1.258-23.983,0C5.497,36.753,5.497,18.848,5.497,0.943z"/&gt;
+&lt;path fill="#515151" d="M5.497,14.621c7.995,0,15.989,0,23.983,0c0,13.346,0,26.693,0,40.037c-7.943,1.258-16.039,1.258-23.983,0
+	C5.497,41.314,5.497,27.967,5.497,14.621z"/&gt;
+&lt;path opacity="0.43" fill="#565656" d="M5.497,4.745c7.982-0.628,16.001-0.628,23.983,0c0,2.707,0,5.413,0,8.12
+	c-7.994,0-15.989,0-23.983,0C5.497,10.158,5.497,7.452,5.497,4.745z"/&gt;
+&lt;path opacity="0.43" fill="none" stroke="#4D4D4D" stroke-width="0.0999" stroke-miterlimit="10" d="M5.497,4.745
+	c7.982-0.628,16.001-0.628,23.983,0c0,2.707,0,5.413,0,8.12c-7.994,0-15.989,0-23.983,0C5.497,10.158,5.497,7.452,5.497,4.745z"/&gt;
+&lt;polygon opacity="0.43" fill="#565656" stroke="#4D4D4D" stroke-width="0.0135" stroke-miterlimit="10" enable-background="new    " points="
+	6.496,5.746 9.869,5.606 9.869,6.661 6.496,6.799 "/&gt;
+&lt;rect x="31.307" y="2.517" fill="#E7ED00" stroke="#717171" stroke-width="0.1926" stroke-miterlimit="10" width="3.692" height="1.505"/&gt;
+&lt;rect x="31.307" y="5.8" fill="#C8FF00" stroke="#717171" stroke-width="0.1926" stroke-miterlimit="10" width="3.692" height="1.507"/&gt;
+&lt;linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="29.4414" y1="35.1235" x2="5.4995" y2="35.1235"&gt;
+	&lt;stop  offset="0" style="stop-color:#808080"/&gt;
+	&lt;stop  offset="0.1907" style="stop-color:#828282"/&gt;
+	&lt;stop  offset="0.2955" style="stop-color:#8A8A8A"/&gt;
+	&lt;stop  offset="0.3795" style="stop-color:#989898"/&gt;
+	&lt;stop  offset="0.4524" style="stop-color:#ACACAC"/&gt;
+	&lt;stop  offset="0.5175" style="stop-color:#C5C5C5"/&gt;
+	&lt;stop  offset="0.5273" style="stop-color:#C9C9C9"/&gt;
+	&lt;stop  offset="0.5914" style="stop-color:#C9C9C9"/&gt;
+	&lt;stop  offset="0.9681" style="stop-color:#C9C9C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_3_)" d="M5.5,14.822c0,13.22,0,26.438,0,39.66c7.931,1.256,16.012,1.256,23.941,0c0-13.222,0-26.439,0-39.66
+	C21.461,14.822,13.48,14.822,5.5,14.822z M28.396,18.703c-0.74,0.01-1.482,0.02-2.225,0.029c0-0.951,0-1.901-0.001-2.85
+	c0.742-0.003,1.483-0.005,2.224-0.008C28.396,16.817,28.396,17.76,28.396,18.703z M16.354,42.496c0-0.961,0-1.924,0-2.885
+	c0.744,0.006,1.489,0.006,2.233,0c0,0.961,0,1.924,0,2.885C17.843,42.503,17.098,42.503,16.354,42.496z M18.587,43.568
+	c0,0.955,0,1.91,0,2.866c-0.744,0.009-1.489,0.009-2.234,0c0-0.956,0-1.911,0-2.866C17.098,43.574,17.843,43.574,18.587,43.568z
+	 M18.586,27.742c0,0.961,0,1.922,0,2.886c-0.744,0.004-1.488,0.004-2.231,0c0-0.964,0-1.925,0-2.886
+	C17.099,27.746,17.842,27.746,18.586,27.742z M16.354,26.671c0-0.955,0-1.91,0-2.865c0.743,0.002,1.487,0.002,2.23,0
+	c0,0.955,0,1.91,0,2.865C17.842,26.675,17.099,26.675,16.354,26.671z M16.354,34.583c0-0.961,0-1.924,0-2.885
+	c0.744,0.004,1.488,0.004,2.231,0c0,0.961,0,1.924,0,2.885C17.842,34.588,17.099,34.588,16.354,34.583z M18.586,35.656
+	c0,0.961,0,1.924,0.001,2.885c-0.745,0.008-1.489,0.008-2.233,0c0-0.961,0-1.924,0-2.885C17.099,35.66,17.842,35.66,18.586,35.656z
+	 M15.307,30.619c-0.742-0.01-1.484-0.021-2.227-0.039c0-0.957,0-1.916,0-2.875c0.742,0.014,1.485,0.023,2.226,0.029
+	C15.307,28.695,15.307,29.656,15.307,30.619z M15.307,31.689c0,0.961,0,1.924,0,2.885c-0.742-0.012-1.485-0.025-2.227-0.047
+	c0-0.959,0.001-1.92,0.001-2.877C13.822,31.667,14.565,31.68,15.307,31.689z M15.307,35.644c0,0.959,0,1.922-0.001,2.883
+	c-0.742-0.012-1.485-0.031-2.228-0.056c0-0.959,0.001-1.918,0.001-2.877C13.821,35.617,14.564,35.633,15.307,35.644z M15.306,39.597
+	c0,0.96,0,1.922,0,2.883c-0.742-0.016-1.486-0.037-2.228-0.064c0-0.959,0-1.916,0.001-2.877
+	C13.82,39.564,14.563,39.585,15.306,39.597z M19.637,39.597c0.742-0.012,1.484-0.033,2.227-0.059c0,0.959,0,1.918,0,2.875
+	c-0.741,0.029-1.483,0.052-2.227,0.064C19.637,41.519,19.637,40.559,19.637,39.597z M19.637,38.527c0-0.961,0-1.924,0-2.883
+	c0.74-0.012,1.482-0.027,2.225-0.05c0,0.959,0,1.918,0.002,2.876C21.121,38.496,20.377,38.515,19.637,38.527z M19.637,34.572
+	c0-0.961,0-1.922-0.002-2.883c0.741-0.01,1.483-0.021,2.225-0.039c0.002,0.957,0.002,1.916,0.002,2.875
+	C21.119,34.547,20.376,34.564,19.637,34.572z M19.635,30.619c0-0.963,0-1.924,0-2.885c0.74-0.006,1.483-0.017,2.225-0.029
+	c0,0.959,0,1.916,0,2.875C21.118,30.599,20.376,30.609,19.635,30.619z M19.633,26.666c0-0.955,0-1.909,0-2.864
+	c0.741-0.005,1.483-0.013,2.227-0.021c0,0.951,0,1.903,0,2.856C21.118,26.65,20.375,26.66,19.633,26.666z M19.633,22.732
+	c-0.001-0.963-0.001-1.924-0.001-2.885c0.741-0.002,1.483-0.006,2.226-0.012c0,0.959,0.002,1.918,0.002,2.877
+	C21.116,22.72,20.374,22.728,19.633,22.732z M18.586,22.736c-0.744,0.002-1.487,0.002-2.23,0c0-0.963,0-1.924,0-2.887
+	c0.743,0.002,1.487,0.002,2.23,0C18.586,20.813,18.586,21.773,18.586,22.736z M15.309,22.732c-0.742-0.004-1.483-0.012-2.226-0.02
+	c0-0.959,0.001-1.918,0.001-2.877c0.742,0.006,1.484,0.01,2.226,0.012C15.31,20.808,15.309,21.769,15.309,22.732z M15.309,23.801
+	c0,0.955,0,1.91,0,2.864c-0.742-0.006-1.483-0.016-2.227-0.027c0-0.953,0-1.906,0-2.859C13.825,23.789,14.566,23.796,15.309,23.801z
+	 M12.036,26.617c-0.742-0.017-1.483-0.033-2.225-0.055c0-0.947,0-1.895,0.001-2.841c0.741,0.019,1.483,0.031,2.225,0.042
+	C12.037,24.716,12.036,25.666,12.036,26.617z M12.035,27.683c0,0.957,0,1.916,0,2.873c-0.742-0.021-1.483-0.047-2.225-0.076
+	c0-0.953,0-1.904,0-2.857C10.552,27.646,11.293,27.667,12.035,27.683z M12.035,31.621c0,0.957-0.001,1.914-0.001,2.871
+	c-0.742-0.023-1.483-0.055-2.224-0.092c0-0.953,0-1.906,0-2.859C10.551,31.572,11.292,31.6,12.035,31.621z M12.033,35.56
+	c0,0.956-0.001,1.914-0.001,2.871c-0.742-0.031-1.484-0.066-2.225-0.111c0-0.953,0.001-1.906,0.001-2.858
+	C10.549,35.5,11.291,35.533,12.033,35.56z M12.031,39.498c0,0.955,0,1.914-0.001,2.869c-0.742-0.035-1.484-0.078-2.225-0.129
+	c0-0.953,0-1.904,0.001-2.857C10.547,39.426,11.289,39.465,12.031,39.498z M12.03,43.435c0,0.951-0.001,1.901-0.001,2.854
+	c-0.742-0.041-1.484-0.09-2.225-0.149c0-0.944,0.001-1.892,0.001-2.838C10.546,43.353,11.288,43.4,12.03,43.435z M13.077,43.482
+	c0.743,0.031,1.486,0.053,2.228,0.067c0,0.956,0,1.91,0,2.864c-0.742-0.016-1.486-0.041-2.229-0.074
+	C13.077,45.389,13.077,44.435,13.077,43.482z M15.305,47.486c0,0.961,0,1.922,0,2.883c-0.743-0.019-1.487-0.047-2.23-0.084
+	c0-0.959,0-1.918,0.001-2.875C13.818,47.443,14.562,47.468,15.305,47.486z M16.353,47.504c0.745,0.009,1.49,0.009,2.234,0
+	c0.001,0.96,0.001,1.924,0.001,2.883c-0.745,0.011-1.49,0.011-2.235,0C16.353,49.427,16.353,48.464,16.353,47.504z M19.639,47.486
+	c0.741-0.018,1.483-0.043,2.227-0.076c0,0.957,0.002,1.916,0.002,2.875c-0.742,0.037-1.486,0.065-2.229,0.084
+	C19.639,49.406,19.639,48.447,19.639,47.486z M19.637,46.414c0-0.954,0-1.908,0-2.864c0.742-0.015,1.484-0.036,2.229-0.067
+	c0,0.953,0,1.905,0,2.857C21.122,46.373,20.379,46.398,19.637,46.414z M22.911,43.435c0.741-0.035,1.483-0.082,2.224-0.135
+	c0,0.945,0,1.895,0.002,2.838c-0.74,0.059-1.482,0.107-2.226,0.15C22.911,45.336,22.911,44.386,22.911,43.435z M22.911,42.369
+	c-0.001-0.957-0.001-1.914-0.002-2.871c0.741-0.032,1.483-0.069,2.225-0.117c0,0.954,0.001,1.906,0.001,2.857
+	C24.395,42.289,23.652,42.333,22.911,42.369z M22.909,38.431c0-0.957-0.001-1.915-0.001-2.871c0.742-0.027,1.482-0.061,2.224-0.098
+	c0.001,0.951,0.001,1.904,0.001,2.857C24.393,38.363,23.65,38.4,22.909,38.431z M22.908,34.494c0-0.957-0.002-1.916-0.002-2.871
+	c0.742-0.021,1.482-0.051,2.225-0.079c0,0.952,0,1.903,0.001,2.856C24.391,34.437,23.648,34.468,22.908,34.494z M22.906,30.556
+	c0-0.957,0-1.916-0.002-2.873c0.742-0.016,1.484-0.037,2.226-0.061c0,0.953,0.001,1.904,0.001,2.857
+	C24.391,30.509,23.648,30.535,22.906,30.556z M22.904,26.617c0-0.951,0-1.901,0-2.854c0.74-0.011,1.482-0.025,2.224-0.042
+	c0,0.946,0.001,1.894,0.001,2.841C24.389,26.583,23.646,26.601,22.904,26.617z M22.902,22.699c0-0.957,0-1.916,0-2.874
+	c0.742-0.007,1.482-0.014,2.225-0.023c0.001,0.953,0.001,1.906,0.001,2.859C24.387,22.676,23.646,22.689,22.902,22.699z
+	 M22.902,18.76C22.9,17.802,22.9,16.845,22.9,15.887c0.742,0,1.481-0.003,2.225-0.004c0.001,0.953,0.001,1.906,0.002,2.858
+	C24.385,18.75,23.643,18.756,22.902,18.76z M21.855,18.767c-0.742,0.004-1.482,0.007-2.225,0.009c0-0.961,0-1.922,0-2.884
+	c0.741,0,1.482-0.001,2.225-0.002C21.855,16.849,21.855,17.808,21.855,18.767z M18.585,18.779c-0.743,0.001-1.486,0.001-2.229,0
+	c0-0.961,0-1.923,0-2.885c0.742,0,1.486,0,2.229,0C18.585,16.855,18.585,17.817,18.585,18.779z M15.31,18.777
+	c-0.742-0.002-1.483-0.005-2.225-0.009c0-0.959,0-1.918,0-2.877c0.742,0,1.483,0.001,2.225,0.002
+	C15.31,16.854,15.31,17.815,15.31,18.777z M12.039,18.76c-0.742-0.005-1.483-0.011-2.225-0.019c0-0.953,0-1.905,0.001-2.858
+	c0.742,0.001,1.483,0.004,2.224,0.004C12.039,16.845,12.039,17.803,12.039,18.76z M12.039,19.827c0,0.957-0.001,1.915-0.001,2.872
+	c-0.741-0.01-1.483-0.021-2.224-0.035c0-0.953,0-1.906,0-2.859C10.555,19.813,11.296,19.819,12.039,19.827z M8.768,22.64
+	c-0.741-0.018-1.482-0.035-2.223-0.057c0-0.943,0-1.887,0-2.831c0.741,0.013,1.482,0.025,2.223,0.036
+	C8.768,20.739,8.768,21.689,8.768,22.64z M8.767,23.697c0,0.944,0,1.89,0,2.832c-0.741-0.024-1.482-0.053-2.223-0.084
+	c0-0.938,0-1.873,0-2.811C7.284,23.658,8.026,23.679,8.767,23.697z M8.766,27.587c0,0.949-0.001,1.898-0.001,2.85
+	c-0.74-0.033-1.481-0.068-2.222-0.111c0-0.942,0-1.887,0-2.83C7.284,27.529,8.025,27.56,8.766,27.587z M8.765,31.494
+	c0,0.951-0.001,1.9-0.001,2.852c-0.74-0.04-1.481-0.087-2.221-0.139c0-0.943,0-1.887,0-2.831C7.283,31.42,8.023,31.459,8.765,31.494
+	z M8.763,35.404c0,0.949,0,1.899,0,2.851c-0.741-0.052-1.481-0.104-2.22-0.168c0-0.942,0-1.886,0-2.829
+	C7.282,35.31,8.022,35.361,8.763,35.404z M8.762,39.312c0,0.949,0,1.899-0.001,2.852c-0.741-0.059-1.48-0.123-2.219-0.195
+	c0-0.943,0-1.889,0-2.83C7.281,39.203,8.021,39.26,8.762,39.312z M8.76,43.219c0,0.944,0,1.888-0.001,2.832
+	c-0.74-0.065-1.479-0.14-2.218-0.224c0-0.938,0-1.875,0-2.812C7.281,43.092,8.02,43.16,8.76,43.219z M8.759,47.109
+	c0,0.951,0,1.9,0,2.851c-0.741-0.073-1.48-0.158-2.219-0.253c0-0.942,0-1.887,0-2.828C7.279,46.964,8.019,47.039,8.759,47.109z
+	 M9.804,47.201c0.741,0.06,1.483,0.111,2.224,0.154c0,0.955,0,1.912,0,2.868c-0.742-0.045-1.484-0.103-2.225-0.166
+	C9.804,49.107,9.804,48.154,9.804,47.201z M12.027,51.291c0,0.957,0,1.916,0,2.873c-0.742-0.053-1.484-0.114-2.225-0.188
+	c0-0.951,0.001-1.904,0.001-2.857C10.544,51.187,11.285,51.244,12.027,51.291z M13.075,51.353c0.743,0.039,1.486,0.067,2.229,0.086
+	c0,0.961,0,1.922,0,2.885c-0.743-0.021-1.487-0.053-2.229-0.094C13.075,53.269,13.075,52.312,13.075,51.353z M16.353,51.459
+	c0.745,0.009,1.49,0.009,2.235,0c0,0.961,0,1.924,0,2.885c-0.745,0.013-1.491,0.013-2.235,0
+	C16.353,53.382,16.353,52.42,16.353,51.459z M19.639,51.439c0.741-0.019,1.485-0.049,2.229-0.086c0,0.959,0,1.92,0.001,2.877
+	c-0.743,0.041-1.485,0.072-2.229,0.094C19.639,53.361,19.639,52.4,19.639,51.439z M22.913,51.291
+	c0.743-0.047,1.483-0.104,2.226-0.172c0,0.953,0,1.906,0,2.857c-0.74,0.073-1.481,0.135-2.224,0.188
+	C22.914,53.205,22.914,52.248,22.913,51.291z M22.913,50.224c-0.001-0.956-0.001-1.912-0.001-2.869
+	c0.742-0.043,1.484-0.095,2.225-0.154c0,0.953,0,1.906,0.002,2.857C24.396,50.123,23.654,50.179,22.913,50.224z M26.184,47.109
+	c0.739-0.066,1.479-0.145,2.217-0.229c0,0.942,0,1.887,0,2.83c-0.736,0.092-1.478,0.177-2.217,0.252
+	C26.184,49.009,26.184,48.06,26.184,47.109z M26.184,46.051c-0.002-0.944-0.002-1.888-0.002-2.832
+	c0.739-0.06,1.48-0.127,2.219-0.202c0,0.938,0,1.873,0,2.811C27.662,45.912,26.923,45.986,26.184,46.051z M26.182,42.162
+	c0-0.95-0.002-1.9-0.002-2.85c0.74-0.052,1.48-0.109,2.219-0.176c0.002,0.943,0.002,1.887,0.002,2.83
+	C27.662,42.039,26.921,42.105,26.182,42.162z M26.18,38.253c0-0.95,0-1.9-0.002-2.852c0.742-0.041,1.482-0.093,2.221-0.146
+	c0,0.942,0,1.887,0,2.829C27.66,38.15,26.92,38.203,26.18,38.253z M26.178,34.345c0-0.949,0-1.898,0-2.852
+	c0.74-0.034,1.481-0.073,2.221-0.117c0,0.943,0,1.887,0,2.83C27.659,34.258,26.918,34.305,26.178,34.345z M26.177,30.437
+	c0-0.949,0-1.9-0.001-2.85c0.741-0.027,1.481-0.059,2.221-0.092c0,0.943,0.002,1.888,0.002,2.83
+	C27.659,30.367,26.918,30.404,26.177,30.437z M26.176,26.529c-0.001-0.942-0.001-1.888-0.001-2.832
+	c0.742-0.018,1.482-0.039,2.222-0.063c0,0.938,0,1.873,0,2.811C27.657,26.476,26.917,26.503,26.176,26.529z M26.174,22.64
+	c0-0.951-0.001-1.901-0.001-2.851c0.741-0.01,1.483-0.022,2.224-0.035c0,0.943,0,1.886,0,2.831
+	C27.657,22.605,26.915,22.623,26.174,22.64z M8.769,15.881c0,0.95,0,1.9-0.001,2.85c-0.741-0.008-1.482-0.018-2.223-0.028
+	c0-0.943,0-1.887,0-2.83C7.286,15.876,8.028,15.878,8.769,15.881z M6.54,50.758c0.738,0.097,1.478,0.183,2.218,0.258
+	c0,0.95,0,1.901,0,2.853c-0.741-0.084-1.48-0.178-2.218-0.28C6.54,52.646,6.54,51.701,6.54,50.758z M26.184,53.869
+	c0-0.95,0-1.899,0-2.853c0.739-0.075,1.479-0.163,2.217-0.259c0.002,0.941,0.002,1.889,0.002,2.83
+	C27.663,53.693,26.925,53.785,26.184,53.869z"/&gt;
+&lt;path id="highlight_2_" opacity="0.17" fill="#FFFFFF" enable-background="new    " d="M0,0.943h5.497c0,0,6.847-0.943,11.974-0.943
+	C22.6,0,29.48,0.943,29.48,0.943h5.496v41.951c0,0-12.076-0.521-18.623-2.548C9.807,38.32,0,30.557,0,30.557V0.943z"/&gt;
+&lt;/svg&gt;
+</y:Resource>
+      <y:Resource id="2">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" width="68px" height="46px" viewBox="-0.064 -0.075 68 46" enable-background="new -0.064 -0.075 68 46"
+	 xml:space="preserve"&gt;
+&lt;defs&gt;
+&lt;/defs&gt;
+&lt;radialGradient id="SVGID_1_" cx="478.8413" cy="1991.2729" r="21.6001" gradientTransform="matrix(1.15 0 0 1 -526.6598 -1982.4023)" gradientUnits="userSpaceOnUse"&gt;
+	&lt;stop  offset="0" style="stop-color:#F2F2F2"/&gt;
+	&lt;stop  offset="1" style="stop-color:#8D8D8D"/&gt;
+&lt;/radialGradient&gt;
+&lt;path fill="url(#SVGID_1_)" d="M10.263,1.903c0-0.987,0.807-1.794,1.794-1.794h43.279c0.986,0,1.795,0.807,1.795,1.794v26.978
+	c0,0.987-0.809,1.794-1.795,1.794h-43.28c-0.987,0-1.794-0.807-1.794-1.794L10.263,1.903L10.263,1.903z"/&gt;
+&lt;path display="none" fill="none" stroke="#3C89C9" stroke-width="0.2185" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M10.263,1.903c0-0.987,0.807-1.794,1.794-1.794h43.279c0.986,0,1.795,0.807,1.795,1.794v26.978c0,0.987-0.809,1.794-1.795,1.794
+	h-43.28c-0.987,0-1.794-0.807-1.794-1.794L10.263,1.903L10.263,1.903z"/&gt;
+&lt;radialGradient id="SVGID_2_" cx="455.894" cy="1983.9624" r="47.8462" fx="493.5344" fy="1977.5143" gradientTransform="matrix(1.1935 0 0 1 -509.6731 -1982.4023)" gradientUnits="userSpaceOnUse"&gt;
+	&lt;stop  offset="0" style="stop-color:#4D4D4D"/&gt;
+	&lt;stop  offset="1" style="stop-color:#999999"/&gt;
+&lt;/radialGradient&gt;
+&lt;path fill="url(#SVGID_2_)" d="M11.18,2.819c0-0.987,0.807-1.794,1.794-1.794h41.649c0.986,0,1.795,0.807,1.795,1.794v24.943
+	c0,0.985-0.809,1.794-1.795,1.794H12.974c-0.987,0-1.794-0.809-1.794-1.794V2.819z"/&gt;
+&lt;radialGradient id="SVGID_3_" cx="456.8843" cy="1984.0386" r="30.6699" gradientTransform="matrix(1.1923 0 0 1 -510.1314 -1982.4023)" gradientUnits="userSpaceOnUse"&gt;
+	&lt;stop  offset="0" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/radialGradient&gt;
+&lt;path fill="url(#SVGID_3_)" d="M11.689,3.228c0-0.987,0.807-1.794,1.794-1.794h40.633c0.986,0,1.795,0.807,1.795,1.794v24.126
+	c0,0.986-0.809,1.794-1.795,1.794H13.483c-0.987,0-1.794-0.809-1.794-1.794V3.228z"/&gt;
+&lt;path opacity="0.24" fill="#F2F2F2" d="M11.689,21.472V3.228c0-0.987,0.807-1.794,1.794-1.794h40.633
+	c0.986,0,1.795,0.807,1.795,1.794v9.454c0,0.987-10.518,5.21-18.256,6.795C29.917,21.062,11.689,21.472,11.689,21.472z"/&gt;
+&lt;linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="131.3501" y1="-212.2612" x2="131.3501" y2="-170.6274" gradientTransform="matrix(1 0 0 -1 -97.6001 -165.0498)"&gt;
+	&lt;stop  offset="0" style="stop-color:#4D4D4D"/&gt;
+	&lt;stop  offset="0.0667" style="stop-color:#717171"/&gt;
+	&lt;stop  offset="0.069" style="stop-color:#757575"/&gt;
+	&lt;stop  offset="0.0831" style="stop-color:#8C8C8C"/&gt;
+	&lt;stop  offset="0.0996" style="stop-color:#9E9E9E"/&gt;
+	&lt;stop  offset="0.1196" style="stop-color:#AAAAAA"/&gt;
+	&lt;stop  offset="0.1466" style="stop-color:#B1B1B1"/&gt;
+	&lt;stop  offset="0.2121" style="stop-color:#B3B3B3"/&gt;
+	&lt;stop  offset="1" style="stop-color:#C5C5C5"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_4_)" d="M58.385,32.234c-0.689-0.856-2.154-1.559-3.254-1.559H12c-1.1,0-2.552,0.711-3.227,1.579
+	l-7.546,9.717C0,43.55,0.042,43.785,0,44.55v0.125c0.056,0.393,0.311,1.002,1.248,1.002h64.75c0.75,0.002,1.5-0.252,1.5-1.002V44.55
+	c0-0.813,0-0.813-1.254-2.559L58.385,32.234z"/&gt;
+&lt;path opacity="0.23" fill="#F2F2F2" enable-background="new    " d="M58.385,32.234c-0.689-0.856-2.154-1.559-3.254-1.559H12
+	c-1.1,0-2.552,0.711-3.227,1.579l-7.055,9.085l58.098-7.33L58.385,32.234z"/&gt;
+&lt;path fill="#6E6E6E" d="M59.75,37.205c0.344,0.431,0.172,0.783-0.377,0.783H8.249c-0.55,0-0.742-0.369-0.427-0.819l2.786-3.986
+	c0.315-0.45,1.023-0.819,1.573-0.819h42.729c0.551,0,1.279,0.354,1.623,0.783L59.75,37.205z"/&gt;
+&lt;path fill="#6E6E6E" d="M40.43,41.906c0.072,0.217-0.057,0.395-0.285,0.395H26.727c-0.229,0-0.364-0.18-0.3-0.398l0.822-2.826
+	c0.064-0.221,0.303-0.399,0.532-0.399h11.167c0.229,0,0.475,0.179,0.547,0.396L40.43,41.906z"/&gt;
+&lt;/svg&gt;
+</y:Resource>
+      <y:Resource id="3">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" width="23px" height="38px" viewBox="0 0 23 38" enable-background="new 0 0 23 38" xml:space="preserve"&gt;
+&lt;defs&gt;
+&lt;/defs&gt;
+&lt;g&gt;
+	&lt;path fill="#C5C5C5" d="M23,35.916C23,37.063,22.063,38,20.916,38H2.084C0.938,38,0,37.063,0,35.916V2.084C0,0.938,0.938,0,2.084,0
+		h18.832C22.063,0,23,0.938,23,2.084V35.916z"/&gt;
+&lt;/g&gt;
+&lt;g&gt;
+	&lt;linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="11.5005" y1="34" x2="11.5005" y2="2.0005"&gt;
+		&lt;stop  offset="0" style="stop-color:#515151"/&gt;
+		&lt;stop  offset="1" style="stop-color:#848484"/&gt;
+	&lt;/linearGradient&gt;
+	&lt;path fill="url(#SVGID_1_)" d="M22,32.184C22,33.187,21.187,34,20.184,34H2.816C1.813,34,1,33.187,1,32.184V3.816
+		C1,2.813,1.813,2,2.816,2h17.367C21.187,2,22,2.813,22,3.816V32.184z"/&gt;
+&lt;/g&gt;
+&lt;radialGradient id="SVGID_2_" cx="11.5" cy="4.1665" r="23.5037" gradientTransform="matrix(1 0 0 0.9565 0 1.1737)" gradientUnits="userSpaceOnUse"&gt;
+	&lt;stop  offset="0" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/radialGradient&gt;
+&lt;rect x="2" y="5" fill="url(#SVGID_2_)" width="19" height="22"/&gt;
+&lt;linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="11.5835" y1="31.5" x2="11.5835" y2="29.334"&gt;
+	&lt;stop  offset="0" style="stop-color:#B8B8B8"/&gt;
+	&lt;stop  offset="1" style="stop-color:#F2F2F2"/&gt;
+&lt;/linearGradient&gt;
+&lt;ellipse fill="url(#SVGID_3_)" cx="11.583" cy="30.417" rx="1.5" ry="1.083"/&gt;
+&lt;linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="15.334" y1="31.1709" x2="15.334" y2="29.6631"&gt;
+	&lt;stop  offset="0" style="stop-color:#B8B8B8"/&gt;
+	&lt;stop  offset="1" style="stop-color:#F2F2F2"/&gt;
+&lt;/linearGradient&gt;
+&lt;ellipse fill="url(#SVGID_4_)" cx="15.333" cy="30.417" rx="1.043" ry="0.754"/&gt;
+&lt;linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="19.084" y1="31.1709" x2="19.084" y2="29.6631"&gt;
+	&lt;stop  offset="0" style="stop-color:#B8B8B8"/&gt;
+	&lt;stop  offset="1" style="stop-color:#F2F2F2"/&gt;
+&lt;/linearGradient&gt;
+&lt;ellipse fill="url(#SVGID_5_)" cx="19.083" cy="30.417" rx="1.043" ry="0.754"/&gt;
+&lt;linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="4.0835" y1="31.1709" x2="4.0835" y2="29.6631"&gt;
+	&lt;stop  offset="0" style="stop-color:#B8B8B8"/&gt;
+	&lt;stop  offset="1" style="stop-color:#F2F2F2"/&gt;
+&lt;/linearGradient&gt;
+&lt;ellipse fill="url(#SVGID_6_)" cx="4.083" cy="30.417" rx="1.043" ry="0.754"/&gt;
+&lt;linearGradient id="SVGID_7_" gradientUnits="userSpaceOnUse" x1="7.8335" y1="31.1709" x2="7.8335" y2="29.6631"&gt;
+	&lt;stop  offset="0" style="stop-color:#B8B8B8"/&gt;
+	&lt;stop  offset="1" style="stop-color:#F2F2F2"/&gt;
+&lt;/linearGradient&gt;
+&lt;ellipse fill="url(#SVGID_7_)" cx="7.833" cy="30.417" rx="1.043" ry="0.754"/&gt;
+&lt;linearGradient id="SVGID_8_" gradientUnits="userSpaceOnUse" x1="11.0835" y1="4.3682" x2="11.0835" y2="2.4658"&gt;
+	&lt;stop  offset="0" style="stop-color:#B8B8B8"/&gt;
+	&lt;stop  offset="1" style="stop-color:#A2A2A2"/&gt;
+&lt;/linearGradient&gt;
+&lt;ellipse fill="url(#SVGID_8_)" cx="11.083" cy="3.417" rx="1.063" ry="0.951"/&gt;
+&lt;linearGradient id="SVGID_9_" gradientUnits="userSpaceOnUse" x1="11.0835" y1="3.916" x2="11.0835" y2="2.918"&gt;
+	&lt;stop  offset="0" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="1" style="stop-color:#F2F2F2"/&gt;
+&lt;/linearGradient&gt;
+&lt;ellipse fill="url(#SVGID_9_)" cx="11.083" cy="3.417" rx="0.558" ry="0.499"/&gt;
+&lt;path opacity="0.24" fill="#F2F2F2" d="M20.938,15.065c0,0-6.654,2.879-10.771,4.019C6.05,20.223,2,21.125,2,21.125V5h19
+	L20.938,15.065z"/&gt;
+&lt;/svg&gt;
+</y:Resource>
+      <y:Resource id="4" type="java.awt.image.BufferedImage">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&#13;
+SUVORK5CYII=</y:Resource>
+      <y:Resource id="5" type="java.awt.image.BufferedImage">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</y:Resource>
+      <y:Resource id="6" type="java.awt.image.BufferedImage">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</y:Resource>
+      <y:Resource id="7">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" width="41px" height="48px" viewBox="-0.875 -0.887 41 48" enable-background="new -0.875 -0.887 41 48"
+	 xml:space="preserve"&gt;
+&lt;defs&gt;
+&lt;/defs&gt;
+&lt;linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="642.8008" y1="-979.1445" x2="682.0508" y2="-979.1445" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#3C89C9"/&gt;
+	&lt;stop  offset="0.1482" style="stop-color:#60A6DD"/&gt;
+	&lt;stop  offset="0.3113" style="stop-color:#81C1F0"/&gt;
+	&lt;stop  offset="0.4476" style="stop-color:#95D1FB"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="0.636" style="stop-color:#98D4FD"/&gt;
+	&lt;stop  offset="0.7293" style="stop-color:#8DCAF6"/&gt;
+	&lt;stop  offset="0.8214" style="stop-color:#79BBEB"/&gt;
+	&lt;stop  offset="0.912" style="stop-color:#5EA5DC"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_1_)" d="M19.625,36.763C8.787,36.763,0,34.888,0,32.575v10c0,2.313,8.787,4.188,19.625,4.188
+	c10.839,0,19.625-1.875,19.625-4.188v-10C39.25,34.888,30.464,36.763,19.625,36.763z"/&gt;
+&lt;linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="642.8008" y1="-973.1445" x2="682.0508" y2="-973.1445" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="0.0039" style="stop-color:#9DD7FF"/&gt;
+	&lt;stop  offset="0.2273" style="stop-color:#BDE5FF"/&gt;
+	&lt;stop  offset="0.4138" style="stop-color:#D1EEFF"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#D9F1FF"/&gt;
+	&lt;stop  offset="0.6155" style="stop-color:#D5EFFE"/&gt;
+	&lt;stop  offset="0.6891" style="stop-color:#C9E7FA"/&gt;
+	&lt;stop  offset="0.7617" style="stop-color:#B6DAF3"/&gt;
+	&lt;stop  offset="0.8337" style="stop-color:#9AC8EA"/&gt;
+	&lt;stop  offset="0.9052" style="stop-color:#77B0DD"/&gt;
+	&lt;stop  offset="0.9754" style="stop-color:#4D94CF"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_2_)" d="M19.625,36.763c10.839,0,19.625-1.875,19.625-4.188l-1.229-2c0,2.168-8.235,3.927-18.396,3.927
+	c-9.481,0-17.396-1.959-18.396-3.927l-1.229,2C0,34.888,8.787,36.763,19.625,36.763z"/&gt;
+&lt;path fill="#3C89C9" d="M19.625,26.468c10.16,0,19.625,2.775,19.625,2.775c-0.375,2.721-5.367,5.438-19.554,5.438
+	c-12.125,0-18.467-2.484-19.541-4.918C-0.127,29.125,9.465,26.468,19.625,26.468z"/&gt;
+&lt;linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="642.8008" y1="-965.6948" x2="682.0508" y2="-965.6948" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#3C89C9"/&gt;
+	&lt;stop  offset="0.1482" style="stop-color:#60A6DD"/&gt;
+	&lt;stop  offset="0.3113" style="stop-color:#81C1F0"/&gt;
+	&lt;stop  offset="0.4476" style="stop-color:#95D1FB"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="0.636" style="stop-color:#98D4FD"/&gt;
+	&lt;stop  offset="0.7293" style="stop-color:#8DCAF6"/&gt;
+	&lt;stop  offset="0.8214" style="stop-color:#79BBEB"/&gt;
+	&lt;stop  offset="0.912" style="stop-color:#5EA5DC"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_3_)" d="M19.625,23.313C8.787,23.313,0,21.438,0,19.125v10c0,2.313,8.787,4.188,19.625,4.188
+	c10.839,0,19.625-1.875,19.625-4.188v-10C39.25,21.438,30.464,23.313,19.625,23.313z"/&gt;
+&lt;linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="642.8008" y1="-959.6948" x2="682.0508" y2="-959.6948" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="0.0039" style="stop-color:#9DD7FF"/&gt;
+	&lt;stop  offset="0.2273" style="stop-color:#BDE5FF"/&gt;
+	&lt;stop  offset="0.4138" style="stop-color:#D1EEFF"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#D9F1FF"/&gt;
+	&lt;stop  offset="0.6155" style="stop-color:#D5EFFE"/&gt;
+	&lt;stop  offset="0.6891" style="stop-color:#C9E7FA"/&gt;
+	&lt;stop  offset="0.7617" style="stop-color:#B6DAF3"/&gt;
+	&lt;stop  offset="0.8337" style="stop-color:#9AC8EA"/&gt;
+	&lt;stop  offset="0.9052" style="stop-color:#77B0DD"/&gt;
+	&lt;stop  offset="0.9754" style="stop-color:#4D94CF"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_4_)" d="M19.625,23.313c10.839,0,19.625-1.875,19.625-4.188l-1.229-2c0,2.168-8.235,3.926-18.396,3.926
+	c-9.481,0-17.396-1.959-18.396-3.926l-1.229,2C0,21.438,8.787,23.313,19.625,23.313z"/&gt;
+&lt;path fill="#3C89C9" d="M19.476,13.019c10.161,0,19.625,2.775,19.625,2.775c-0.375,2.721-5.367,5.438-19.555,5.438
+	c-12.125,0-18.467-2.485-19.541-4.918C-0.277,15.674,9.316,13.019,19.476,13.019z"/&gt;
+&lt;linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="642.8008" y1="-952.4946" x2="682.0508" y2="-952.4946" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#3C89C9"/&gt;
+	&lt;stop  offset="0.1482" style="stop-color:#60A6DD"/&gt;
+	&lt;stop  offset="0.3113" style="stop-color:#81C1F0"/&gt;
+	&lt;stop  offset="0.4476" style="stop-color:#95D1FB"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="0.636" style="stop-color:#98D4FD"/&gt;
+	&lt;stop  offset="0.7293" style="stop-color:#8DCAF6"/&gt;
+	&lt;stop  offset="0.8214" style="stop-color:#79BBEB"/&gt;
+	&lt;stop  offset="0.912" style="stop-color:#5EA5DC"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_5_)" d="M19.625,10.113C8.787,10.113,0,8.238,0,5.925v10c0,2.313,8.787,4.188,19.625,4.188
+	c10.839,0,19.625-1.875,19.625-4.188v-10C39.25,8.238,30.464,10.113,19.625,10.113z"/&gt;
+&lt;linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="642.8008" y1="-946.4946" x2="682.0508" y2="-946.4946" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="0.0039" style="stop-color:#9DD7FF"/&gt;
+	&lt;stop  offset="0.2273" style="stop-color:#BDE5FF"/&gt;
+	&lt;stop  offset="0.4138" style="stop-color:#D1EEFF"/&gt;
+	&lt;stop  offset="0.5394" style="stop-color:#D9F1FF"/&gt;
+	&lt;stop  offset="0.6155" style="stop-color:#D5EFFE"/&gt;
+	&lt;stop  offset="0.6891" style="stop-color:#C9E7FA"/&gt;
+	&lt;stop  offset="0.7617" style="stop-color:#B6DAF3"/&gt;
+	&lt;stop  offset="0.8337" style="stop-color:#9AC8EA"/&gt;
+	&lt;stop  offset="0.9052" style="stop-color:#77B0DD"/&gt;
+	&lt;stop  offset="0.9754" style="stop-color:#4D94CF"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;path fill="url(#SVGID_6_)" d="M19.625,10.113c10.839,0,19.625-1.875,19.625-4.188l-1.229-2c0,2.168-8.235,3.926-18.396,3.926
+	c-9.481,0-17.396-1.959-18.396-3.926L0,5.925C0,8.238,8.787,10.113,19.625,10.113z"/&gt;
+&lt;linearGradient id="SVGID_7_" gradientUnits="userSpaceOnUse" x1="644.0293" y1="-943.4014" x2="680.8223" y2="-943.4014" gradientTransform="matrix(1 0 0 -1 -642.8008 -939.4756)"&gt;
+	&lt;stop  offset="0" style="stop-color:#9CD7FF"/&gt;
+	&lt;stop  offset="1" style="stop-color:#3C89C9"/&gt;
+&lt;/linearGradient&gt;
+&lt;ellipse fill="url(#SVGID_7_)" cx="19.625" cy="3.926" rx="18.396" ry="3.926"/&gt;
+&lt;path opacity="0.24" fill="#FFFFFF" enable-background="new    " d="M31.04,45.982c0,0-4.354,0.664-7.29,0.781
+	c-3.125,0.125-8.952,0-8.952,0l-2.384-10.292l0.044-2.108l-1.251-1.154L9.789,23.024l-0.082-0.119L9.5,20.529l-1.65-1.254
+	L5.329,8.793c0,0,4.213,0.903,7.234,1.07s8.375,0.25,8.375,0.25l3,9.875l-0.25,1.313l1.063,2.168l2.312,9.645l-0.521,1.416
+	l1.46,1.834L31.04,45.982z"/&gt;
+&lt;/svg&gt;
+</y:Resource>
+    </y:Resources>
+  </data>
+</graphml>

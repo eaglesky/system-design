@@ -222,7 +222,7 @@ https://dzone.com/articles/process-caching-vs-distributed
 ### Caching query result vs caching the objects(?)
 http://www.lecloud.net/post/9246290032/scalability-for-dummies-part-3-cache
 
-### Cache usages
+### Cache writes
 * Write-through cache directs write I/O onto cache and through to underlying permanent storage before confirming I/O completion to the host. This ensures data updates are safely stored on, for example, a shared storage array, but has the disadvantage that I/O still experiences latency based on writing to that storage. Write-through cache is good for applications that write and then re-read data frequently as data is stored in cache and results in low read latency. This way can be used for twitter timeline caching, but may allow some delay for writing to cache.
 * Write-around cache is a similar technique to write-through cache, but write I/O is written directly to permanent storage, bypassing the cache. This can reduce the cache being flooded with write I/O that will not subsequently be re-read, but has the disadvantage is that a read request for recently written data will create a “cache miss” and have to be read from slower bulk storage and experience higher latency.
 * Write-back cache is where write I/O is directed to cache and completion is immediately confirmed to the host. This results in low latency and high throughput for write-intensive applications, but there is data availability exposure risk because the only copy of the written data is in cache. As we will discuss later, suppliers have added resiliency with products that duplicate writes. Users need to consider whether write-back cache offers enough protection as data is exposed until it is staged to external storage. Write-back cache is the best performer for mixed workloads as both read and write I/O have similar response time levels.
@@ -439,7 +439,7 @@ https://docs.mongodb.com/manual/core/sharded-cluster-config-servers/#config-serv
 * Good introduction video: https://www.youtube.com/watch?v=qI_g07C_Q5I
 Hard to define, usually has characteristics: Non-relational, cluster-friendly, schema-less, open-source.
   * Types:
-    * Key-value: Redis(CP?), Memcached, Oracle NoSQL database.
+    * Key-value: Redis(CP?), Memcached, Oracle NoSQL database, Aerospike
     * Document: MongoDB(CP, by default read and write go to the master)
     * Column: HBase(CP), Cassandra(AP)
     * Graph: Neo4j(CP)
@@ -460,6 +460,9 @@ NoSQL encompasses a wide variety of different database technologies that were de
   	 https://redis.io/topics/cluster-tutorial
   vs Memcached, and why use Redis:
   http://stackoverflow.com/questions/7888880/what-is-redis-and-what-do-i-use-it-for
+
+* Aerospike
+  https://www.aerospike.com/when-to-use-aerospike-vs-redis/
 
 * MongoDB
   Introduction and Data Model: https://www.youtube.com/watch?v=pWbMrx5rVBE
@@ -567,7 +570,9 @@ The above are just estimation for common uses. Actual throughput depends on the 
   - Handle the growing traffic and data. Sharding each DB if necessary. Figure out what DB to use for each table. 
 
 # Design Examples
-* Twitter -- timeline and newsfeed. (See Nine Chapter slide for details)
+* [Twitter](newsFeed.md)
+  - Read heavy and write light system.
+  - Timeline and Newsfeed design.
 * [Web crawler](crawler.md)
 * [Type-ahead/Google Suggestion](typeahead.md)
 * [Distributed file system](fileSystemDesign.md)
@@ -587,6 +592,7 @@ The above are just estimation for common uses. Actual throughput depends on the 
 * [Facebook messenger](messenger.md).
   - Push technology to implement real-time service.
   - Real-time online status implementation.
+  - Construct id from existing columns instead of generating a global one automatically
 * [Monitor systems](monitorSystem.md).
   - Rate Limiter.
     + Good application of Memcached. (More on Memcached?)

@@ -1,21 +1,26 @@
 # NewsFeed system 
 
 ## Scenario
-### Core features
+### Core use cases
 * News feed
 * Post a tweet
 * Timeline
 * Follow / Unfollow a user
 
-### Common features
-* Register / Login
-* Upload image / video
-* Search
+### Estimation
+* Requests sent from the client(analyzed from the use cases):
+  - Get news feed: {friend_id, post} <- read(user_id, last_timestamp)
+  - Get timeline: {post} <- read(user_id, last_timestamp)
+  - Post a tweet: write(user_id, post_info, timestamp)
+  - follow/unfollow a user: write(user_id, friend_id)
+* Assuming DAU = 150M. Each user uses the app 1 hour every day, which means the concurrent user is 150M / 24 ~ 6M. Say the client side sends request every 1 mintues only when the user is using it, then the read QPS = 6M / 60 = 100K. Peak read QPS ~ 300K. Assuming each user post 6 tweets per day, write QPS = 150M x 6 / 86400 = 10K. 
+* Storage: Assuming each tweet has 140 characters and each character need two bytes to store, and meta data takes 30 bytes. Then 150M x (280 + 30)B x 6 = 276GB new data per day.
 
 ## Service
-### User service
-* Register
-* Login
+
+### Friendship service
+* Follow
+* Unfollow
 
 ### Tweet service
 * Post a tweet
@@ -26,59 +31,46 @@
 * Upload image
 * Upload video
 
-### Friendship service
-* Follow
-* Unfollow
 
 ## Storage
-
-### Storage mechanism
-#### SQL database
 * User table
 
-  There are around 7 billion people in the world. Say each person takes 40 bytes, then we only need 280GB to store those data. One MySQL server should be enough for that. 
+  | Columns  | Type    |
+  | -------- | ------- |
+  | id       | Integer |
+  | username | varchar |
+  | email    | varchar |
+  | password | varchar |
 
-#### NoSQL database
-* Tweets (Tweet service) 
-* Social graph - followers (Preferably in NoSQL)
-  - NoSQL cannot easily support multi-column index as SQL do.
+  There are around 7 billion people in the world. Say each person takes 40 bytes, then we only need 280GB to store those data. One MySQL server should be enough for that. So we can use SQL for user table. See more in [User System](UserSystem.md)
 
-#### File system
-* Images
-* Videos
+* Friendship table
+  `Select * from friendship_table where from_user_id = user_id`
 
-### Schema design
-#### User table
+  | Columns      | Type        |
+  | ------------ | ----------- |
+  | from_user_id | primary key |
+  | to_user_id   | primary key |
+  
+* Tweet table
 
-| Columns  | Type    |
-| -------- | ------- |
-| id       | Integer |
-| username | varchar |
-| email    | varchar |
-| password | varchar |
+  | Columns    | Type        |
+  | ---------- | ----------- |
+  | id         | Integer     |
+  | user_id    | foreign_key |
+  | content    | text        |
+  | created_at | timestamp   |
 
-#### Friendship table
-* Select * from friendship_table where from_user_id = user_id
+  Preferably stored in NoSQL as the query is quite simple and the data is not changed.
+  id = user_id + created_at, 64 bits should be enough.
 
-| Columns      | Type        |
-| ------------ | ----------- |
-| id           | Integer     |
-| from_user_id | foreign key |
-| to_user_id   | foreign key |
+* Store images and videos on file system.
 
-#### Tweet table
 
-| Columns    | Type        |
-| ---------- | ----------- |
-| id         | Integer     |
-| user_id    | foreign_key |
-| content    | text        |
-| created_at | timestamp   |
+## Solution and Scale
 
-## Initial solution
-### Pull-based
-#### Post tweet
-##### Steps for post a tweet
+### Post tweet
+#### Steps for post a tweet
 1. Client asks to add a new tweet record
 2. Web server asks tweet service to add a new record
 
@@ -88,12 +80,12 @@ postTweet(request, tweet)
 	return success
 ```
 
-##### Complexity
+#### Complexity
 * Post a tweet
  - Post a tweet: 1 DB write
 
-#### Read news feed
-##### Steps for news feed
+### Read news feed
+#### Steps for news feed
 1. Client asks web server for news feed.
 2. Web server asks friendship service to get all followees.
 3. Web server asks tweet service to get tweets from followees.
@@ -114,126 +106,35 @@ getNewsFeed(request)
 
 ```
 
-##### Complexity
+#### Complexity
 * Algorithm level: 
  - 100 KlogK ( K is the number of friends), though negligible compared with db time.
 * System leveL:
  - Get news feed: N DB reads + K way merge
   + Bottleneck is in N DB reads, although they could be integrated into one big DB query. 
 
-##### Disadvantages
+#### Disadvantages
 * High latency
  - Need to wait until N DB reads finish
 
-### Push-based
-#### Additional storage
-* Need to have an additional newsfeed table. The newsfeed table contains newsfeed for each user. The newsFeed table schema is as follows:
- - Everyone's newsfeed info is stored in the same newsFeed table.
- - Select * from newsFeed Table where owner_id = XX orderBy createdAt desc limit 20;
+### Improved Design
+* Design graph:
+  ![Diagram](imgs/newsFeed.svg)
+* Tweets table has to be sharded by tweet_id. It cannot shard by user_id since tweets posted by the same user would be stored on the same machine, and if that user happens to be a celebrity, that machine could be a hot spot. 
+* Maintain a newsfeed cache to store each user's newsfeed. 
+  * Assuming we only store tweet_id instead of the actual object, the storage needed is 300M(number of users) x 500 x 2Bytes = 300GB. So we need to use NoSQL database that supports high read QPS -- MemCached or Redis(or better Aerospike). Shard by user_id, and should not have hot-spot problem since each user only look at his own newsfeed. 
+  * Note that write to it is done asynchronously, and write new post to the tweet table will return immediately without waiting for the write to the Newsfeed cache. This means that after user B posts a tweet, there might be some delay before user A sees his post showing up in the newsfeed. But as the write operation happens in the memory(newsfeed cache), this delay should not be much, and should be acceptable.
+  * For each user, the list of tweet ids are sorted by created_time, and we could use either LinkedList or LinkedHashMap<Time, Id> for it. 
+  * What if the user want to browse much older news feed posts that are not cached? Then the query has to go to the tweet table directly. Facebook actually doesn't support that -- the user can only view his newsfeed posts up to some time, or some number.
+* Usually the user can get his timeline from the newsfeed cache. We could also optinally have a timeline cache to store them. This might be a good idea since the timeline cache can store much more data for each user than the newsfeed cache.
+* On the client side, user can also cache the loaded newsfeed and timeline data in local files. 
+* We could also add push servers to this design. This can make the feed update more real-time, but for celebrity this fan-out-on-write could use a lot of resources since the tweet data is copied. Also this only pushes data to the active users, and when user first login, he has to use pull to get the updates. A better way is to use a hybrid solution -- for celebrities, we just push notifications to the followers to let them pull, and for others, we just push the tweets directly to the followers devices. The newsfeed cache is used for storing celebrity tweets only. This way could significantly reduce the read requests sent from the clients, and also not consuming many network resources. Or we can always send tweet_id instead of tweet_object from the push service, but that may require another query using id to get the tweet data.
 
-| Column    | Type        |
-| --------- | ----------- |
-| id        | integer     |
-| ownerId   | foreign key |
-| tweetId   | foreign key |
-| createdAt | timestamp   |
-
-#### Post tweet 
-##### Steps
-1. Client asks web server to post a tweet.
-2. Web server asks the tweet service to insert the tweet into tweet table.
-3. Web server asks the tweet service to initiate an asynchronous task.
- 1. The asynchronous task gets followers from friendship table.
- 2. The asynchronus task fanout new tweet to followers' news feed table. 
-
-    Note that there is just one news feed table, and each tweet is represented by a tweet id. Fetching the tweet data according to a given id is fast, if the data is stored in a hash table based database(like Redis).
-
-```
-postTweet(request, tweetInfo)
-	tweet = DB.insertTweet(request.user, tweetInfo)
-
-	// Do not need to be blocked until finished. RabbitMQ/Kafka
-	AsyncService.fanoutTweet(request.user, tweet)
-	return success
-
-AsyncService::fanoutTweet(user, tweet)
-	followers = DB.getFollowers(user)
-	for follower in followers:
-		DB.insertNewsFeed(tweet, follower)
-```
-
-##### Complexity
-* Post a tweet: N followers, N DB writes. Executed asynchronously. 
-
-#### Read news feed
-##### Steps
-1. Get newsfeed from newsFeed Table.  
-
-```
-// Each time after a user tweet, fanout his tweets to all followers' feed list
-
-getNewsFeed(request)
-	return DB.getNewsFeed(request.user)
-```
-
-##### Complexity
-* 1 DB query
-
-##### Disadvantages
-* When number of followers is really large, the number of asynchronous task will have high latency. In other words, there will be long delay for a user to see a populer followee's latest tweet.
-
-### Real-life examples:
+### Real-life examples
 * Facebook – Pull
 * Instagram – Push + Pull
 * Twitter – Pull  
 Pull model is easier to optimize than push model(See next)
-
-## Scale 
-
-### Pull-based approach easier to scale
-#### Scale pull
-* Add cache before visiting DB, faster than 1000 times
-* What to cache
- - Cache each user's timeline
-     + N DB query request -&gt; N cache requests
-     + Trade off: Cache all timeline? Only cache the latest 1000 timeline
- - Cache each user's newsFeed
-     + For users without newsfeed cache: Merge N followers' 100 latest tweets, sort and take the latest 100 tweets.
-     + For users with newsfeed cache: Merge N followers' tweets after a specific timestamp. And then merge with the cache. 
- - Both caches are local cache, stored on the client side. Everytime a user logs in, it first pulls his followees' timeline and update the news feed cache. Everytime he posts a tweet, update the timeline cache.
-
-#### Scale push
-* Push-based approach stores news feed in disk, much better than the optimized pull approach.
-* For inactive users, do not push
- - Rank followers by weight (for example, last login time)
-* When number of followers >> number of followee
- - Lady Gaga has 62.5M followers on Twitter. Justin Bieber has 77.6M on Instagram. Asynchronous task may takes hours to finish. 
-
-#### Push and Pull
-##### Combined approach
-* For users with a lot of followers, use pull; For other users, use push. 
-* Define a threshold (number of followers)
- - Below threshold use push
- - Above threshold use pull
-* For popular users, do not push. Followers fetch from their timeline and integrate into news feed. 
-
-##### Oscillation problems
-* May miss updates. 
-* Solutions:
- - Star users: Pull not push
- - Half star user: Pull + Push
- - Normal user: Push
-
-#### Push vs Pull
-##### Push use case
-* Bi-direction relationship
- - No star users: Users do not have a lot of followers
-* Low latency
-
-##### Pull use case
-* Single direction relationship
- - Star users
-* High latency
 
 ### Hot spot / Thundering herd problem
 * Cache (Facebook lease get problem)  
