@@ -29,7 +29,6 @@ Refer to the book *Operating System Concepts* by Abraham, Peter and Greg for:
 		+ For variables shared by threads, why we might need to make them volatile or synchronized.
 
 
-
 ## Create threads
 Refer to *Oracle Certified Professional Java SE 7 Programmer Exams 1Z0-804 and 1Z0-805 by S.G Ganesh & Tushar sharma*
 
@@ -97,7 +96,28 @@ class MyThread2 implements Runnable {
 		+ Something That can start a new Thread (Thread).
 	- So technically and theoretically both of them is necessary to start a thread, one will run and one will make it run (Like Wheel and Engine of motor vehicle).
 
+
+
+# Concurrent access problems and solutions
+
+## Race condition vs data race.
+* A race condition occurs when two or more threads can access shared data and they try to change it at the same time. Because the thread scheduling algorithm can swap between threads at any time, you don't know the order in which the threads will attempt to access the shared data. Therefore, the result of the change in data is dependent on the thread scheduling algorithm, i.e. both threads are "racing" to access/change the data.
+* A data race occurs when 2 instructions access the same memory location, at least one of these accesses is a write and there is no happens before ordering among these accesses.
+* More: https://blog.regehr.org/archives/490, *Java concurrency in Practice*
+
+### Synchronized.
+* http://tutorials.jenkov.com/java-concurrency/synchronized.html
+* Intrinsic lock/monitor lock. Act as mutexes(mutual exclusion locks). Each object is associated with a monitor, which a thread can lock or unlock using synchronized keyword. Only one thread at a time may hold a lock on a monitor. Any other threads attempting to lock that monitor are **blocked** until they can obtain a lock on that monitor. https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html
+
+### Avoid memory consistency issue, happens-before relationship
+* https://docs.oracle.com/javase/tutorial/essential/concurrency/memconsist.html
+* https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html#MemoryVisibility
+* https://stackoverflow.com/questions/16248898/memory-consistency-happens-before-relationship-in-java
+* *Java concurrency in Practice*, 3.1. Visibility.
+
+
 ## Deadlock
+Continue refering to *Oracle Certified Professional Java SE 7 Programmer Exams 1Z0-804 and 1Z0-805 by S.G Ganesh & Tushar sharma*
 ### Def
 * A deadlock is a situation where a thread is waiting for an object lock that another thread holds, and this second thread is waiting for an object lock that the first thread holds. Since each thread is waiting for the other thread to relinquish a lock, they both remain waiting forever. 
 
@@ -106,6 +126,13 @@ class MyThread2 implements Runnable {
 * **Hold and Wait**: Processes already holding a resource can request additional resources, without relinquishing their current resources. 
 * **No Preemption**: One process cannot forcibly remove another process' resource.
 * **Circular Wait**: Two or more processes form a circular chain where each process is waiting on another resource in the chain. 
+
+### Example code
+See the Oracle Java book.
+
+
+## Live lock and lock starvation.
+See the Oracle Java book.
 
 ## Java concurrency APIs 
 * Thread basics - join, yield, future
