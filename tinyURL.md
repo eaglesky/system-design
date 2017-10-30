@@ -193,14 +193,14 @@ class TinyURL
 	- Use Long Url as sharding key
 		+ Short to long operation will require lots of cross-shard joins
 	- Use ID as sharding key
-    + Need to choose a proper way to get gloabl uniqu id, see next section for how. 
-		+ Short to long url: First convert shourt url to ID; Find database according to ID; Find long url in the corresponding database
-		+ Long to short url: Broadcast to N databases to see whether the link exist before. If not, get the next ID and insert into database. An alterative is to have another table(or cache all/recent) storing long_url -> id. Write should insert new data into two tables(write around or write through). Write is more costly and space usuage is higher, which might be acceptable.
+        * Need to choose a proper way to get gloabl unique id, see next section for how. 
+            * Short to long url: First convert short url to ID; Find database according to ID; Find long url in the corresponding database
+            * Long to short url: Broadcast to N databases to see whether the link exist before. If not, get the next ID and insert into database. An alterative is to have another table(or cache all/recent) storing long_url -> id. Write should insert new data into two tables(write around or write through). Write is more costly and space usuage is higher, which might be acceptable.
 	- Combine short Url and long Url together, use long url part as sharding key.
 		+ ShortUrl = Hash(longUrl) % 62 + shortkey
-    + Given longURL, get the shard id using consistent_hash(Hash(longURL) % 62). Check if there is already one row with longUrl equal to the given one(assuming longUrl is indexed on that machine). If not, then store <url_id, longUrl> into the table, where url_id is the concatentation of hash_number mod by 62 and sequencial_id_assigned_by_that_machine. It could be either a number or a string(the latter is easier to implement and can be indexed on that machine). One table is enough.
-		+ Given shortURL, convert it into url_id, we can get the sharding machine from the first part of it.
-		+ This way can be applied to similar cases when we want to query a distributed database by two different keys. If it is okay to shard by key A(no hot spot issue), and key B is just an id and does not represent any meaningful thing, we can construct B so that it is a concatenation of key A(or its hashcode) and sequential id on that machine.
+        * Given longURL, get the shard id using consistent_hash(Hash(longURL) % 62). Check if there is already one row with longUrl equal to the given one(assuming longUrl is indexed on that machine). If not, then store <url_id, longUrl> into the table, where url_id is the concatentation of hash_number mod by 62 and sequencial_id_assigned_by_that_machine. It could be either a number or a string(the latter is easier to implement and can be indexed on that machine). One table is enough.
+            * Given shortURL, convert it into url_id, we can get the sharding machine from the first part of it.
+            * This way can be applied to similar cases when we want to query a distributed database by two different keys. If it is okay to shard by key A(no hot spot issue), and key B is just an id and does not represent any meaningful thing, we can construct B so that it is a concatenation of key A(or its hashcode) and sequential id on that machine.
 	- Sharding according to the geographical info. This can be used together with the previous approach. 
 		+ First find out which websites are more popular in which region. Put all websites popular in US in US DB. Given a long url, the shard id can be determined by first get the country that the url belongs to, then use consistent hashing to determine the exact shard id within that DC. E.g. long url = "http://www.sina.com/asdfsadf/sdfas", could be shortened to "http://myurl/04AB12345", 0 corresponds to China, and 4 = hash(longUrl) % 62. 
 
