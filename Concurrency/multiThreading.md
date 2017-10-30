@@ -1,33 +1,11 @@
 # Multithreading
 
-<!-- MarkdownTOC -->
-
-- [Thread basics](#thread-basics)
-	- [Thread and process](#thread-and-process)
-	- [Create threads](#create-threads)
-		- [Implementing the Runnable interface](#implementing-the-runnable-interface)
-		- [Extending the Thread class](#extending-the-thread-class)
-		- [Extending the Thread Class vs Implementing the Runnable Interface](#extending-the-thread-class-vs-implementing-the-runnable-interface)
-	- [Deadlock](#deadlock)
-		- [Def](#def)
-		- [Conditions](#conditions)
-	- [Java concurrency APIs](#java-concurrency-apis)
-- [Counters](#counters)
-- [Singleton](#singleton)
-- [BoundedBlockingQueue](#boundedblockingqueue)
-- [Readers/writers lock](#To be finished)
-- [Thread-safe producer and consumer](#thread-safe-producer-and-consumer)
-- [Delayed scheduler](#delayed-scheduler)
-	- [Interfaces to be implemented](#interfaces-to-be-implemented)
-	- [Single thread](#single-thread)
-	- [One thread for each task](#one-thread-for-each-task)
-	- [PriorityQueue + A background thread](#priorityqueue--a-background-thread)
-
-<!-- /MarkdownTOC -->
-
-
-
 # Thread basics
+Refer to the book *Operating System Concepts* by Abraham, Peter and Greg for:
+* Basics of process and thread. Their differences.
+* Thread library mappings, including Java. For Java, the mapping is many-to-many on Tru64 UNIX and later releases of the JVM.
+* A hello-world example and explanation.
+
 ## Thread and process
 * Similar goals: Split up workload into multiple parts and partition tasks into different, multiple tasks for these multiple actors. Two common ways of doing this are multi-threaded programs and multi-process systems. 
 * Differences
@@ -39,8 +17,47 @@
 | Overhead for creation/termination/task switching  | Faster due to very little memory copying (just thread stack). Faster because CPU caches and program context can be maintained | Slower because whole process area needs to be copied. Slower because all process area needs to be reloaded |
 | Synchronization overhead | Shared data that is modified requires special handling in the form of locks, mutexes and primitives | No synchronization needed |
 | Use cases  | Threads are a useful choice when you have a workload that consists of lightweight tasks (in terms of processing effort or memory size) that come in, for example with a web server servicing page requests. There, each request is small in scope and in memory usage. Threads are also useful in situations where multi-part information is being processed – for example, separating a multi-page TIFF image into separate TIFF files for separate pages. In that situation, being able to load the TIFF into memory once and have multiple threads access the same memory buffer leads to performance benefits. | Processes are a useful choice for parallel programming with workloads where tasks take significant computing power, memory or both. For example, rendering or printing complicated file formats (such as PDF) can sometimes take significant amounts of time – many milliseconds per page – and involve significant memory and I/O requirements. In this situation, using a single-threaded process and using one process per file to process allows for better throughput due to increased independence and isolation between the tasks vs. using one process with multiple threads. |
+* Context switch comparison: 
+	* https://stackoverflow.com/questions/5440128/thread-context-switch-vs-process-context-switch
+	* https://www.quora.com/How-does-thread-switching-differ-from-process-switching-What-is-the-performance-difference
+* PCB vs TCB.
+	- TCB: https://en.wikipedia.org/wiki/Thread_control_block
+* Memory model for a process and its threads. 
+	- Operating system level -- stack, heap, data and text.
+	- JVM: http://tutorials.jenkov.com/java-concurrency/java-memory-model.html
+		+ Mapping between JVM memory model and OS memory model.
+		+ For variables shared by threads, why we might need to make them volatile or synchronized.
+
+
 
 ## Create threads
+Refer to *Oracle Certified Professional Java SE 7 Programmer Exams 1Z0-804 and 1Z0-805 by S.G Ganesh & Tushar sharma*
+
+### Extending the Thread class
+* We can create a thread by extending the Thread class. This will almost always mean that we override the run() method, and the subclass may also call the thread constructor explicitly in its constructor. 
+
+```java
+class MyThread1 extends Thread {
+        public void run() {
+            try {
+								sleep(1000);
+            }
+            catch (InterruptedException ex) {
+                ex.printStackTrace();
+                // ignore the InterruptedException - this is perhaps the one of the
+                // very few of the exceptions in Java which is acceptable to ignore
+						}
+						System.out.println("In run method; thread name is: "+getName());
+        }
+        public static void main(String args[])  {
+        	Thread myThread=new MyThread1();
+					myThread.start();
+					System.out.println("In main method; thread name is: "+
+        			Thread.currentThread().getName());
+				} 			
+}
+```
+
 ### Implementing the Runnable interface
 * The runnable interface has the following very simple structure
 
@@ -57,98 +74,15 @@ public interface Runnable
 	- The start() method is invoked on the Thread object created in the previous step. 
 
 ```java
-public class RunnableThreadExample implements Runnable
-{
-	public int count = 0;
-
-	public void run()
-	{
-		System.out.println( "RunnableThread starting.");
-
-		try
-		{
-			while ( count < 5 )
-			{
-				Thread.sleep( 500 );
-				count++;
-			}
+class MyThread2 implements Runnable {
+		public void run() {
+		System.out.println("In run method; thread name is: "+ Thread.currentThread(		).getName());
 		}
-		catch ( InterruptedException exc )
-		{
-			System.out.println( "RunnableThread interrupted" );
-		}
-
-		System.out.println( "RunnableThread terminating" );
-	}
-}
-
-public static void main( String[] args )
-{
-	RunnableThreadExample instance = new RunnableThreadExample();
-	Thread thread = new Thread( instance );
-	thread.start();
-
-	/* waits until above thread counts to 5 (slowly) */
-	while ( instance.count != 5 )
-	{
-		try 
-		{
-			Thread.sleep( 250 );
-		}
-		catch ( InterruptedException exc )
-		{
-			exc.printStackTrace();
-		}		
-	}
-}
-```
-
-
-### Extending the Thread class
-* We can create a thread by extending the Thread class. This will almost always mean that we override the run() method, and the subclass may also call the thread constructor explicitly in its constructor. 
-
-```java
-public class ThreadExample extends Thread
-{
-	int count = 0;
-
-	public void run()
-	{
-		System.out.println( "Thread starting" );
-		try
-		{
-			while ( count < 5 )
-			{
-				Thread.sleep( 500 );
-				System.out.println( "In thread, count is " + count );
-				count++;
-			}
-		}
-		catch ( InterruptedException exc )
-		{
-			System.out.println( "Thread interrupted" );
-		}
-
-		System.out.println( "Thread terminating" );
-	}
-}
-
-public static void main( String[] args )
-{
-	ThreadExample instance = new ThreadExample();
-	instance.start();
-
-	while ( instance.count != 5 )
-	{
-		try
-		{
-			Thread.sleep( 250 );
-		}
-		catch ( InterruptedException exc )
-		{
-			exc.printStackTrace();
-		}
-	}
+		public static void main(String args[]) throws Exception { 
+			Thread myThread=new Thread(new MyThread2()); myThread.start();
+			System.out.println("In main method; thread name is: "+ 
+				Thread.currentThread().getName());
+		} 
 }
 ```
 
@@ -156,6 +90,7 @@ public static void main( String[] args )
 * Implementing runnable is the preferrable way. 
 	- Java does not support multiple inheritance. Therefore, after extending the Thread class, you can't extend any other class which you required. A class implementing the Runnable interface will be able to extend another class. 
 	- A class might only be interested in being runnable, and therefore, inheriting the full overhead of the Thread class would be excessive. 
+* However, extending the Thread class is more convenient in many cases. In the example you saw for getting the name of the thread, you had to use Thread.currentThread().getName() when implementing the Runnable interface whereas you just used the getName() method directly while extending Thread since MyThread1 extends Thread. so, extending Thread is a little more convenient in this case.
 * Thread and Runnable are complement to each other for multithreading not competitor or replacement. Because we need both of them for multi-threading.
 	- For Multi-threading we need two things:
 		+ Something that can run inside a Thread (Runnable).
