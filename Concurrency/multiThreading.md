@@ -1,12 +1,9 @@
 # Multithreading
 
-# Thread basics
-Refer to the book *Operating System Concepts* by Abraham, Peter and Greg for:
-* Basics of process and thread. Their differences.
-* Thread library mappings, including Java. For Java, the mapping is many-to-many on Tru64 UNIX and later releases of the JVM.
-* A hello-world example and explanation.
+## Thread basics
 
-## Thread and process
+### Thread and process
+* Thread library mappings, including Java. For Java, the mapping is many-to-many on Tru64 UNIX and later releases of the JVM. Refer to the book *Operating System Concepts* by Abraham, Peter and Greg.
 * Similar goals: Split up workload into multiple parts and partition tasks into different, multiple tasks for these multiple actors. Two common ways of doing this are multi-threaded programs and multi-process systems. 
 * Differences
 
@@ -17,6 +14,7 @@ Refer to the book *Operating System Concepts* by Abraham, Peter and Greg for:
 | Overhead for creation/termination/task switching  | Faster due to very little memory copying (just thread stack). Faster because CPU caches and program context can be maintained | Slower because whole process area needs to be copied. Slower because all process area needs to be reloaded |
 | Synchronization overhead | Shared data that is modified requires special handling in the form of locks, mutexes and primitives | No synchronization needed |
 | Use cases  | Threads are a useful choice when you have a workload that consists of lightweight tasks (in terms of processing effort or memory size) that come in, for example with a web server servicing page requests. There, each request is small in scope and in memory usage. Threads are also useful in situations where multi-part information is being processed – for example, separating a multi-page TIFF image into separate TIFF files for separate pages. In that situation, being able to load the TIFF into memory once and have multiple threads access the same memory buffer leads to performance benefits. | Processes are a useful choice for parallel programming with workloads where tasks take significant computing power, memory or both. For example, rendering or printing complicated file formats (such as PDF) can sometimes take significant amounts of time – many milliseconds per page – and involve significant memory and I/O requirements. In this situation, using a single-threaded process and using one process per file to process allows for better throughput due to increased independence and isolation between the tasks vs. using one process with multiple threads. |
+
 * Context switch comparison: 
 	* https://stackoverflow.com/questions/5440128/thread-context-switch-vs-process-context-switch
 	* https://www.quora.com/How-does-thread-switching-differ-from-process-switching-What-is-the-performance-difference
@@ -29,41 +27,40 @@ Refer to the book *Operating System Concepts* by Abraham, Peter and Greg for:
 		+ For variables shared by threads, why we might need to make them volatile or synchronized.
 
 
-## Create threads
+### Create threads
 Refer to *Oracle Certified Professional Java SE 7 Programmer Exams 1Z0-804 and 1Z0-805 by S.G Ganesh & Tushar sharma*
 
-### Extending the Thread class
+#### Extending the Thread class
 * We can create a thread by extending the Thread class. This will almost always mean that we override the run() method, and the subclass may also call the thread constructor explicitly in its constructor. 
 
 ```java
 class MyThread1 extends Thread {
-        public void run() {
-            try {
-								sleep(1000);
-            }
-            catch (InterruptedException ex) {
-                ex.printStackTrace();
-                // ignore the InterruptedException - this is perhaps the one of the
-                // very few of the exceptions in Java which is acceptable to ignore
-						}
-						System.out.println("In run method; thread name is: "+getName());
-        }
-        public static void main(String args[])  {
-        	Thread myThread=new MyThread1();
-					myThread.start();
-					System.out.println("In main method; thread name is: "+
-        			Thread.currentThread().getName());
-				} 			
+    public void run() {
+        try {
+          sleep(1000);
+        } catch (InterruptedException ex) {
+          ex.printStackTrace();
+          // ignore the InterruptedException - this is perhaps the one of the
+          // very few of the exceptions in Java which is acceptable to ignore
+				}
+        System.out.println("In run method; thread name is: "+getName());
+    }
+    public static void main(String args[])  {
+      Thread myThread=new MyThread1();
+      myThread.start();
+      System.out.println("In main method; thread name is: "+
+          Thread.currentThread().getName());
+    } 			
 }
 ```
 
-### Implementing the Runnable interface
+#### Implementing the Runnable interface
 * The runnable interface has the following very simple structure
 
 ```java
 public interface Runnable
 {
-	void run();
+    void run();
 }
 ```
 
@@ -74,18 +71,20 @@ public interface Runnable
 
 ```java
 class MyThread2 implements Runnable {
-		public void run() {
-		System.out.println("In run method; thread name is: "+ Thread.currentThread(		).getName());
-		}
-		public static void main(String args[]) throws Exception { 
-			Thread myThread=new Thread(new MyThread2()); myThread.start();
-			System.out.println("In main method; thread name is: "+ 
-				Thread.currentThread().getName());
-		} 
+    public void run() {
+    System.out.println("In run method; thread name is: "+ Thread.currentThread(	).getName());
+    }
+
+    public static void main(String args[]) throws Exception { 
+      Thread myThread=new Thread(new MyThread2()); 
+      myThread.start();
+      System.out.println("In main method; thread name is: " + 
+        Thread.currentThread().getName());
+    } 
 }
 ```
 
-### Extending the Thread Class vs Implementing the Runnable Interface
+#### Extending the Thread Class vs Implementing the Runnable Interface
 * Implementing runnable is the preferrable way. 
 	- Java does not support multiple inheritance. Therefore, after extending the Thread class, you can't extend any other class which you required. A class implementing the Runnable interface will be able to extend another class. 
 	- A class might only be interested in being runnable, and therefore, inheriting the full overhead of the Thread class would be excessive. 
@@ -98,66 +97,72 @@ class MyThread2 implements Runnable {
 
 
 
-# Concurrent access problems and solutions
+## Concurrent access problems and solutions
 
-## Race condition vs data race.
+### Race condition vs data race.
 * A race condition occurs when two or more threads can access shared data and they try to change it at the same time. Because the thread scheduling algorithm can swap between threads at any time, you don't know the order in which the threads will attempt to access the shared data. Therefore, the result of the change in data is dependent on the thread scheduling algorithm, i.e. both threads are "racing" to access/change the data.
 * A data race occurs when 2 instructions access the same memory location, at least one of these accesses is a write and there is no happens before ordering among these accesses.
 * More: https://blog.regehr.org/archives/490, *Java concurrency in Practice*
 
-### Synchronized.
+#### Thread safety
+* Refer to *Java concurrency in Practice*.
+* Definition: 
+> A class is thread-safe if it behaves correctly when accessed from multiple threads, regardless of the scheduling or interleaving of the execution of those threads by the runtime environment, and with no additional syn- chronization or other coordination on the part of the calling code.
+* 
+
+#### Synchronized
 * http://tutorials.jenkov.com/java-concurrency/synchronized.html
 * Intrinsic lock/monitor lock. Act as mutexes(mutual exclusion locks). Each object is associated with a monitor, which a thread can lock or unlock using synchronized keyword. Only one thread at a time may hold a lock on a monitor. Any other threads attempting to lock that monitor are **blocked** until they can obtain a lock on that monitor. https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html
 
-### Avoid memory consistency issue, happens-before relationship
+#### Avoid memory consistency issue, happens-before relationship
 * https://docs.oracle.com/javase/tutorial/essential/concurrency/memconsist.html
 * https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html#MemoryVisibility
 * https://stackoverflow.com/questions/16248898/memory-consistency-happens-before-relationship-in-java
 * *Java concurrency in Practice*, 3.1. Visibility.
 
 
-## Deadlock
+### Deadlock
 Continue refering to *Oracle Certified Professional Java SE 7 Programmer Exams 1Z0-804 and 1Z0-805 by S.G Ganesh & Tushar sharma*
-### Def
+#### Def
 * A deadlock is a situation where a thread is waiting for an object lock that another thread holds, and this second thread is waiting for an object lock that the first thread holds. Since each thread is waiting for the other thread to relinquish a lock, they both remain waiting forever. 
 
-### Conditions
+#### Conditions
 * **Mutal Exclusion**: Only one process can access a resource at a given time. (Or more accurately, there is limited access to a resource. A deadlock could also occur if a resource has limited quantity. )
 * **Hold and Wait**: Processes already holding a resource can request additional resources, without relinquishing their current resources. 
 * **No Preemption**: One process cannot forcibly remove another process' resource.
 * **Circular Wait**: Two or more processes form a circular chain where each process is waiting on another resource in the chain. 
 
-### Example code
+#### Example code
 See the Oracle Java book.
 
 
-## Live lock and lock starvation.
+### Live lock and lock starvation.
 See the Oracle Java book.
 
-## Java concurrency APIs 
+### Java concurrency APIs 
 * Thread basics - join, yield, future
 * Executor services
 * Semaphore/Mutex - locks, synchronized keyword
 * Condition variables - wait, notify, condition
 * Concurrency collections - CountDownLatch, ConcurrentHashMap, CopyOnWriteArrayList
 
-# Counters
+## Counters
 * See src dir for details
 
-# Singleton
+## Singleton
 * See src dir for details
 
-# BoundedBlockingQueue
+## BoundedBlockingQueue
 * See src dir for details
 
-# Readers/writers lock [To be finished]
+## Readers/writers lock [To be finished]
 
-# Thread-safe producer and consumer
+## Thread-safe producer and consumer
 * See src dir for details
 
-# Delayed scheduler
+## Delayed scheduler
 
-## Interfaces to be implemented
+### Interfaces to be implemented
 
 ```java
 public interface Scheduler
@@ -172,7 +177,7 @@ public interface Task
 
 ```
 
-## Single thread
+### Single thread
 * Main thread is in Timedwaiting state for delayMs for each call of schedule()
 * Only one thread, very low CPU utilization
 * Also, this is not working as later call
@@ -209,7 +214,7 @@ public class SchedulerImpl implements Scheduler
 
 ```
 
-## One thread for each task
+### One thread for each task
 * No blocking when calling schedule
 * What happens if we call schedule many times
 	- A lot of thread creation overhead
@@ -239,7 +244,7 @@ public class SchedulerImpl implements Scheduler
 }
 ```
 
-## PriorityQueue + A background thread
+### PriorityQueue + A background thread
 
 ```java
 package designThreadSafeEntity.delayedTaskScheduler;
