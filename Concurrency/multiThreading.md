@@ -108,11 +108,15 @@ class MyThread2 implements Runnable {
 * Refer to *Java concurrency in Practice*.
 * Definition: 
 > A class is thread-safe if it behaves correctly when accessed from multiple threads, regardless of the scheduling or interleaving of the execution of those threads by the runtime environment, and with no additional syn- chronization or other coordination on the part of the calling code.
-* 
+* Problem: race condition.
+  - Multiple compound actions that write to the same shared variable. E.g. read-modify-write (hit counter), or check-then-act (lazy initialization). Best solution is to make the shared variable use AtomicReference/AtomicInteger to ensure atomic accesses. Using lock in the application code is not good since you have to add it to all of them, and they have to be on the same object.
+  - Compound action that writes to multiple shared variables that participate in an invariant. It might result in inconsistency between those variables if another read happens in the middle of the compound action. In this case, just making access to a single variable atomic is not enough. We have to make the compound action in the application code atomic by using lock, or **Synchronized** in Java. Also, for every invariant that involves more than one variable, all the variables involved in that invariant must be guarded by the same lock.
+    + Synchronized in Java
+      + Intrinsic lock/monitor lock. Act as mutexes(mutual exclusion locks). Each object is associated with a monitor, which a thread can lock or unlock using synchronized keyword. Only one thread at a time may hold a lock on a monitor. Any other threads attempting to lock that monitor are **blocked** until they can obtain a lock on that monitor. 
+      http://tutorials.jenkov.com/java-concurrency/synchronized.html
+      https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html
+      + Reentrancy. If a thread tries to acquire a lock that it already holds, the request succeeds. This can prevent deadlock and facilitates encapsulation of locking behavior.
 
-#### Synchronized
-* http://tutorials.jenkov.com/java-concurrency/synchronized.html
-* Intrinsic lock/monitor lock. Act as mutexes(mutual exclusion locks). Each object is associated with a monitor, which a thread can lock or unlock using synchronized keyword. Only one thread at a time may hold a lock on a monitor. Any other threads attempting to lock that monitor are **blocked** until they can obtain a lock on that monitor. https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html
 
 #### Avoid memory consistency issue, happens-before relationship
 * https://docs.oracle.com/javase/tutorial/essential/concurrency/memconsist.html
