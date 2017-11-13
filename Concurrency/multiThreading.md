@@ -99,30 +99,27 @@ class MyThread2 implements Runnable {
 
 ## Concurrent access problems and solutions
 
-### Race condition vs data race.
-* A race condition occurs when two or more threads can access shared data and they try to change it at the same time. Because the thread scheduling algorithm can swap between threads at any time, you don't know the order in which the threads will attempt to access the shared data. Therefore, the result of the change in data is dependent on the thread scheduling algorithm, i.e. both threads are "racing" to access/change the data.
-* A data race occurs when 2 instructions access the same memory location, at least one of these accesses is a write and there is no happens before ordering among these accesses.
-* More: https://blog.regehr.org/archives/490, *Java concurrency in Practice*
-
-#### Thread safety
+### Thread safety
 * Refer to *Java concurrency in Practice*.
 * Definition: 
 > A class is thread-safe if it behaves correctly when accessed from multiple threads, regardless of the scheduling or interleaving of the execution of those threads by the runtime environment, and with no additional syn- chronization or other coordination on the part of the calling code.
-* Problem: race condition.
+* Problem 1: race condition.
   - Multiple compound actions that write to the same shared variable. E.g. read-modify-write (hit counter), or check-then-act (lazy initialization). Best solution is to make the shared variable use AtomicReference/AtomicInteger to ensure atomic accesses. Using lock in the application code is not good since you have to add it to all of them, and they have to be on the same object.
-  - Compound action that writes to multiple shared variables that participate in an invariant. It might result in inconsistency between those variables if another read happens in the middle of the compound action. In this case, just making access to a single variable atomic is not enough. We have to make the compound action in the application code atomic by using lock, or **Synchronized** in Java. Also, for every invariant that involves more than one variable, all the variables involved in that invariant must be guarded by the same lock.
+  - Compound action that writes to multiple shared variables that participate in an invariant. It might result in inconsistency between those variables if another read happens in the middle of the compound action. In this case, just making access to a single variable atomic is not enough. We have to make the compound action in the application code atomic by using lock, or **Synchronized** in Java. Also, for every invariant that involves more than one variable, all the variables involved in that invariant must be guarded by the same lock(for each mutable state variable that may be accessed by more than one thread, all accesses to that variable must be performed with the same lock held. In this case, we say that the variable is guarded by that lock).
     + Synchronized in Java
       + Intrinsic lock/monitor lock. Act as mutexes(mutual exclusion locks). Each object is associated with a monitor, which a thread can lock or unlock using synchronized keyword. Only one thread at a time may hold a lock on a monitor. Any other threads attempting to lock that monitor are **blocked** until they can obtain a lock on that monitor. 
       http://tutorials.jenkov.com/java-concurrency/synchronized.html
       https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html
       + Reentrancy. If a thread tries to acquire a lock that it already holds, the request succeeds. This can prevent deadlock and facilitates encapsulation of locking behavior.
-
-
-#### Avoid memory consistency issue, happens-before relationship
-* https://docs.oracle.com/javase/tutorial/essential/concurrency/memconsist.html
-* https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html#MemoryVisibility
-* https://stackoverflow.com/questions/16248898/memory-consistency-happens-before-relationship-in-java
-* *Java concurrency in Practice*, 3.1. Visibility.
+* Problem 2: memory visibility issue(data race).
+  - A data race occurs when a variable is read by more than one thread, and written by at least one thread, but the reads and writes are not ordered by happens-before, resulting in reading stale data issue.
+  - Note that when a thread reads a variable without synchronization, it may see a stale value, but at least it sees a value that was actually placed there by some thread rather than some random value. Reads and writes are atomic for reference variables and for most primitive variables (all types except long and double, since they are 64-bit, and JVM is permitted to treat a 64-bit read or write as two separate 32-bit operations). Reads and writes are atomic for all variables declared volatile (including long and double variables). https://docs.oracle.com/javase/tutorial/essential/concurrency/atomic.html
+  - *Java Language Specification* (or more specifically, the Java Memory Model part) allows the compiler to optimize the java bytecode by reordering and storing content in cache and registers instead of writing immediately to the main memory. It also specifies ways of limiting this optimization, i.e. establishing happens-before order between actions(like using locks and volatile). Details can be found in:
+    - https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4.5
+    - *Java concurrency in Practice* 16.1.3.
+    - https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html#MemoryVisibility
+  
+    The results of a write by one thread are guaranteed to be visible to a read by another thread only if the write operation happens-before the read operation. Any implementation of the java compiler or runtime must obey this, using means like enforcing write to the memory instead of local register or something else. 
 
 
 ### Deadlock
