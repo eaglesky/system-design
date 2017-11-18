@@ -97,7 +97,7 @@ class MyThread2 implements Runnable {
 
 
 
-## Concurrent access problems and solutions
+## Concurrency problems
 
 ### Thread safety
 * Refer to *Java concurrency in Practice*.
@@ -121,26 +121,40 @@ class MyThread2 implements Runnable {
   
     The results of a write by one thread are guaranteed to be visible to a read by another thread only if the write operation happens-before the read operation. Any implementation of the java compiler or runtime must obey this, using means like enforcing write to the memory instead of local register or something else. 
 
+### Liveness hazard
 
-### Deadlock
+#### Deadlock
 Continue refering to *Oracle Certified Professional Java SE 7 Programmer Exams 1Z0-804 and 1Z0-805 by S.G Ganesh & Tushar sharma*
-#### Def
+##### Def
 * A deadlock is a situation where a thread is waiting for an object lock that another thread holds, and this second thread is waiting for an object lock that the first thread holds. Since each thread is waiting for the other thread to relinquish a lock, they both remain waiting forever. 
 
-#### Conditions
+##### Conditions
 * **Mutal Exclusion**: Only one process can access a resource at a given time. (Or more accurately, there is limited access to a resource. A deadlock could also occur if a resource has limited quantity. )
 * **Hold and Wait**: Processes already holding a resource can request additional resources, without relinquishing their current resources. 
 * **No Preemption**: One process cannot forcibly remove another process' resource.
 * **Circular Wait**: Two or more processes form a circular chain where each process is waiting on another resource in the chain. 
 
-#### Example code
+##### Example code
 See the Oracle Java book.
 
-
-### Live lock and lock starvation.
+#### Live lock and lock starvation.
 See the Oracle Java book.
 
-### Java concurrency APIs 
+### Performance issues
+* Mainly refer to *Java concurrency in practice*.
+* Rule of thumb: Avoid premature optimization. First make it right, then make it fast—if it is not already fast enough.
+* Sources of overhead:
+  * Context switch. If there are more runnable threads than CPUs, eventually the OS will preempt one thread so that another can use the CPU. This causes a context switch, which requires saving the execution context of the currently running thread and restoring the execution context of the newly scheduled thread. This is one overhead of multithreaded programs.
+    * Context switch could happen when the current thread is waiting for I/O, synchronization or because of an interrupt or timeout. The first two can be implemented by issuing a system call that does context switch, including saving the current context in stack and select a new PCB/TCB(there are many cpu scheduling algorithms that does it, like FIFO or round-robin) and load it in. The last two can be implemented using interrupt handlers, also piece of code stored in memory that does things including context switch, and triggered when there is an interrupt of that type. https://en.wikipedia.org/wiki/Context_switch#Interrupt_handling
+    * As is mentioned earlier, a Java thread will block if it is not able to acquire a intrinsic lock used for synchronization. The JVM can implement blocking either via spin-waiting (repeatedly trying to acquire the lock until it succeeds) or by suspending the blocked thread through the operating system. Which is more efficient depends on the relationship between context switch overhead and the time until the lock becomes available; spin-waiting is preferable for short waits and suspension is preferable for long waits. Some JVMs choose between the two adaptively based on profiling data of past wait times, but most just suspend threads waiting for a lock, which entails two additional context switches and all the attendant OS and cache activity. -- the blocked thread is switched out before its quantum has expired, and is then switched back in later after the lock or other resource becomes available. (Blocking due to lock contention also has a cost for the thread holding the lock: when it releases the lock, it must then ask the OS to resume the blocked thread.)
+  * Memory synchronization. This is the other source of overhead. The visibility guarantees provided by **synchronized** and **volatile** may entail using special instructions called memory barriers that can flush or invalidate caches, flush hardware write buffers, and stall execution pipelines. Memory barriers may also have indirect performance consequences because they inhibit other compiler optimizations; most operations cannot be reordered with memory barriers.
+* Thread contention might make the concurrency level lower than what we expect. There are three ways of reducing the contention:
+  - Reduce the duration for which locks are held
+  - Reduce the frequency with which locks are requested
+  - Replace exclusive locks with coordination mechanisms that permit greater concurrency.
+
+
+## Java concurrency APIs 
 * Thread basics - join, yield, future
 * Executor services
 * Semaphore/Mutex - locks, synchronized keyword
