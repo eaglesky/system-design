@@ -102,7 +102,7 @@ class MyThread2 implements Runnable {
 ### Thread safety
 * Refer to *Java concurrency in Practice*.
 * Definition: 
-> A class is thread-safe if it behaves correctly when accessed from multiple threads, regardless of the scheduling or interleaving of the execution of those threads by the runtime environment, and with no additional syn- chronization or other coordination on the part of the calling code.
+  > A class is thread-safe if it behaves correctly when accessed from multiple threads, regardless of the scheduling or interleaving of the execution of those threads by the runtime environment, and with no additional syn- chronization or other coordination on the part of the calling code.
 * Problem 1: race condition.
   - Multiple compound actions that write to the same shared variable. E.g. read-modify-write (hit counter), or check-then-act (lazy initialization). Best solution is to make the shared variable use AtomicReference/AtomicInteger to ensure atomic accesses. Using lock in the application code is not good since you have to add it to all of them, and they have to be on the same object.
   - Compound action that writes to multiple shared variables that participate in an invariant. It might result in inconsistency between those variables if another read happens in the middle of the compound action. In this case, just making access to a single variable atomic is not enough. We have to make the compound action in the application code atomic by using lock, or **Synchronized** in Java. Also, for every invariant that involves more than one variable, all the variables involved in that invariant must be guarded by the same lock(for each mutable state variable that may be accessed by more than one thread, all accesses to that variable must be performed with the same lock held. In this case, we say that the variable is guarded by that lock).
@@ -120,6 +120,11 @@ class MyThread2 implements Runnable {
     - https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html#MemoryVisibility
   
     The results of a write by one thread are guaranteed to be visible to a read by another thread only if the write operation happens-before the read operation. Any implementation of the java compiler or runtime must obey this, using means like enforcing write to the memory instead of local register or something else. 
+* How to ensure thread safety?
+  - Using thread confinement to make sure data is only accessed from a single thread. There are two ways of doing it:
+    + Using stack confinement -- local variables.
+    + Using ThreadLocal. Each thread object in Java has a field storing all the thread local variables associated with that thread. If a thread calls ThreadLocal.set, the value will be put into the thread local variables asscociated with that thread. ThreadLocal.get will get the most recent value of that thread local variable associated with that thread.
+
 
 ### Liveness hazard
 
