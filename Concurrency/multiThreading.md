@@ -159,11 +159,21 @@ See the Oracle Java book.
   - Replace exclusive locks with coordination mechanisms that permit greater concurrency.
 
 ## Java concurrency APIs.
-* Thread.yield(): A hint to the scheduler that the current thread is willing to yield its current use of a processor. The scheduler is free to ignore this hint. Rarely used in production code.
-* Object.wait(), Object.notify(), Object.notifyAll():
-  According to *Operating System Concepts with Java, 8th edition*, the monitor lock of each object has an entry set and a wait set associated with it. 
-  When a thread t tries to obtain the lock of an synchrnoized object m that has already been owned by another thread, it is put into the entry set; if after it owns the lock of m and calls m.wait, its state becomes WAITING/TIMED_WAITING and is put into the wait set, and releases ownership of this monitor and waits until another thread notifies threads waiting on m's monitor to wake up either through a call to the notify method or the notifyAll method. When another thread p calls m.notify, one of the threads in m's wait set(say u) is selected arbitrarily and waken up, and u's state is set to BLOCKED(this is according to https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.State.html, definition of BLOCKED. It is different from what is mentioned in that book and I think the latter is wrong), put into the entry set of m. According to https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#notify-- , p will compete in the usual manner with any other threads that might be actively competing to synchronize on m. 
-  More in https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.2
+### Thread.yield()
+A hint to the scheduler that the current thread is willing to yield its current use of a processor. The scheduler is free to ignore this hint. Rarely used in production code.
+
+### Object.wait(), Object.notify(), Object.notifyAll()
+* According to *Operating System Concepts with Java, 8th edition*, the monitor lock of each object has an entry set and a wait set associated with it. 
+* When a thread t tries to obtain the lock of an synchrnoized object m that has already been owned by another thread, it is put into the entry set; if after it owns the lock of m and calls m.wait, its state becomes WAITING/TIMED_WAITING and is put into the wait set, and releases ownership of this monitor and waits until another thread notifies threads waiting on m's monitor to wake up either through a call to the notify method or the notifyAll method. When another thread p calls m.notify, one of the threads in m's wait set(say u) is selected arbitrarily and waken up, and u's state is set to BLOCKED(this is according to https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.State.html, definition of BLOCKED. It is different from what is mentioned in that book and I think the latter is wrong), put into the entry set of m. According to https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#notify-- , u will compete in the usual manner with any other threads that might be actively competing to synchronize on m. 
+* More in https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.2
+
+### Thread.join(long millis, int nanos)
+Waits at most millis milliseconds plus nanos nanoseconds for this thread to die. This implementation uses a loop of this.wait calls conditioned on this.isAlive. As a thread terminates the this.notifyAll method is invoked. It is recommended that applications not use wait, notify, or notifyAll on Thread instances.
+
+### Thread.sleep(long millis)
+Causes the currently executing thread to sleep (temporarily cease execution) for the specified number of milliseconds, subject to the precision and accuracy of system timers and schedulers. The thread does not lose ownership of any monitors. This is an efficient means of making processor time available to the other threads of an application or other applications that might be running on a computer system. The thread state is changed to TIMED_WAITING if it sleeps. 
+https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html#sleep-long-
+
 
 
 ## Java concurrency APIs -- more
@@ -172,6 +182,32 @@ See the Oracle Java book.
 * Semaphore/Mutex - locks, synchronized keyword
 * Condition variables - wait, notify, condition
 * Concurrency collections - CountDownLatch, ConcurrentHashMap, CopyOnWriteArrayList
+
+## Java concurrency frameworks
+
+### Fork/Join framework
+* https://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html
+* Simple example: https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/RecursiveAction.html
+* How to use correctly: https://homes.cs.washington.edu/~djg/teachingMaterials/spac/grossmanSPAC_forkJoinFramework.html
+* Work stealing:
+  - https://stackoverflow.com/questions/7926864/how-is-the-fork-join-framework-better-than-a-thread-pool
+  - https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html
+  - More details of the design and implementation: http://gee.cs.oswego.edu/dl/papers/fj.pdf
+
+### Adding parallelism to memoization using Futures
+See https://www.coursera.org/learn/parallel-programming-in-java/home/week/2
+
+### Collection.parallelStream()
+* Stream basics in Java 8: 
+  * http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html
+  * https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html#package.description
+* More on aggregate operations: https://docs.oracle.com/javase/tutorial/collections/streams/
+* Collectors: https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html
+* Whether or not use this: https://blog.oio.de/2016/01/22/parallel-stream-processing-in-java-8-performance-of-sequential-vs-parallel-stream-processing/
+* Grouping by examples: https://www.mkyong.com/java8/java-8-collectors-groupingby-and-mapping-example/
+* Streaming on map examples: https://www.mkyong.com/java8/java-8-filter-a-map-examples/
+* Map comparator: https://stackoverflow.com/questions/39538089/get-object-with-max-frequency-from-java-8-stream
+
 
 ## Counters
 * See src dir for details
