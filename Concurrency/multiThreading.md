@@ -124,6 +124,7 @@ class MyThread2 implements Runnable {
   - Using thread confinement to make sure data is only accessed from a single thread. There are two ways of doing it:
     + Using stack confinement -- local variables.
     + Using ThreadLocal. Each thread object in Java has a field storing all the thread local variables associated with that thread. If a thread calls ThreadLocal.set, the value will be put into the thread local variables asscociated with that thread. ThreadLocal.get will get the most recent value of that thread local variable associated with that thread.
+  - Using immutable object or holder.
 
 
 ### Liveness hazard
@@ -188,8 +189,10 @@ https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html#sleep-long-
 ### Fork/Join framework
 * https://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html
 * Simple example: https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/RecursiveAction.html
+* This algorithm is suitable when we are aggregating a number of elements in a for loop. It is essentially a divide-and-conquer algorithm.
 * How to use correctly: https://homes.cs.washington.edu/~djg/teachingMaterials/spac/grossmanSPAC_forkJoinFramework.html
 * Work stealing:
+  - https://apurvasingh67.wordpress.com/2015/04/12/java-forkjoinpool-internals-how-it-beats-plain-old-thread-pools-from-executorservice/
   - https://stackoverflow.com/questions/7926864/how-is-the-fork-join-framework-better-than-a-thread-pool
   - https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html
   - More details of the design and implementation: http://gee.cs.oswego.edu/dl/papers/fj.pdf
@@ -203,10 +206,16 @@ See https://www.coursera.org/learn/parallel-programming-in-java/home/week/2
   * https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html#package.description
 * More on aggregate operations: https://docs.oracle.com/javase/tutorial/collections/streams/
 * Collectors: https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html
+* When a stream executes in parallel, the Java runtime partitions the stream into multiple substreams. Aggregate operations iterate over and process these substreams in parallel and then combine the results. https://docs.oracle.com/javase/tutorial/collections/streams/parallelism.html
 * Whether or not use this: https://blog.oio.de/2016/01/22/parallel-stream-processing-in-java-8-performance-of-sequential-vs-parallel-stream-processing/
 * Grouping by examples: https://www.mkyong.com/java8/java-8-collectors-groupingby-and-mapping-example/
 * Streaming on map examples: https://www.mkyong.com/java8/java-8-filter-a-map-examples/
 * Map comparator: https://stackoverflow.com/questions/39538089/get-object-with-max-frequency-from-java-8-stream
+
+### Forall and barrier
+* Refer to https://www.coursera.org/learn/parallel-programming-in-java/home/week/3
+* When the iterations in the loop are independent, we can create a task for each iteration that is executed asynchronously. If there are too many tasks, we should group them so that the number of task is approximately the same as the number of CPU cores. This can improve the performance if each task is simply done by a new thread.
+* Use barrier statement to let each thread wait until the other threads finish certain statements. How to implement it in Java?
 
 
 ## Counters
