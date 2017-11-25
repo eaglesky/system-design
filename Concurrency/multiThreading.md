@@ -125,7 +125,13 @@ class MyThread2 implements Runnable {
     + Using stack confinement -- local variables.
     + Using ThreadLocal. Each thread object in Java has a field storing all the thread local variables associated with that thread. If a thread calls ThreadLocal.set, the value will be put into the thread local variables asscociated with that thread. ThreadLocal.get will get the most recent value of that thread local variable associated with that thread.
   - Using immutable object or holder.
-
+  - If we have to publish an object to be accessed by multiple threads:
+    + The design process:
+      * Identify the variables that form the object’s state;
+      * Identify the invariants that constrain the state variables;
+      * Establish a policy for managing concurrent access to the object’s state.
+    + Use instance confinement, or delegating the thread-safety to the fields using thread-safe data strucutures. The latter may not work if the fields participate in an invariant.
+    + If we want to add a thread-safe method to an existing thread-safe class, using composition to wrap it with monitor pattern is less fragile than adding the method directly to the class or using inheritation. It won't be affected if that class changes locking object or not thread-safe at all.
 
 ### Liveness hazard
 
