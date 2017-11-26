@@ -116,8 +116,11 @@ class MyThread2 implements Runnable {
       http://tutorials.jenkov.com/java-concurrency/synchronized.html
       https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html
       This lock acuiring can be implemented atomically by using hardware getAndSet. See more in *Operating System Concepts with Java 8th edition*, Process Synchronization -- Synchronization Hardware.
-      + As is mentioned earlier, a Java thread will block if it is not able to acquire an intrinsic lock used for synchronization. The JVM can implement blocking either via spin-waiting (repeatedly trying to acquire the lock until it succeeds) or by suspending the blocked thread through the operating system. Which is more efficient depends on the relationship between context switch overhead and the time until the lock becomes available; spin-waiting is preferable for short waits and suspension is preferable for long waits. Some JVMs choose between the two adaptively based on profiling data of past wait times, but most just suspend threads waiting for a lock, which entails two additional context switches and all the attendant OS and cache activity. -- the blocked thread is switched out before its quantum has expired, and is then switched back in later after the lock or other resource becomes available. (Blocking due to lock contention also has a cost for the thread holding the lock: when it releases the lock, it must then ask the OS to resume the blocked thread.)
-      + Reentrancy. If a thread tries to acquire a lock that it already holds, the request succeeds. This can prevent deadlock and facilitates encapsulation of locking behavior.
+      + As is mentioned earlier, a Java thread will block if it is not able to acquire an intrinsic lock used for synchronization. The JVM can implement blocking either via spin-waiting (repeatedly trying to acquire the lock until it succeeds) or by suspending the blocked thread through the operating system. Which is more efficient depends on the relationship between context switch overhead and the time until the lock becomes available; spin-waiting is preferable for short waits and suspension is preferable for long waits. Some JVMs choose between the two adaptively based on profiling data of past wait times, but most just suspend threads waiting for a lock, which entails two additional context switches and all the attendant OS and cache activity. -- the blocked thread is switched out before its quantum has expired(put the blocked thread into entry set of the lock), and is then switched back in later after the lock or other resource becomes available. (Blocking due to lock contention also has a cost for the thread holding the lock: when it releases the lock, it must then ask the OS to resume the blocked thread. Which thread to resume is not guranteed: https://stackoverflow.com/questions/11275699/synchronized-release-order, same goes with the thread waken up by notify(). So the fairness of intrinsic lock is undetermined and at the discretion of the implementation)
+      + Reentrancy. If a thread tries to acquire a lock that it already holds, the request succeeds. This can prevent deadlock and facilitates encapsulation of locking behavior. The intrinsic lock provided by Synchronized supports this, using a counter to record how many times the thread acquires the lock.
+      + Synchronization in the Java Virtual Machine is implemented by monitor entry and exit, either explicitly (by use of the monitorenter and monitorexit instructions) or implicitly (by the method invocation and return instructions). https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-3.html#jvms-3.14
+      + Intrinsic locking offers no deterministic fairness guarantees, but the statistical fairness guarantees of most locking implementations are good enough for almost all situations. The language specification does not require the JVM to implement intrinsic locks fairly, and no production JVMs do. 
+    + 
 * Problem 2: memory visibility issue(data race).
   - A data race occurs when a variable is read by more than one thread, and written by at least one thread, but the reads and writes are not ordered by happens-before, resulting in reading stale data issue.
   - Note that when a thread reads a variable without synchronization, it may see a stale value, but at least it sees a value that was actually placed there by some thread rather than some random value. Reads and writes are atomic for reference variables and for most primitive variables (all types except long and double, since they are 64-bit, and JVM is permitted to treat a 64-bit read or write as two separate 32-bit operations). Reads and writes are atomic for all variables declared volatile (including long and double variables). https://docs.oracle.com/javase/tutorial/essential/concurrency/atomic.html
@@ -156,8 +159,13 @@ Continue refering to *Oracle Certified Professional Java SE 7 Programmer Exams 1
 ##### Example code
 See the Oracle Java book.
 
-#### Live lock and lock starvation.
+#### Live lock
+* See the Oracle Java book.
+* Different from deadlock, the threads involved in this situation are not blocked -- they keep retrying and keep failing and thus none of them is able to proceed. See also *Java concurrency in practice*, 10.3, Other liveness hazards.
+
+#### Starvation
 See the Oracle Java book.
+
 
 ### Performance issues
 * Mainly refer to *Java concurrency in practice*.
@@ -169,6 +177,8 @@ See the Oracle Java book.
   - Reduce the duration for which locks are held
   - Reduce the frequency with which locks are requested
   - Replace exclusive locks with coordination mechanisms that permit greater concurrency.
+
+
 
 ## Java concurrency APIs.
 ### Thread.yield()
