@@ -115,7 +115,6 @@ class MyThread2 implements Runnable {
       + Intrinsic lock/monitor lock. Act as mutexes(mutual exclusion locks). Each object is associated with a monitor, which a thread can lock or unlock using synchronized keyword. Only one thread at a time may hold a lock on a monitor. Any other threads attempting to lock that monitor are **blocked** until they can obtain a lock on that monitor. 
       http://tutorials.jenkov.com/java-concurrency/synchronized.html
       https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html
-      This lock acuiring can be implemented atomically by using hardware getAndSet. See more in *Operating System Concepts with Java 8th edition*, Process Synchronization -- Synchronization Hardware.
       + As is mentioned earlier, a Java thread will block if it is not able to acquire an intrinsic lock used for synchronization. The JVM can implement blocking either via spin-waiting (repeatedly trying to acquire the lock until it succeeds) or by suspending the blocked thread through the operating system. Which is more efficient depends on the relationship between context switch overhead and the time until the lock becomes available; spin-waiting is preferable for short waits and suspension is preferable for long waits. Some JVMs choose between the two adaptively based on profiling data of past wait times, but most just suspend threads waiting for a lock, which entails two additional context switches and all the attendant OS and cache activity. -- the blocked thread is switched out before its quantum has expired(put the blocked thread into entry set of the lock), and is then switched back in later after the lock or other resource becomes available. (Blocking due to lock contention also has a cost for the thread holding the lock: when it releases the lock, it must then ask the OS to resume the blocked thread. Which thread to resume is not guranteed: https://stackoverflow.com/questions/11275699/synchronized-release-order, same goes with the thread waken up by notify(). So the fairness of intrinsic lock is undetermined and at the discretion of the implementation)
       + Reentrancy. If a thread tries to acquire a lock that it already holds, the request succeeds. This can prevent deadlock and facilitates encapsulation of locking behavior. The intrinsic lock provided by Synchronized supports this, using a counter to record how many times the thread acquires the lock.
       + Synchronization in the Java Virtual Machine is implemented by monitor entry and exit, either explicitly (by use of the monitorenter and monitorexit instructions) or implicitly (by the method invocation and return instructions). https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-3.html#jvms-3.14
@@ -215,7 +214,15 @@ https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html#sleep-long-
 * Condition variables - wait, notify, condition
 * Concurrency collections - CountDownLatch, ConcurrentHashMap, CopyOnWriteArrayList
 
+
+## Java synchronizers
+
+### CountDownLatch, CyclicBarrier and Phaser
+TBC
+
+
 ## Java concurrency frameworks
+Mainly refer to https://www.coursera.org/learn/parallel-programming-in-java
 
 ### Fork/Join framework
 * https://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html
@@ -246,7 +253,23 @@ See https://www.coursera.org/learn/parallel-programming-in-java/home/week/2
 ### Forall and barrier
 * Refer to https://www.coursera.org/learn/parallel-programming-in-java/home/week/3
 * When the iterations in the loop are independent, we can create a task for each iteration that is executed asynchronously. If there are too many tasks, we should group them so that the number of task is approximately the same as the number of CPU cores. This can improve the performance if each task is simply done by a new thread.
-* Use barrier statement to let each thread wait until the other threads finish certain statements. How to implement it in Java?
+* Use barrier statement to let each thread wait until the other threads finish certain statements. How to implement it in Java? Phaser is the best tool to use.
+
+### Pipeline parallelism
+* If a task needs to go through p stages, and there are n tasks to be done, total work would be n*p if we do them one by one sequentially. But we can parallelize them by using a thread to do each stage, and once stage pi of task 1 is done, that thread can immediately process stage pi of task 2, and let another thread handles pi+1 of task 1. The critical path thus becomes n + p - 1, and the parallelism is np / (n + p − 1). 
+* The synchronization required for pipeline parallelism can be implemented using phasers by allocating an array of phasers, such that phaser ph[i] is “signalled” in iteration i by a call to ph[i].arrive() as follows:
+  ```java
+    // Code for pipeline stage i
+    while ( there is an input to be processed ) {
+      // wait for previous stage, if any 
+      if (i > 0) ph[i - 1].awaitAdvance(); 
+      
+      process input;
+      
+      // signal next stage
+      ph[i].arrive();
+    }
+  ```
 
 
 ## Counters
