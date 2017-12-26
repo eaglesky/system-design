@@ -123,7 +123,8 @@ class MyThread2 implements Runnable {
     https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/ReentrantLock.html#unlock--
     + Read-write lock. Java interface is ReadWriteLock and implementation is ReentrantReadWriteLock. It makes sure that either there are multiple reader threads running and no writer thread, or there is only one thread running which is the writer thread. It performs better than mutual exclusive lock when most of the threads are readers and they last long, otherwise it performs worse. https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/ReentrantReadWriteLock.html
     + The low-level implmentation of the previous locks(including mutexes and semaphores) uses compare-and-swap (CAS), which is a type of hardware atomic instruction that compares the contents of a memory location with a given value and, only if they are the same, modifies the contents of that memory location to a new given value. The result of the operation must indicate whether it performed the substitution; this can be done either with a simple boolean response (this variant is often called compare-and-set), or by returning the value read from the memory location (not the value written to it). As of 2013, most multiprocessor architectures support CAS in hardware, and the compare-and-swap operation is the most popular synchronization primitive for implementing both lock-based and non-blocking concurrent data structures.
-    + AtomicXXX classes https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/package-summary.html are also implemented using CAS. So they are lock-free. They have same memory effect as volatile, but provide more synchronization --- like compareAndSet and getAndIncrement, that volatile doesn't support. Lock-free algorithms using Atomic classes work better than locks under realistic contention, but worse under high contention. See *Java concurrency in practice* 15.3.2: *Performance comparison: locks versus atomic variables*. 
+    + AtomicXXX classes https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/package-summary.html are also implemented using CAS. So they are lock-free. They have same memory effect as volatile, but provide more synchronization --- like compareAndSet and getAndIncrement, that volatile doesn't support. Lock-free algorithms using Atomic classes work better than locks under realistic contention, but a little worse under high contention. See *Java concurrency in practice* 15.3.2: *Performance comparison: locks versus atomic variables*. 
+      * None-blocking, lock-free and wait-free?
 * Problem 2: memory visibility issue(data race).
   - A data race occurs when a variable is read by more than one thread, and written by at least one thread, but the reads and writes are not ordered by happens-before, resulting in reading stale data issue.
   - Note that when a thread reads a variable without synchronization, it may see a stale value, but at least it sees a value that was actually placed there by some thread rather than some random value. Reads and writes are atomic for reference variables and for most primitive variables (all types except long and double, since they are 64-bit, and JVM is permitted to treat a 64-bit read or write as two separate 32-bit operations). Reads and writes are atomic for all variables declared volatile (including long and double variables). https://docs.oracle.com/javase/tutorial/essential/concurrency/atomic.html
@@ -158,6 +159,24 @@ class MyThread2 implements Runnable {
 Continue refering to *Oracle Certified Professional Java SE 7 Programmer Exams 1Z0-804 and 1Z0-805 by S.G Ganesh & Tushar sharma*
 ##### Def
 * A deadlock is a situation where a thread is waiting for an object lock that another thread holds, and this second thread is waiting for an object lock that the first thread holds. Since each thread is waiting for the other thread to relinquish a lock, they both remain waiting forever. 
+* Example: 
+  ```java
+  //Thread 1
+  synchronized(A) {
+    synchronized(B) {
+      ...
+    }
+  }
+  ```
+  ```java
+  //Thread 2
+  synchronized(B) {
+    synchronized(A) {
+      ...
+    }
+  }
+  ```
+It is possible that at some point thread 1 obtains A and meanwhile thread 2 obtains B, and then thread 1 waits for B which is held by thread 2, and thread 2 waits for A which is held by thread 1.
 
 ##### Conditions
 * **Mutal Exclusion**: Only one process can access a resource at a given time. (Or more accurately, there is limited access to a resource. A deadlock could also occur if a resource has limited quantity. )
@@ -169,8 +188,7 @@ Continue refering to *Oracle Certified Professional Java SE 7 Programmer Exams 1
 See the Oracle Java book.
 
 #### Live lock
-* See the Oracle Java book.
-* Different from deadlock, the threads involved in this situation are not blocked -- they keep retrying and keep failing and thus none of them is able to proceed. See also *Java concurrency in practice*, 10.3, Other liveness hazards.
+* Different from deadlock, the threads involved in this situation are not blocked -- they keep retrying and keep failing and thus none of them is able to proceed. E.g, one thread keeps increasing x by 1 in each iteration until x equals to 10, and another thread keeps decreasing x by 1 in each iteration until x equals to -10. x is initialized to be 0. It's likely that when two threads are running concurrently, value of x always stays within a small range and none of the end conditions is satisfied. See also *Java concurrency in practice*, 10.3, Other liveness hazards.
 
 #### Starvation
 See the Oracle Java book.
@@ -270,6 +288,8 @@ See https://www.coursera.org/learn/parallel-programming-in-java/home/week/2
       ph[i].arrive();
     }
   ```
+
+### Actor model?
 
 
 ## Counters
